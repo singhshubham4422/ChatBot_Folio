@@ -13,7 +13,7 @@ npm test
 npm run build
 ```
 
-The development server includes the same `/api/online` and `/api/online/status` routes used by Vercel. It loads the root `.env` on the server only. The existing `.env` file is ignored by Git. Do not add a `VITE_` prefix to API secrets.
+The development server includes the same `/api/online` and `/api/online-status` routes used by Vercel. It loads the root `.env` on the server only. The existing `.env` file is ignored by Git. Do not add a `VITE_` prefix to API secrets.
 
 Expected local server environment variables:
 
