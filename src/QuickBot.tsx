@@ -11,7 +11,7 @@ function compactAnswer(value: string, maxChars = 1400) {
   return `${clipped.slice(0, boundary > 500 ? boundary + 1 : maxChars).trim()}…`;
 }
 
-export function QuickBot({ localReady, askLocal, onOpenSettings, onBack }: { localReady: boolean; askLocal: (question: string, evidence: Chunk[]) => Promise<string>; onOpenSettings: () => void; onBack: () => void }) {
+export function QuickBot({ localReady, askLocal, askTransformers, onOpenSettings, onBack }: { localReady: boolean; askLocal: (question: string, evidence: Chunk[]) => Promise<string>; askTransformers: (question: string, evidence: Chunk[]) => Promise<{ text: string; backend: 'webgpu' | 'wasm' }>; onOpenSettings: () => void; onBack: () => void }) {
   const [index, setIndex] = useState<QuickBotIndex>();
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
@@ -32,9 +32,14 @@ export function QuickBot({ localReady, askLocal, onOpenSettings, onBack }: { loc
     try {
       if (localReady) setAnswer(compactAnswer(await askLocal(text, selected)));
       else {
-        const extracted = extractiveQuickAnswer(text, index);
-        setAnswer(compactAnswer(extracted.answer));
-        setEvidence(extracted.evidence);
+        try {
+          const generated = await askTransformers(text, selected);
+          setAnswer(compactAnswer(generated.text));
+        } catch {
+          const extracted = extractiveQuickAnswer(text, index);
+          setAnswer(compactAnswer(extracted.answer));
+          setEvidence(extracted.evidence);
+        }
       }
     }
     catch (cause) { setError(cause instanceof Error ? cause.message : 'The local quick bot could not answer right now.'); }
@@ -47,7 +52,7 @@ export function QuickBot({ localReady, askLocal, onOpenSettings, onBack }: { loc
       <div className="quick-bot-status"><FileText size={16}/><span>{index ? `${index.documents.length} documents · ${index.chunks.length} searchable passages` : 'Loading prepared documents…'}</span></div>
       <textarea value={question} onChange={event => setQuestion(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask(); } }} placeholder="Ask about the prepared documents…" disabled={!index || busy} rows={3}/>
       <button className="primary-button" onClick={() => void ask()} disabled={!index || busy || !question.trim()}>{busy ? <LoaderCircle size={16}/> : <Send size={16}/>} {busy ? 'Reading…' : 'Ask quick bot'}</button>
-      <p className="quick-bot-note"><ShieldCheck size={14}/> Quick Bot searches only the PDFs packaged from <code>Data/</code> and answers in the browser. It does not use uploaded session PDFs. {!localReady && <button className="text-button" onClick={onOpenSettings}>Load local model</button>}</p>
+      <p className="quick-bot-note"><ShieldCheck size={14}/> Quick Bot searches only the PDFs packaged from <code>Data/</code> and answers in the browser. It does not use uploaded session PDFs. {!localReady && <><span> A compact browser model is tried first.</span> <button className="text-button" onClick={onOpenSettings}>Load local model</button></>}</p>
       {error && <p className="error-note">{error}</p>}
     </div>
     {answer && <article className="quick-bot-answer"><div className="eyebrow muted">ANSWER</div><p>{answer}</p><div className="quick-bot-sources"><b><Search size={13}/> Retrieved sources</b>{evidence.map(chunk => <span key={chunk.id}><FileText size={12}/> {chunk.fileName} · p. {chunk.page}</span>)}</div></article>}

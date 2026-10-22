@@ -40,7 +40,9 @@ npm run build:quick-index
 
 This creates `public/quick-bot/index.json` and `manifest.json`. Commit those generated files; Vercel serves them as static assets. Users do not upload PDFs for Quick Bot, and uploaded session PDFs are never searched by it.
 
-Quick Bot is browser-first. It answers supported fact questions locally, uses the selected WebLLM model when it is ready, and otherwise shows retrieved passages without silently calling an online provider. Rebuild the index whenever the PDFs in `Data/` change.
+Quick Bot is browser-first. It answers supported fact questions locally, uses the selected WebLLM model when it is ready, and otherwise lazy-loads the Transformers.js SmolLM2-135M ONNX model. Transformers.js tries WebGPU first and WASM second, with model files cached in IndexedDB to avoid the Android `Cache.add` failure path. If both browser backends fail, Quick Bot still returns a short extractive answer from the retrieved passages. It never sends Quick Bot questions to an online provider and never searches uploaded session PDFs. Rebuild the index whenever the PDFs in `Data/` change.
+
+The Transformers.js model is downloaded from Hugging Face on first use; it is not committed to GitHub and is not a 50 MB model. The repository contains only the Quick Bot index and browser code, keeping Vercel deployment small.
 
 ## Online privacy and consent
 
