@@ -7,6 +7,7 @@ import { askOnline, OnlineRequestError, onlineCooldownActive } from './lib/onlin
 import { LocalModel, MODELS, type ModelId } from './lib/localModel';
 import { routeQuestion } from './lib/router';
 import { shouldAutoLoadModel } from './lib/modelLoading';
+import { QuickBot } from './QuickBot';
 
 type RecognitionResult = { isFinal: boolean; 0: { transcript: string } };
 type RecognitionEvent = Event & { results: { length: number; [index: number]: RecognitionResult } };
@@ -54,6 +55,7 @@ export default function App() {
   const [streamingText, setStreamingText] = useState('');
   const [toast, setToast] = useState('');
   const [sidebar, setSidebar] = useState(true);
+  const [quickBotOpen, setQuickBotOpen] = useState(false);
   const [menuSessionId, setMenuSessionId] = useState('');
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerDocumentId, setViewerDocumentId] = useState<string | undefined>();
@@ -136,7 +138,7 @@ export default function App() {
     setPrefs(nextPrefs); void savePreferences(nextPrefs).catch(() => setToast('Could not save your preferences locally.'));
   }
   function startSession() {
-    const created = newSession('New conversation'); updateSession(created); setViewerOpen(false); setQuery('');
+    const created = newSession('New conversation'); updateSession(created); setQuickBotOpen(false); setViewerOpen(false); setQuery('');
     requestAnimationFrame(() => fileRef.current?.click());
   }
   async function uploadFiles(files: File[]) {
@@ -347,7 +349,7 @@ export default function App() {
     setViewerOpen(false); setEvidenceOpen(true);
   }
   async function chooseSession(session: Session) {
-    setActive(session); setViewerOpen(false); setEvidenceOpen(false); setSettingsOpen(false); setQuery(''); setViewerPage(1);
+    setQuickBotOpen(false); setActive(session); setViewerOpen(false); setEvidenceOpen(false); setSettingsOpen(false); setQuery(''); setViewerPage(1);
     const next = { ...prefs, selectedSessionId: session.id }; setPrefs(next); void savePreferences(next);
   }
   async function deleteSession(session: Session) {
@@ -395,6 +397,7 @@ export default function App() {
     <aside className={`sidebar ${sidebar ? '' : 'sidebar-hidden'}`}>
       <div className="sidebar-head"><Logo/><button className="icon-button subtle" onClick={() => setSidebar(false)} aria-label="Hide sidebar"><PanelLeftClose size={17}/></button></div>
       <button className="new-chat" onClick={startSession}><Plus size={17}/> New conversation <span>⌘ K</span></button>
+      <button className="new-chat quick-bot-nav" onClick={() => setQuickBotOpen(true)}><Sparkles size={16}/> Quick bot</button>
       <div className="nav-label">YOUR LIBRARY <button aria-label="Search sessions" onClick={() => setSearchOpen(!searchOpen)}><Search size={15}/></button></div>
       {searchOpen && <input className="session-search" autoFocus placeholder="Search sessions" value={filter} onChange={e => setFilter(e.target.value)}/>}
       <div className="session-list">{visibleSessions.map(s => <div key={s.id} className={`session-item ${active?.id === s.id ? 'selected' : ''}`}><button className="session-pick" onClick={() => void chooseSession(s)}><FileText size={16}/><span><b>{s.name}</b><small>{s.fileName || 'No PDF yet'}</small></span></button><button className="session-more" aria-label={`Options for ${s.name}`} onClick={() => setMenuSessionId(menuSessionId === s.id ? '' : s.id)}><MoreHorizontal size={16}/></button>{menuSessionId === s.id && <div className="session-menu"><button onClick={() => { setMenuSessionId(''); void renameSession(s); }}>Rename</button><button className="danger" onClick={() => { setMenuSessionId(''); void deleteSession(s); }}>Delete</button></div>}</div>)}{!visibleSessions.length && <div className="no-sessions">{filter ? 'No matching sessions' : 'Your recent conversations will appear here.'}</div>}</div>
@@ -405,7 +408,7 @@ export default function App() {
 
     <main className="main-area">
       <header className="topbar">{!sidebar && <button className="icon-button" onClick={() => setSidebar(true)} aria-label="Show sidebar"><ArrowRight size={18}/></button>}<div className="breadcrumbs"><span>Library</span><span className="crumb-slash">/</span><b>{active?.name ?? 'Your reading space'}</b></div><div className="top-actions">{active?.fileName && <button className={`file-chip ${viewerOpen ? 'on' : ''}`} onClick={() => { setEvidenceOpen(false); setViewerOpen(!viewerOpen); }}><FileText size={15}/><span>{active.fileName}</span><ChevronDown size={14}/></button>}{active?.fileName && <button className="file-chip" onClick={() => void openEvidence()}><Search size={14}/>Evidence</button>}<button className="icon-button" onClick={() => setSettingsOpen(true)} aria-label="Settings"><Settings2 size={18}/></button></div></header>
-      {active ? <div className={`workspace ${viewerOpen || evidenceOpen ? 'with-viewer' : ''}`}>
+      {quickBotOpen ? <QuickBot consent={onlineConsent} onOpenSettings={() => setSettingsOpen(true)} onBack={() => setQuickBotOpen(false)}/> : active ? <div className={`workspace ${viewerOpen || evidenceOpen ? 'with-viewer' : ''}`}>
         <section className="chat-column">
           {active.messages.length === 0 ? <div className="empty-chat"><div className="doc-icon"><FileText size={24}/><span>PDF</span></div><div className="eyebrow muted">A NEW READING SESSION</div><h2>{active.fileName ? `Let’s explore ${active.fileName}` : 'Bring a document into focus.'}</h2><p>{active.fileName ? 'Ask a question, find a detail, or get the shape of the whole thing.' : 'Add a PDF and start asking better questions.'}</p>{!active.fileName && <button className="primary-button upload-button" onClick={() => fileRef.current?.click()}><Upload size={16}/> Choose a PDF</button>}{active.fileName && active.status === 'processing' && <div className="progress-wrap"><div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={processing.total || 100} aria-valuenow={processing.completed}><span style={{ width: `${processing.total ? Math.round(processing.completed / processing.total * 100) : 0}%` }}/></div><span>Reading your PDF · {processing.total ? Math.round(processing.completed / processing.total * 100) : 0}%</span></div>}{active.fileName && active.status === 'ready' && <div className="suggestions"><button onClick={() => void sendMessage('Summarize the main ideas in this document.')}>Give me the key takeaways <ArrowRight size={14}/></button><button onClick={() => void sendMessage('What are the most important points I should remember?')}>What should I remember? <ArrowRight size={14}/></button><button onClick={() => void sendMessage('What evidence or examples does this document provide?')}>Find evidence and examples <ArrowRight size={14}/></button></div>}<div className="private-note"><ShieldCheck size={15}/> PDFs stay in this browser; selected excerpts go to an online model only with consent. Limit: 100 MB · {MAX_PDF_PAGES.toLocaleString()} pages.</div></div> : <div className="messages"><div className="thread-heading"><span className="thread-icon"><MessageSquareText size={16}/></span><div><b>{active.name}</b><small>{active.fileName ? `${active.pageCount ?? '…'} pages · ${active.status === 'ready' ? 'Ready to ask' : 'Processing'}` : 'Conversation'}</small></div><button className="icon-button" onClick={() => { setViewerDocumentId(primaryDocumentId); setViewerPage(1); setEvidenceOpen(false); setViewerOpen(true); }} title="Open PDF"><BookOpen size={17}/></button></div><DocumentPicker documents={active.documents ?? (active.documentId ? [{ id: active.documentId, fileName: active.fileName ?? '', pageCount: active.pageCount, status: active.status }] : [])} selected={active.selectedDocumentIds ?? (active.documents ?? []).map(doc => doc.id)} onToggle={toggleDocument} onRemove={id => void removeDocument(id)} onAdd={() => fileRef.current?.click()} />{active.messages.map(m => <article className={`message-row ${m.role}`} key={m.id}><div className={`message-avatar ${m.role}`}>{m.role === 'assistant' ? <span className="mini-mark">f</span> : displayName.slice(0,1).toUpperCase()}</div><div className="message-body"><div className="message-meta"><b>{m.role === 'assistant' ? 'Folio' : 'You'}</b><span>{fmtTime(m.createdAt)}</span>{m.role === 'assistant' && <span className="source-mode"><Sparkles size={12}/>{m.mode === 'offline' ? 'Offline' : 'Online'}</span>}</div><p>{m.content}</p>{m.error && active.messages.at(-1)?.id === m.id && <button className="retry-answer" onClick={() => void sendMessage(lastQuestion, true)}>Retry answer</button>}{m.citations?.length ? <div className="citation-row"><span>Sources</span>{          m.citations.map(citation => <button key={`${citation.documentId}:${citation.page}`} onClick={() => { setViewerDocumentId(citation.documentId || primaryDocumentId); setViewerPage(citation.page); setEvidenceOpen(false); setViewerOpen(true); }}>{citation.fileName} · p. {citation.page}</button>)}</div> : null}</div></article>)}{busy && <div className="thinking">{streamingText ? <span>{streamingText}</span> : <><LoaderCircle size={16}/> Reading relevant passages…</>}<button onClick={() => void stopGeneration()}>Stop</button></div>}<div ref={chatEnd}/></div>}
           {active.status === 'processing' && <div className="processing-banner"><div className="progress-track" role="progressbar" aria-valuemin={0} aria-valuemax={processing.total || 100} aria-valuenow={processing.completed}><span style={{ width: `${processing.total ? Math.round(processing.completed / processing.total * 100) : 0}%` }}/></div><span>{processing.phase === 'ocr' ? 'OCR' : processing.phase === 'indexing' ? 'Indexing' : 'Parsing'} · {processing.completed}/{processing.total || '…'} pages</span><button onClick={cancelProcessing}>Cancel</button></div>}
