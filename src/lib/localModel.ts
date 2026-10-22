@@ -110,6 +110,9 @@ export class LocalModel {
       }
     }
 
+    const isAndroid = /Android/i.test(navigator.userAgent ?? '');
+    appConfig = { ...appConfig, cacheBackend: isAndroid ? 'indexeddb' : 'cache' };
+
     try {
       const engine = await CreateMLCEngine(modelId, {
         appConfig,
@@ -133,6 +136,9 @@ export class LocalModel {
       }
       if (/memory|alloc|buffer/i.test(detail)) {
         throw new Error(`Could not initialize ${modelId}. Check WebGPU compatibility and available GPU memory. The device may not have enough available GPU memory; close GPU-heavy tabs or choose a smaller listed model. Details: ${detail}`);
+      }
+      if (/failed to execute ['"]?add['"]? on ['"]?cache|cache storage|quota|storage/i.test(detail)) {
+        throw new Error(`Android could not store the local model files. Use a normal Chrome tab (not private browsing), allow site storage, then clear this site's data and retry. Details: ${detail}`);
       }
       if (/webgpu|adapter|device/i.test(detail)) {
         throw new Error(`Could not initialize ${modelId}. Check WebGPU compatibility and graphics drivers. Details: ${detail}`);
