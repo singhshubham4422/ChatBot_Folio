@@ -1,7 +1,7 @@
 import { ArrowLeft, FileText, LoaderCircle, Search, Send, ShieldCheck } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { Chunk } from './types';
-import { loadQuickBotIndex, searchQuickBot, deterministicQuickAnswer, type QuickBotIndex } from './lib/quickBot';
+import { loadQuickBotIndex, searchQuickBot, deterministicQuickAnswer, extractiveQuickAnswer, type QuickBotIndex } from './lib/quickBot';
 
 function compactAnswer(value: string, maxChars = 1400) {
   const normalized = value.replace(/\s+/g, ' ').trim();
@@ -31,7 +31,11 @@ export function QuickBot({ localReady, askLocal, onOpenSettings, onBack }: { loc
     setBusy(true); setError(''); setAnswer(''); setEvidence(selected);
     try {
       if (localReady) setAnswer(compactAnswer(await askLocal(text, selected)));
-      else setAnswer(`I found these relevant passages in the prepared documents:\n\n${selected.slice(0, 2).map(chunk => `[${chunk.fileName}, p. ${chunk.page}] ${chunk.text.slice(0, 900)}`).join('\n\n')}`);
+      else {
+        const extracted = extractiveQuickAnswer(text, index);
+        setAnswer(compactAnswer(extracted.answer));
+        setEvidence(extracted.evidence);
+      }
     }
     catch (cause) { setError(cause instanceof Error ? cause.message : 'The local quick bot could not answer right now.'); }
     finally { setBusy(false); }
