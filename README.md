@@ -42,7 +42,7 @@ This creates `public/quick-bot/index.json` and `manifest.json`. Commit those gen
 
 Quick Bot is browser-first. It answers supported fact questions locally, uses the selected WebLLM model when it is ready, and otherwise lazy-loads the Transformers.js SmolLM2-135M ONNX model. Transformers.js tries WebGPU first and WASM second, with model files cached in IndexedDB to avoid the Android `Cache.add` failure path. If both browser backends fail, Quick Bot still returns a short extractive answer from the retrieved passages. It never sends Quick Bot questions to an online provider and never searches uploaded session PDFs. Rebuild the index whenever the PDFs in `Data/` change.
 
-The Transformers.js model is downloaded from Hugging Face on first use; it is not committed to GitHub and is not a 50 MB model. The repository contains only the Quick Bot index and browser code, keeping Vercel deployment small.
+The Transformers.js model is downloaded from Hugging Face on first use; it is not committed to GitHub and is not a 50 MB model. The fallback checks for a usable WebGPU adapter, initializes only one backend at a time, and uses q4 quantization for both WebGPU and WASM. The repository contains only the Quick Bot index and browser code, keeping Vercel deployment small. A capable generative model under a strict 50 MB download budget is not realistic; the extractive layer remains the no-model fallback.
 
 ## Online privacy and consent
 

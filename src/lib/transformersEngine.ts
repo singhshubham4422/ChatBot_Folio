@@ -84,15 +84,28 @@ async function createGenerator(backend: Backend) {
   env.useWasmCache = true;
   env.logLevel = 40;
   const device = backend === 'webgpu' ? 'webgpu' : 'wasm';
-  const dtype = backend === 'webgpu' ? 'q4' : 'q8';
+  // q4 is the smallest practical browser variant. The model is still larger
+  // than 50 MB, but this avoids the unnecessary q8 download on CPU devices.
+  const dtype = 'q4';
   const generate = await pipeline('text-generation', MODEL_ID, { device, dtype }) as unknown as Generator;
   return { generate, backend };
+}
+
+async function hasUsableWebGpu() {
+  const webGpu = (navigator as Navigator & { gpu?: { requestAdapter?: () => Promise<unknown> } }).gpu;
+  if (!webGpu?.requestAdapter) return false;
+  try {
+    const adapter = await webGpu.requestAdapter();
+    return Boolean(adapter);
+  } catch {
+    return false;
+  }
 }
 
 async function getGenerator() {
   if (!generatorPromise) {
     generatorPromise = (async () => {
-      if ('gpu' in navigator) {
+      if (await hasUsableWebGpu()) {
         try { return await createGenerator('webgpu'); } catch { /* WASM is the compatibility path. */ }
       }
       return createGenerator('wasm');
