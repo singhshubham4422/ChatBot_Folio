@@ -30,19 +30,25 @@ export function QuickBot({ localReady, askLocal, askTransformers, onOpenSettings
     if (!selected.length) { setAnswer('I could not find supporting text in the quick-bot documents.'); setEvidence([]); return; }
     setBusy(true); setError(''); setAnswer(''); setEvidence(selected);
     try {
-      if (localReady) setAnswer(compactAnswer(await askLocal(text, selected)));
-      else {
+      if (localReady) {
         try {
+          setAnswer(compactAnswer(await askLocal(text, selected)));
+        } catch {
+          // Recover from WebLLM/WebGPU disposal errors without exposing the
+          // failure to the user or switching to an online provider.
           const generated = await askTransformers(text, selected);
           setAnswer(compactAnswer(generated.text));
-        } catch {
-          const extracted = extractiveQuickAnswer(text, index);
-          setAnswer(compactAnswer(extracted.answer));
-          setEvidence(extracted.evidence);
         }
+      } else {
+        const generated = await askTransformers(text, selected);
+        setAnswer(compactAnswer(generated.text));
       }
+    } catch {
+      const extracted = extractiveQuickAnswer(text, index);
+      setAnswer(compactAnswer(extracted.answer));
+      setEvidence(extracted.evidence);
+      setError('The browser AI was unavailable, so Quick Bot used the local PDF passages instead.');
     }
-    catch (cause) { setError(cause instanceof Error ? cause.message : 'The local quick bot could not answer right now.'); }
     finally { setBusy(false); }
   }
 

@@ -111,7 +111,9 @@ export class LocalModel {
     }
 
     const isAndroid = /Android/i.test(navigator.userAgent ?? '');
-    appConfig = { ...appConfig, cacheBackend: isAndroid ? 'indexeddb' : 'cache' };
+    // WebLLM 0.2.82 uses this flag (newer releases renamed the option while
+    // also introducing the disposal regression). Keep Android on IndexedDB.
+    appConfig = { ...appConfig, useIndexedDBCache: isAndroid };
 
     try {
       const engine = await CreateMLCEngine(modelId, {
