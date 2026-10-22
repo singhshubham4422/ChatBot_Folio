@@ -1,4 +1,4 @@
-import { getProviderConfig, onlineAvailability } from './onlineProvider';
+import { getProviderConfig, onlineAvailability } from './onlineProvider.js';
 
 type VercelRequest = { method?: string };
 type VercelResponse = { setHeader(name: string, value: string): void; status(code: number): VercelResponse; json(body: unknown): VercelResponse };

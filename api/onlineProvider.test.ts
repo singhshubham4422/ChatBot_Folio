@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { answerOnline, getProviderConfig, onlineAvailability, resetProviderCooldowns } from './onlineProvider';
+import { answerOnline, getProviderConfig, onlineAvailability, resetProviderCooldowns } from './onlineProvider.js';
 
 const input = { question: 'What happened?', consent: true, mode: 'online', context: ['Earlier detail'], evidence: [{ page: 1, text: 'A verified passage.' }] };
 const groqAnswer = { choices: [{ message: { content: 'Groq answer [p. 1]' } }] };
@@ -91,8 +91,8 @@ describe('server-side online providers', () => {
     expect(JSON.stringify(failure)).not.toContain(secret);
   });
   it('handles server requests safely without returning secrets or credentials', async () => {
-    const { handleOnline } = await import('./online');
-    const { statusPayload } = await import('./online-status');
+    const { handleOnline } = await import('./online.js');
+    const { statusPayload } = await import('./online-status.js');
     const status = statusPayload({ Groq_Api: 'super-secret-groq', Gemini_Api: 'super-secret-gemini' });
     expect(status.availability).toBe('Available');
     expect(JSON.stringify(status)).not.toContain('super-secret');
