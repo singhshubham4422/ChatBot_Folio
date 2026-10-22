@@ -17,7 +17,7 @@ export async function askOnline(question: string, evidence: Chunk[], consent: bo
   if (mode === 'offline' || mode === 'local') throw new OnlineRequestError('Offline (local-only) mode cannot contact an online provider.', 'local_only');
   const response = await fetch('/api/online', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, signal,
-    body: JSON.stringify({ question, consent, mode, context: context.slice(-6).map(item => item.slice(0, 500)), evidence: evidence.map(c => ({ page: c.page, text: c.text })) }),
+    body: JSON.stringify({ question, consent, mode, context: context.slice(-6).map(item => item.slice(0, 500)), evidence: evidence.map(c => ({ documentId: c.documentId, fileName: c.fileName, page: c.page, text: c.text })) }),
   });
   let payload: { answer?: string; error?: { code?: string; message?: string } };
   try {

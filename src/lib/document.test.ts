@@ -28,6 +28,15 @@ describe('local lexical retrieval', () => {
       make('c', 2, 'A distinct pricing plan is described on this page.'),
     ]).map(chunk => chunk.page)).toEqual([1, 2]);
   });
+  it('covers each document for cross-document summaries', () => {
+    const crossDocument = [
+      { ...make('a1', 1, 'Alpha report finding one.'), documentId: 'a', fileName: 'alpha.pdf' },
+      { ...make('a2', 2, 'Alpha report finding two.'), documentId: 'a', fileName: 'alpha.pdf' },
+      { ...make('b1', 1, 'Beta report finding one.'), documentId: 'b', fileName: 'beta.pdf' },
+      { ...make('b2', 2, 'Beta report finding two.'), documentId: 'b', fileName: 'beta.pdf' },
+    ];
+    expect(new Set(selectChunksForQuestion('Summarize all selected PDFs', crossDocument, 1000).map(chunk => chunk.documentId))).toEqual(new Set(['a', 'b']));
+  });
   it('answers page-count metadata deterministically', () => {
     expect(deterministicAnswer('How many pages does this document have?', { pageCount: 12 })).toBe('This document has 12 pages.');
     expect(deterministicAnswer('What is the file name?', { fileName: 'annual-report.pdf' })).toContain('annual-report.pdf');

@@ -148,10 +148,10 @@ export class LocalModel {
   async stop() { await this.engine?.interruptGenerate(); }
   async ask(question: string, evidence: Chunk[], context: string[] = [], onToken?: (value: string) => void) {
     if (!this.engine) throw new Error('Load a local model first.');
-    const contextEvidence = evidence.map(c => `[Page ${c.page}] ${c.text}`).join('\n\n');
+    const contextEvidence = evidence.map(c => `[${c.fileName ?? 'Document'}, page ${c.page}] ${c.text}`).join('\n\n');
     const result = await this.engine.chat.completions.create({
       messages: [
-        { role: 'system', content: 'Use the recent conversation only to resolve references. Answer only from the supplied PDF excerpts. If the excerpts do not contain the answer, say you could not find it in this document. Cite page numbers like [p. 2]. Do not invent facts; the PDF evidence overrides the summary.\n\nConversation context:\n' + context.slice(-6).map(item => item.slice(0, 500)).join('\n') + '\n\nPDF excerpts:\n' + contextEvidence },
+        { role: 'system', content: 'Use the recent conversation only to resolve references. Answer only from the supplied PDF excerpts. If the excerpts do not contain the answer, say you could not find it in the selected documents. Cite every substantive claim as [filename, p. 2]. Do not invent facts; the PDF evidence overrides the summary.\n\nConversation context:\n' + context.slice(-6).map(item => item.slice(0, 500)).join('\n') + '\n\nPDF excerpts:\n' + contextEvidence },
         { role: 'user', content: question },
       ], temperature: 0.15, max_tokens: 500, stream: Boolean(onToken),
     });

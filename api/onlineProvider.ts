@@ -43,8 +43,8 @@ function classifyFailure(status: number): ProviderFailure {
   return new ProviderFailure('provider_failure', false);
 }
 
-function prompt(question: string, evidence: { page: number; text: string }[], context: string[]) {
-  return `Use recent conversation only to resolve references. The PDF excerpts are the sole authority for facts. If they do not support an answer, say so. Cite pages like [p. 2]. Keep the answer concise.\n\nRecent conversation:\n${context.join('\n')}\n\nQuestion: ${question}\n\nPDF excerpts:\n${evidence.map(item => `[Page ${item.page}] ${item.text}`).join('\n\n')}`;
+function prompt(question: string, evidence: { page: number; text: string; fileName?: string }[], context: string[]) {
+  return `Use recent conversation only to resolve references. The PDF excerpts are the sole authority for facts. If they do not support an answer, say so. Cite every substantive claim like [filename, p. 2]. Keep the answer concise.\n\nRecent conversation:\n${context.join('\n')}\n\nQuestion: ${question}\n\nPDF excerpts:\n${evidence.map(item => `[${item.fileName ?? 'Document'}, page ${item.page}] ${item.text}`).join('\n\n')}`;
 }
 
 async function callProvider(provider: OnlineProvider, config: ProviderConfig, question: string, evidence: { page: number; text: string }[], context: string[], fetcher: typeof fetch): Promise<string> {
@@ -103,7 +103,7 @@ export async function answerOnline(input: unknown, config: ProviderConfig, fetch
   if (!keys.length) throw new RequestFailure(503, 'providers_unavailable');
   let lastFailure: ProviderFailure | undefined;
   for (const provider of keys) {
-    try { return { answer: await callProvider(provider, config, question as string, evidence as { page: number; text: string }[], context as string[], fetcher) }; }
+    try { return { answer: await callProvider(provider, config, question as string, evidence as { page: number; text: string; fileName?: string }[], context as string[], fetcher) }; }
     catch (error) {
       if (!(error instanceof ProviderFailure)) throw new RequestFailure(502, 'provider_failure');
       lastFailure = error;

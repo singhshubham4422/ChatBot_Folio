@@ -161,10 +161,24 @@ export function isWholeDocumentQuery(query: string): boolean {
 
 export function selectChunksForQuestion(query: string, chunks: Chunk[], maxChars = 18_000): Chunk[] {
   if (!chunks.length) return [];
-  if (!isWholeDocumentQuery(query)) return rankChunks(query, chunks, 6);
+  if (!isWholeDocumentQuery(query)) {
+    const grouped = new Map<string, Chunk[]>();
+    for (const chunk of chunks) { const key = chunk.documentId ?? 'legacy'; grouped.set(key, [...(grouped.get(key) ?? []), chunk]); }
+    const ranked = [...grouped.values()].flatMap(group => rankChunks(query, group, 3));
+    return rankChunks(query, ranked.length ? ranked : chunks, 6);
+  }
   const selected: Chunk[] = [];
   let size = 0;
-  for (const chunk of [...chunks].sort((a, b) => a.page - b.page || a.start - b.start)) {
+  const grouped = new Map<string, Chunk[]>();
+  for (const chunk of chunks) { const key = chunk.documentId ?? 'legacy'; grouped.set(key, [...(grouped.get(key) ?? []), chunk]); }
+  const groups = [...grouped.values()].map(group => [...group].sort((a, b) => a.page - b.page || a.start - b.start));
+  const ordered: Chunk[] = [];
+  for (let index = 0; ; index += 1) {
+    let added = false;
+    for (const group of groups) { if (group[index]) { ordered.push(group[index]); added = true; } }
+    if (!added) break;
+  }
+  for (const chunk of ordered) {
     const words = new Set(chunk.text.toLowerCase().match(/[\p{L}\p{N}]{2,}/gu) ?? []);
     const duplicate = selected.some(existing => {
       const existingWords = new Set(existing.text.toLowerCase().match(/[\p{L}\p{N}]{2,}/gu) ?? []);

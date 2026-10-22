@@ -1,8 +1,8 @@
-import type { Chunk, PageRecord, Preferences, Session } from '../types';
+import type { Chunk, DocumentRef, PageRecord, Preferences, Session } from '../types';
 
 const DB_NAME = 'folio-local';
 const DB_VERSION = 3;
-type DocRecord = { id: string; pdf?: Blob; hash: string; pageCount?: number; processing?: Session['processing'] };
+export type DocRecord = DocumentRef & { pdf?: Blob };
 type StoredPage = PageRecord & { id: string; documentId: string };
 type StoredChunk = Chunk & { documentId: string };
 function openDb(): Promise<IDBDatabase> {
@@ -80,7 +80,9 @@ export async function deleteDocumentData(documentId: string): Promise<void> {
   }
   await new Promise<void>((resolve, reject) => { tx.oncomplete = () => { db.close(); resolve(); }; tx.onerror = () => { db.close(); reject(tx.error); }; tx.onabort = () => { db.close(); reject(tx.error); }; });
 }
-export async function saveDocument(id: string, pdf: Blob, hash: string): Promise<void> { const db = await openDb(); await request(db, 'documents', 'readwrite', os => os.put({ id, pdf, hash } satisfies DocRecord)); }
+export async function saveDocument(id: string, pdf: Blob, hash: string, metadata: Partial<DocumentRef> = {}): Promise<void> {
+  const db = await openDb(); await request(db, 'documents', 'readwrite', os => os.put({ id, pdf, hash, fileName: metadata.fileName ?? 'document.pdf', status: metadata.status ?? 'processing', ...metadata } satisfies DocRecord));
+}
 export async function saveDocProgress(id: string, pageCount: number, processing: Session['processing']): Promise<void> {
   const readDb = await openDb(); const doc = await request<DocRecord | undefined>(readDb, 'documents', 'readonly', os => os.get(id));
   if (!doc) throw new Error('The stored PDF is missing. Upload it again to resume processing.');
@@ -115,4 +117,4 @@ export async function clearApplicationData(): Promise<void> {
   for (const name of ['sessions', 'documents', 'pages', 'chunks', 'preferences']) tx.objectStore(name).clear();
   await new Promise<void>((resolve, reject) => { tx.oncomplete = () => { db.close(); resolve(); }; tx.onerror = () => { db.close(); reject(tx.error); }; tx.onabort = () => { db.close(); reject(tx.error); }; });
 }
-export const newSession = (name: string): Session => ({ id: crypto.randomUUID(), name, status: 'empty', createdAt: Date.now(), updatedAt: Date.now(), messages: [] });
+export const newSession = (name: string): Session => ({ id: crypto.randomUUID(), name, status: 'empty', createdAt: Date.now(), updatedAt: Date.now(), messages: [], documents: [], selectedDocumentIds: [] });
