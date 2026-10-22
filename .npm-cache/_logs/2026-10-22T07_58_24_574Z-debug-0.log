@@ -1,0 +1,1414 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.19.0
+2 info using node@v24.20.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\sshub\Videos\ChatBot\.npmrc
+5 silly config load:file:C:\Users\sshub\.npmrc
+6 silly config load:file:C:\Users\sshub\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm audit fix
+8 verbose argv "audit" "fix" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\sshub\Videos\ChatBot\.npm-cache\_logs\2026-10-22T07_58_24_574Z-
+10 verbose logfile C:\Users\sshub\Videos\ChatBot\.npm-cache\_logs\2026-10-22T07_58_24_574Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly audit bulk request {
+13 silly audit   '@edge-runtime/format': [ '2.2.1' ],
+13 silly audit   '@edge-runtime/node-utils': [ '2.3.0' ],
+13 silly audit   '@edge-runtime/ponyfill': [ '2.4.2' ],
+13 silly audit   '@edge-runtime/primitives': [ '4.1.0' ],
+13 silly audit   '@edge-runtime/vm': [ '3.2.0' ],
+13 silly audit   '@esbuild/aix-ppc64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/android-arm': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/android-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/android-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/darwin-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/darwin-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/freebsd-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/freebsd-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-arm': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-ia32': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-loong64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-mips64el': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-ppc64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-riscv64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-s390x': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/linux-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/netbsd-arm64': [ '0.27.0', '0.25.12' ],
+13 silly audit   '@esbuild/netbsd-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/openbsd-arm64': [ '0.27.0', '0.25.12' ],
+13 silly audit   '@esbuild/openbsd-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/openharmony-arm64': [ '0.27.0', '0.25.12' ],
+13 silly audit   '@esbuild/sunos-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/win32-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/win32-ia32': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@esbuild/win32-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   '@fastify/busboy': [ '2.1.1' ],
+13 silly audit   '@isaacs/fs-minipass': [ '4.0.1' ],
+13 silly audit   '@jridgewell/sourcemap-codec': [ '1.6.0' ],
+13 silly audit   '@mapbox/node-pre-gyp': [ '2.0.3' ],
+13 silly audit   '@mlc-ai/web-llm': [ '0.2.86' ],
+13 silly audit   '@napi-rs/canvas': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-android-arm64': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-darwin-arm64': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-darwin-x64': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-linux-arm-gnueabihf': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-linux-arm64-gnu': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-linux-arm64-musl': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-linux-riscv64-gnu': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-linux-x64-gnu': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-linux-x64-musl': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-win32-arm64-msvc': [ '0.1.100' ],
+13 silly audit   '@napi-rs/canvas-win32-x64-msvc': [ '0.1.100' ],
+13 silly audit   '@napi-rs/lzma-linux-x64-gnu': [ '1.5.1' ],
+13 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+13 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+13 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+13 silly audit   '@rollup/pluginutils': [ '5.5.1' ],
+13 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-android-arm64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-darwin-arm64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-darwin-x64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-freebsd-x64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-openbsd-x64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.64.12' ],
+13 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.64.12' ],
+13 silly audit   '@ts-morph/common': [ '0.11.1' ],
+13 silly audit   'balanced-match': [ '1.0.2', '4.0.4' ],
+13 silly audit   'brace-expansion': [ '1.1.21', '5.0.12' ],
+13 silly audit   minimatch: [ '3.1.5', '10.2.6' ],
+13 silly audit   '@types/estree': [ '1.0.9' ],
+13 silly audit   '@types/json-schema': [ '7.0.15' ],
+13 silly audit   '@types/node': [ '22.20.5', '20.11.0' ],
+13 silly audit   '@types/prop-types': [ '15.7.15' ],
+13 silly audit   '@types/react': [ '18.3.31' ],
+13 silly audit   '@types/react-dom': [ '18.3.7' ],
+13 silly audit   '@upstash/redis': [ '1.39.0' ],
+13 silly audit   '@vercel/build-utils': [ '14.2.0' ],
+13 silly audit   'es-module-lexer': [ '1.5.0', '1.4.1', '1.7.0' ],
+13 silly audit   '@vercel/error-utils': [ '2.2.1' ],
+13 silly audit   '@vercel/nft': [ '1.10.0' ],
+13 silly audit   '@vercel/node': [ '5.10.2' ],
+13 silly audit   typescript: [ '5.9.3', '5.7.3' ],
+13 silly audit   'undici-types': [ '5.26.5', '6.21.0' ],
+13 silly audit   '@vercel/static-config': [ '3.4.1' ],
+13 silly audit   '@vitest/expect': [ '2.1.9' ],
+13 silly audit   '@vitest/pretty-format': [ '2.1.9' ],
+13 silly audit   '@vitest/runner': [ '2.1.9' ],
+13 silly audit   '@vitest/snapshot': [ '2.1.9' ],
+13 silly audit   '@vitest/spy': [ '2.1.9' ],
+13 silly audit   '@vitest/utils': [ '2.1.9' ],
+13 silly audit   abbrev: [ '3.0.1' ],
+13 silly audit   acorn: [ '8.19.0' ],
+13 silly audit   'acorn-import-attributes': [ '1.9.5' ],
+13 silly audit   'agent-base': [ '7.1.4' ],
+13 silly audit   ajv: [ '8.6.3' ],
+13 silly audit   'assertion-error': [ '2.0.1' ],
+13 silly audit   'async-listen': [ '3.0.0', '3.0.1' ],
+13 silly audit   'async-sema': [ '3.1.1' ],
+13 silly audit   bindings: [ '1.5.0' ],
+13 silly audit   'bmp-js': [ '0.1.0' ],
+13 silly audit   braces: [ '3.0.3' ],
+13 silly audit   cac: [ '6.7.14' ],
+13 silly audit   chai: [ '5.3.3' ],
+13 silly audit   'check-error': [ '2.1.3' ],
+13 silly audit   chownr: [ '3.0.0' ],
+13 silly audit   'cjs-module-lexer': [ '1.2.3' ],
+13 silly audit   'code-block-writer': [ '10.1.1' ],
+13 silly audit   'concat-map': [ '0.0.1' ],
+13 silly audit   consola: [ '3.4.2' ],
+13 silly audit   'convert-hrtime': [ '3.0.0' ],
+13 silly audit   csstype: [ '3.2.3' ],
+13 silly audit   debug: [ '4.4.3' ],
+13 silly audit   'deep-eql': [ '5.0.2' ],
+13 silly audit   'detect-libc': [ '2.1.2' ],
+13 silly audit   'edge-runtime': [ '2.5.9' ],
+13 silly audit   picocolors: [ '1.0.0', '1.1.1' ],
+13 silly audit   esbuild: [ '0.27.0', '0.21.5', '0.25.12' ],
+13 silly audit   'estree-walker': [ '2.0.2', '3.0.3' ],
+13 silly audit   etag: [ '1.8.1' ],
+13 silly audit   'expect-type': [ '1.4.0' ],
+13 silly audit   'fake-indexeddb': [ '6.2.6' ],
+13 silly audit   'fast-deep-equal': [ '3.1.3' ],
+13 silly audit   'fast-glob': [ '3.3.3' ],
+13 silly audit   fastq: [ '1.20.3' ],
+13 silly audit   fdir: [ '6.5.0' ],
+13 silly audit   'file-uri-to-path': [ '1.0.0' ],
+13 silly audit   'fill-range': [ '7.1.1' ],
+13 silly audit   fsevents: [ '2.3.3' ],
+13 silly audit   'get-tsconfig': [ '4.14.3' ],
+13 silly audit   glob: [ '13.0.6' ],
+13 silly audit   'glob-parent': [ '5.1.2' ],
+13 silly audit   'graceful-fs': [ '4.2.11' ],
+13 silly audit   'https-proxy-agent': [ '7.0.6' ],
+13 silly audit   'idb-keyval': [ '6.3.0' ],
+13 silly audit   'is-extglob': [ '2.1.1' ],
+13 silly audit   'is-glob': [ '4.0.3' ],
+13 silly audit   'is-number': [ '7.0.0' ],
+13 silly audit   'is-url': [ '1.2.4' ],
+13 silly audit   'js-tokens': [ '4.0.0' ],
+13 silly audit   'json-schema-to-ts': [ '1.6.4' ],
+13 silly audit   'json-schema-traverse': [ '1.0.0' ],
+13 silly audit   loglevel: [ '1.9.2' ],
+13 silly audit   'loose-envify': [ '1.4.0' ],
+13 silly audit   loupe: [ '3.2.1' ],
+13 silly audit   'lucide-react': [ '0.468.0' ],
+13 silly audit   'magic-string': [ '0.30.21' ],
+13 silly audit   merge2: [ '1.4.1' ],
+13 silly audit   micromatch: [ '4.0.8' ],
+13 silly audit   picomatch: [ '2.3.2', '4.0.7' ],
+13 silly audit   'mime-db': [ '1.52.0' ],
+13 silly audit   'mime-types': [ '2.1.35' ],
+13 silly audit   minipass: [ '7.1.3' ],
+13 silly audit   minizlib: [ '3.1.0' ],
+13 silly audit   mkdirp: [ '1.0.4' ],
+13 silly audit   mri: [ '1.2.0' ],
+13 silly audit   ms: [ '2.1.3' ],
+13 silly audit   nanoid: [ '3.3.20' ],
+13 silly audit   'node-fetch': [ '2.6.9' ],
+13 silly audit   'node-gyp-build': [ '4.8.4' ],
+13 silly audit   nopt: [ '8.1.0' ],
+13 silly audit   'opencollective-postinstall': [ '2.0.3' ],
+13 silly audit   'parse-ms': [ '2.1.0' ],
+13 silly audit   'path-browserify': [ '1.0.1' ],
+13 silly audit   'path-scurry': [ '2.0.2' ],
+13 silly audit   'lru-cache': [ '11.5.3' ],
+13 silly audit   'path-to-regexp': [ '6.1.0', '6.3.0' ],
+13 silly audit   pathe: [ '1.1.2' ],
+13 silly audit   pathval: [ '2.0.1' ],
+13 silly audit   'pdfjs-dist': [ '4.10.38' ],
+13 silly audit   postcss: [ '8.5.31' ],
+13 silly audit   'pretty-ms': [ '7.0.1' ],
+13 silly audit   punycode: [ '2.3.1' ],
+13 silly audit   'queue-microtask': [ '1.2.3' ],
+13 silly audit   react: [ '18.3.1' ],
+13 silly audit   'react-dom': [ '18.3.1' ],
+13 silly audit   'regenerator-runtime': [ '0.13.11' ],
+13 silly audit   'require-from-string': [ '2.0.2' ],
+13 silly audit   'resolve-from': [ '5.0.0' ],
+13 silly audit   'resolve-pkg-maps': [ '1.0.0' ],
+13 silly audit   reusify: [ '1.1.0' ],
+13 silly audit   rollup: [ '4.64.12' ],
+13 silly audit   'run-parallel': [ '1.2.0' ],
+13 silly audit   scheduler: [ '0.23.2' ],
+13 silly audit   semver: [ '7.8.5' ],
+13 silly audit   siginfo: [ '2.0.0' ],
+13 silly audit   'signal-exit': [ '4.0.2' ],
+13 silly audit   'source-map-js': [ '1.2.2' ],
+13 silly audit   stackback: [ '0.0.2' ],
+13 silly audit   'std-env': [ '3.10.0' ],
+13 silly audit   tar: [ '7.5.22' ],
+13 silly audit   yallist: [ '5.0.0' ],
+13 silly audit   'tesseract.js': [ '6.0.1' ],
+13 silly audit   'tesseract.js-core': [ '6.1.2' ],
+13 silly audit   'time-span': [ '4.0.0' ],
+13 silly audit   tinybench: [ '2.9.0' ],
+13 silly audit   tinyexec: [ '0.3.2' ],
+13 silly audit   tinyglobby: [ '0.2.17' ],
+13 silly audit   tinypool: [ '1.1.1' ],
+13 silly audit   tinyrainbow: [ '1.2.0' ],
+13 silly audit   tinyspy: [ '3.0.2' ],
+13 silly audit   'to-regex-range': [ '5.0.1' ],
+13 silly audit   tr46: [ '0.0.3' ],
+13 silly audit   'ts-morph': [ '12.0.0' ],
+13 silly audit   'ts-toolbelt': [ '6.15.5' ],
+13 silly audit   tsx: [ '4.21.0' ],
+13 silly audit   uncrypto: [ '0.1.3' ],
+13 silly audit   undici: [ '5.28.4' ],
+13 silly audit   'uri-js': [ '4.4.1' ],
+13 silly audit   vite: [ '6.4.5', '5.4.21' ],
+13 silly audit   'vite-node': [ '2.1.9' ],
+13 silly audit   vitest: [ '2.1.9' ],
+13 silly audit   '@vitest/mocker': [ '2.1.9' ],
+13 silly audit   'wasm-feature-detect': [ '1.9.0' ],
+13 silly audit   'webidl-conversions': [ '3.0.1' ],
+13 silly audit   'whatwg-url': [ '5.0.0' ],
+13 silly audit   'why-is-node-running': [ '2.3.0' ],
+13 silly audit   zlibjs: [ '0.3.1' ]
+13 silly audit }
+14 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 865ms
+15 silly audit report {
+15 silly audit report   '@fastify/busboy': [
+15 silly audit report     {
+15 silly audit report       id: 1240982,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-x8mw-p69m-v3mx',
+15 silly audit report       title: '@fastify/busboy vulnerable to Denial of Service via prototype-named multipart part header',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '>=1.0.0 <3.2.1',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1241276,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-gxm5-99cw-xjw9',
+15 silly audit report       title: '@fastify/busboy vulnerable to CRLF injection via multipart Content-Disposition filename and name',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<3.2.2',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   ajv: [
+15 silly audit report     {
+15 silly audit report       id: 1113715,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-2g4f-4pwh-qvx6',
+15 silly audit report       title: 'ajv has ReDoS when using `$data` option',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '>=7.0.0-alpha.0 <8.18.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   braces: [
+15 silly audit report     {
+15 silly audit report       id: 1240992,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm',
+15 silly audit report       title: 'braces vulnerable to stack-exhaustion denial of service through deeply nested patterns',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '<=3.0.3',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   esbuild: [
+15 silly audit report     {
+15 silly audit report       id: 1102341,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-67mh-4wv8-2f99',
+15 silly audit report       title: 'esbuild enables any website to send any requests to the development server and read the response',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<=0.24.2',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   'path-to-regexp': [
+15 silly audit report     {
+15 silly audit report       id: 1101846,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-9wv6-86v2-598j',
+15 silly audit report       title: 'path-to-regexp outputs backtracking regular expressions',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '>=4.0.0 <6.3.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   tinypool: [
+15 silly audit report     {
+15 silly audit report       id: 1241260,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-5gmw-xhrv-c9v3',
+15 silly audit report       title: 'Tinypool: Prototype Pollution gadget in worker options leads to Remote Code Execution',
+15 silly audit report       severity: 'critical',
+15 silly audit report       vulnerable_versions: '<=2.1.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1241261,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-85c8-ppgw-ccpr',
+15 silly audit report       title: 'Tinypool: Prototype Pollution Gadget to RCE in run() options',
+15 silly audit report       severity: 'critical',
+15 silly audit report       vulnerable_versions: '<2.1.2',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   undici: [
+15 silly audit report     {
+15 silly audit report       id: 1101610,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-c76h-2ccp-4975',
+15 silly audit report       title: 'Use of Insufficiently Random Values in undici',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '>=4.5.0 <5.28.5',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1112496,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-g9mf-h72j-4rw9',
+15 silly audit report       title: 'Undici has an unbounded decompression chain in HTTP responses on Node.js Fetch API via Content-Encoding leads to resource exhaustion',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.23.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1113069,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-cxrh-j4jr-qwg3',
+15 silly audit report       title: 'undici Denial of Service attack via bad certificate data',
+15 silly audit report       severity: 'low',
+15 silly audit report       vulnerable_versions: '<5.29.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1114594,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-2mjp-6q6p-2qxm',
+15 silly audit report       title: 'Undici has an HTTP Request/Response Smuggling issue',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.24.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1114638,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-vrm6-8vpv-qv8q',
+15 silly audit report       title: 'Undici has Unbounded Memory Consumption in WebSocket permessage-deflate Decompression',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '<6.24.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1114640,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-v9p9-hfj2-hcw8',
+15 silly audit report       title: 'Undici has Unhandled Exception in WebSocket Client Due to Invalid server_max_window_bits Validation',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '<6.24.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1114642,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-4992-7rv2-5pvq',
+15 silly audit report       title: 'Undici has CRLF Injection in undici via `upgrade` option',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.24.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1130716,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-8xcm-r25x-g524',
+15 silly audit report       title: 'undici vulnerable to downstream response desynchronization via retry interceptor',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.28.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1130727,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-m8rv-5g2x-5cg5',
+15 silly audit report       title: "undici vulnerable to CRLF Injection via blob-like body 'type' property",
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.28.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1130732,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-v3r7-h72x-cjcm',
+15 silly audit report       title: 'undici vulnerable to cookie attribute injection via unsanitized domain and unparsed setCookie fields',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.28.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1121242,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-p88m-4jfj-68fv',
+15 silly audit report       title: 'undici vulnerable to HTTP header injection via Set-Cookie percent-decoding',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<6.27.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1121245,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-vxpw-j846-p89q',
+15 silly audit report       title: 'undici WebSocket client vulnerable to denial of service via fragment count bypass',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '<6.27.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1121255,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-g8m3-5g58-fq7m',
+15 silly audit report       title: 'undici vulnerable to Set-Cookie SameSite attribute downgrade via permissive substring matching',
+15 silly audit report       severity: 'low',
+15 silly audit report       vulnerable_versions: '<6.27.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1137243,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-35p6-xmwp-9g52',
+15 silly audit report       title: 'undici vulnerable to HTTP response queue poisoning via keep-alive socket reuse',
+15 silly audit report       severity: 'low',
+15 silly audit report       vulnerable_versions: '<6.27.0',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1240039,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-r53p-7pc4-xj5r',
+15 silly audit report       title: 'undici vulnerable to downstream response splitting via retry interceptor',
+15 silly audit report       severity: 'low',
+15 silly audit report       vulnerable_versions: '<6.28.1',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   vite: [
+15 silly audit report     {
+15 silly audit report       id: 1120784,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-v6wh-96g9-6wx3',
+15 silly audit report       title: 'launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<=6.4.2',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1116229,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-4w7w-66w2-5vf9',
+15 silly audit report       title: 'Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<=6.4.1',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1123525,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-fx2h-pf6j-xcff',
+15 silly audit report       title: 'vite: `server.fs.deny` bypass on Windows alternate paths',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '<=6.4.2',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1242724,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-9jrq-w75r-8gcw',
+15 silly audit report       title: 'Vite: Cross origin script execution through Vite custom middleware',
+15 silly audit report       severity: 'low',
+15 silly audit report       vulnerable_versions: '<=6.4.3',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1242730,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-rq7h-c2jc-7f22',
+15 silly audit report       title: 'Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<=6.4.3',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1242622,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-698v-4r3x-3vcv',
+15 silly audit report       title: 'launch-editor: escapeCmdArgs() omits % escaping on Windows',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<=6.4.3',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1242651,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-r825-w8mm-5pxw',
+15 silly audit report       title: 'launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '<=6.4.3',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1242658,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-587h-7wmj-h5pm',
+15 silly audit report       title: 'launch-editor: `fs.existsSync()` existence check can be bypassed on Windows',
+15 silly audit report       severity: 'high',
+15 silly audit report       vulnerable_versions: '<=6.4.3',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   vitest: [
+15 silly audit report     {
+15 silly audit report       id: 1139528,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-5xrq-8626-4rwp',
+15 silly audit report       title: 'When Vitest UI server is listening, arbitrary file can be read and executed',
+15 silly audit report       severity: 'critical',
+15 silly audit report       vulnerable_versions: '<3.2.6',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1193683,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-82fw-gwwq-j7x9',
+15 silly audit report       title: 'Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '>=2.1.0 <4.1.11',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ],
+15 silly audit report   '@vitest/mocker': [
+15 silly audit report     {
+15 silly audit report       id: 1193684,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-82fw-gwwq-j7x9',
+15 silly audit report       title: 'Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '>=2.1.0 <4.1.11',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     },
+15 silly audit report     {
+15 silly audit report       id: 1242767,
+15 silly audit report       url: 'https://github.com/advisories/GHSA-qxg6-89mg-rqv8',
+15 silly audit report       title: 'Vitest: Code injection via unauthenticated manual mock registration',
+15 silly audit report       severity: 'moderate',
+15 silly audit report       vulnerable_versions: '>=2.1.0-beta.7 <4.1.12',
+15 silly audit report       cwe: [Array],
+15 silly audit report       cvss: [Object]
+15 silly audit report     }
+15 silly audit report   ]
+15 silly audit report }
+16 silly packumentCache corgi:https://registry.npmjs.org/@fastify%2fbusboy cache-miss
+17 silly packumentCache corgi:https://registry.npmjs.org/ajv cache-miss
+18 silly packumentCache corgi:https://registry.npmjs.org/braces cache-miss
+19 silly packumentCache corgi:https://registry.npmjs.org/esbuild cache-miss
+20 silly packumentCache corgi:https://registry.npmjs.org/path-to-regexp cache-miss
+21 silly packumentCache corgi:https://registry.npmjs.org/tinypool cache-miss
+22 silly packumentCache corgi:https://registry.npmjs.org/undici cache-miss
+23 silly packumentCache corgi:https://registry.npmjs.org/vite cache-miss
+24 silly packumentCache corgi:https://registry.npmjs.org/vitest cache-miss
+25 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker cache-miss
+26 http cache https://registry.npmjs.org/@fastify%2fbusboy 27ms (cache hit)
+27 silly packumentCache corgi:https://registry.npmjs.org/@fastify%2fbusboy set size:20193 disposed:false
+28 http cache https://registry.npmjs.org/braces 28ms (cache hit)
+29 silly packumentCache corgi:https://registry.npmjs.org/braces set size:35919 disposed:false
+30 http cache https://registry.npmjs.org/tinypool 28ms (cache hit)
+31 silly packumentCache corgi:https://registry.npmjs.org/tinypool set size:45619 disposed:false
+32 http cache https://registry.npmjs.org/esbuild 32ms (cache hit)
+33 silly packumentCache corgi:https://registry.npmjs.org/esbuild set size:889133 disposed:false
+34 http cache https://registry.npmjs.org/path-to-regexp 35ms (cache hit)
+35 silly packumentCache corgi:https://registry.npmjs.org/path-to-regexp set size:66575 disposed:false
+36 http cache https://registry.npmjs.org/vitest 38ms (cache hit)
+37 silly packumentCache corgi:https://registry.npmjs.org/vitest set size:1301005 disposed:false
+38 http cache https://registry.npmjs.org/vite 63ms (cache hit)
+39 silly packumentCache corgi:https://registry.npmjs.org/vite set size:2339552 disposed:false
+40 http cache https://registry.npmjs.org/@vitest%2fmocker 116ms (cache hit)
+41 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker set size:138763 disposed:false
+42 http cache https://registry.npmjs.org/undici 122ms (cache hit)
+43 silly packumentCache corgi:https://registry.npmjs.org/undici set size:475997 disposed:false
+44 http cache https://registry.npmjs.org/ajv 138ms (cache hit)
+45 silly packumentCache corgi:https://registry.npmjs.org/ajv set size:467559 disposed:false
+46 silly packumentCache corgi:https://registry.npmjs.org/@vercel%2fstatic-config cache-miss
+47 http cache https://registry.npmjs.org/@vercel%2fstatic-config 5ms (cache hit)
+48 silly packumentCache corgi:https://registry.npmjs.org/@vercel%2fstatic-config set size:50937 disposed:false
+49 silly packumentCache corgi:https://registry.npmjs.org/micromatch cache-miss
+50 http cache https://registry.npmjs.org/micromatch 5ms (cache hit)
+51 silly packumentCache corgi:https://registry.npmjs.org/micromatch set size:71776 disposed:false
+52 silly packumentCache corgi:https://registry.npmjs.org/@vercel%2fnode cache-miss
+53 http cache https://registry.npmjs.org/@vercel%2fnode 7ms (cache hit)
+54 silly packumentCache corgi:https://registry.npmjs.org/@vercel%2fnode set size:967202 disposed:false
+55 silly packumentCache corgi:https://registry.npmjs.org/vite-node cache-miss
+56 http cache https://registry.npmjs.org/vite-node 6ms (cache hit)
+57 silly packumentCache corgi:https://registry.npmjs.org/vite-node set size:453359 disposed:false
+58 silly packumentCache corgi:https://registry.npmjs.org/fast-glob cache-miss
+59 http cache https://registry.npmjs.org/fast-glob 4ms (cache hit)
+60 silly packumentCache corgi:https://registry.npmjs.org/fast-glob set size:86036 disposed:false
+61 silly packumentCache corgi:https://registry.npmjs.org/@ts-morph%2fcommon cache-miss
+62 http cache https://registry.npmjs.org/@ts-morph%2fcommon 4ms (cache hit)
+63 silly packumentCache corgi:https://registry.npmjs.org/@ts-morph%2fcommon set size:83184 disposed:false
+64 silly packumentCache corgi:https://registry.npmjs.org/ts-morph cache-miss
+65 http cache https://registry.npmjs.org/ts-morph 4ms (cache hit)
+66 silly packumentCache corgi:https://registry.npmjs.org/ts-morph set size:181531 disposed:false
+67 silly idealTree buildDeps
+68 silly fetch manifest @vercel/node@^5.1.6
+69 silly packumentCache full:https://registry.npmjs.org/@vercel%2fnode cache-miss
+70 http fetch GET 200 https://registry.npmjs.org/@vercel%2fnode 69ms (cache revalidated)
+71 silly packumentCache full:https://registry.npmjs.org/@vercel%2fnode set size:2397013 disposed:false
+72 silly fetch manifest vitest@^2.1.8
+73 silly packumentCache full:https://registry.npmjs.org/vitest cache-miss
+74 http fetch GET 200 https://registry.npmjs.org/vitest 67ms (cache revalidated)
+75 silly packumentCache full:https://registry.npmjs.org/vitest set size:2297925 disposed:false
+76 silly fetch manifest @edge-runtime/vm@*
+77 silly packumentCache full:https://registry.npmjs.org/@edge-runtime%2fvm cache-miss
+78 http fetch GET 200 https://registry.npmjs.org/@edge-runtime%2fvm 67ms (cache revalidated)
+79 silly packumentCache full:https://registry.npmjs.org/@edge-runtime%2fvm set size:269934 disposed:false
+80 silly fetch manifest @types/node@^22.10.2
+81 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+82 http fetch GET 200 https://registry.npmjs.org/@types%2fnode 70ms (cache revalidated)
+83 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:11180437 disposed:false
+84 silly fetch manifest @vitest/browser@2.1.9
+85 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser cache-miss
+86 http fetch GET 200 https://registry.npmjs.org/@vitest%2fbrowser 68ms (cache revalidated)
+87 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser set size:833008 disposed:false
+88 silly fetch manifest playwright@*
+89 silly packumentCache full:https://registry.npmjs.org/playwright cache-miss
+90 http fetch GET 200 https://registry.npmjs.org/playwright 106ms (cache revalidated)
+91 silly packumentCache full:https://registry.npmjs.org/playwright set size:16923752 disposed:false
+92 silly fetch manifest webdriverio@*
+93 silly packumentCache full:https://registry.npmjs.org/webdriverio cache-miss
+94 http fetch GET 200 https://registry.npmjs.org/webdriverio 73ms (cache revalidated)
+95 silly packumentCache full:https://registry.npmjs.org/webdriverio set size:3292000 disposed:false
+96 silly fetch manifest puppeteer-core@>=24 <26
+97 silly packumentCache full:https://registry.npmjs.org/puppeteer-core cache-miss
+98 http fetch GET 200 https://registry.npmjs.org/puppeteer-core 52ms (cache revalidated)
+99 silly packumentCache full:https://registry.npmjs.org/puppeteer-core set size:1603026 disposed:false
+100 silly fetch manifest @vitest/ui@2.1.9
+101 silly packumentCache full:https://registry.npmjs.org/@vitest%2fui cache-miss
+102 http fetch GET 200 https://registry.npmjs.org/@vitest%2fui 56ms (cache revalidated)
+103 silly packumentCache full:https://registry.npmjs.org/@vitest%2fui set size:1319425 disposed:false
+104 silly fetch manifest happy-dom@*
+105 silly packumentCache full:https://registry.npmjs.org/happy-dom cache-miss
+106 http fetch GET 200 https://registry.npmjs.org/happy-dom 94ms (cache revalidated)
+107 silly packumentCache full:https://registry.npmjs.org/happy-dom set size:2570034 disposed:false
+108 silly fetch manifest jsdom@*
+109 silly packumentCache full:https://registry.npmjs.org/jsdom cache-miss
+110 http fetch GET 200 https://registry.npmjs.org/jsdom 64ms (cache revalidated)
+111 silly packumentCache full:https://registry.npmjs.org/jsdom set size:1093308 disposed:false
+112 silly fetch manifest canvas@^3.2.3
+113 silly packumentCache full:https://registry.npmjs.org/canvas cache-miss
+114 http fetch GET 200 https://registry.npmjs.org/canvas 66ms (cache revalidated)
+115 silly packumentCache full:https://registry.npmjs.org/canvas set size:353371 disposed:false
+116 silly placeDep ROOT @vercel/node@5.10.2 KEEP for: local-first-pdf-assistant@1.0.0 want: ^5.1.6
+117 silly placeDep ROOT vitest@2.1.9 KEEP for: local-first-pdf-assistant@1.0.0 want: ^2.1.8
+118 silly fetch manifest fast-glob@^3.2.7
+119 silly packumentCache full:https://registry.npmjs.org/fast-glob cache-miss
+120 http fetch GET 200 https://registry.npmjs.org/fast-glob 53ms (cache revalidated)
+121 silly packumentCache full:https://registry.npmjs.org/fast-glob set size:220556 disposed:false
+122 silly placeDep ROOT fast-glob@3.3.3 KEEP for: @ts-morph/common@0.11.1 want: ^3.2.7
+123 silly fetch manifest @vercel/static-config@3.4.1
+124 silly packumentCache full:https://registry.npmjs.org/@vercel%2fstatic-config cache-miss
+125 http fetch GET 200 https://registry.npmjs.org/@vercel%2fstatic-config 257ms (cache revalidated)
+126 silly packumentCache full:https://registry.npmjs.org/@vercel%2fstatic-config set size:199629 disposed:false
+127 silly fetch manifest path-to-regexp@6.1.0
+128 silly packumentCache full:https://registry.npmjs.org/path-to-regexp cache-miss
+129 http fetch GET 200 https://registry.npmjs.org/path-to-regexp 41ms (cache revalidated)
+130 silly packumentCache full:https://registry.npmjs.org/path-to-regexp set size:216334 disposed:false
+131 silly fetch manifest ts-morph@12.0.0
+132 silly packumentCache full:https://registry.npmjs.org/ts-morph cache-miss
+133 http fetch GET 200 https://registry.npmjs.org/ts-morph 330ms (cache revalidated)
+134 silly packumentCache full:https://registry.npmjs.org/ts-morph set size:540557 disposed:false
+135 silly fetch manifest undici@5.28.4
+136 silly packumentCache full:https://registry.npmjs.org/undici cache-miss
+137 http fetch GET 200 https://registry.npmjs.org/undici 63ms (cache revalidated)
+138 silly packumentCache full:https://registry.npmjs.org/undici set size:1635787 disposed:false
+139 silly placeDep ROOT @vercel/static-config@3.4.1 KEEP for: @vercel/node@5.10.2 want: 3.4.1
+140 silly placeDep ROOT path-to-regexp@6.1.0 KEEP for: @vercel/node@5.10.2 want: 6.1.0
+141 silly placeDep ROOT ts-morph@12.0.0 KEEP for: @vercel/node@5.10.2 want: 12.0.0
+142 silly placeDep ROOT undici@5.28.4 KEEP for: @vercel/node@5.10.2 want: 5.28.4
+143 silly fetch manifest ajv@8.6.3
+144 silly packumentCache full:https://registry.npmjs.org/ajv cache-miss
+145 http fetch GET 200 https://registry.npmjs.org/ajv 55ms (cache revalidated)
+146 silly packumentCache full:https://registry.npmjs.org/ajv set size:1142658 disposed:false
+147 silly placeDep ROOT ajv@8.6.3 KEEP for: @vercel/static-config@3.4.1 want: 8.6.3
+148 silly placeDep ROOT ts-morph@12.0.0 KEEP for: @vercel/static-config@3.4.1 want: 12.0.0
+149 silly fetch manifest micromatch@^4.0.8
+150 silly packumentCache full:https://registry.npmjs.org/micromatch cache-miss
+151 http fetch GET 200 https://registry.npmjs.org/micromatch 48ms (cache revalidated)
+152 silly packumentCache full:https://registry.npmjs.org/micromatch set size:240630 disposed:false
+153 silly placeDep ROOT micromatch@4.0.8 KEEP for: fast-glob@3.3.3 want: ^4.0.8
+154 silly fetch manifest braces@^3.0.3
+155 silly packumentCache full:https://registry.npmjs.org/braces cache-miss
+156 http fetch GET 200 https://registry.npmjs.org/braces 63ms (cache revalidated)
+157 silly packumentCache full:https://registry.npmjs.org/braces set size:114529 disposed:false
+158 silly placeDep ROOT braces@3.0.3 KEEP for: micromatch@4.0.8 want: ^3.0.3
+159 silly fetch manifest @ts-morph/common@~0.11.0
+160 silly packumentCache full:https://registry.npmjs.org/@ts-morph%2fcommon cache-miss
+161 http fetch GET 200 https://registry.npmjs.org/@ts-morph%2fcommon 300ms (cache revalidated)
+162 silly packumentCache full:https://registry.npmjs.org/@ts-morph%2fcommon set size:164227 disposed:false
+163 silly placeDep ROOT @ts-morph/common@0.11.1 KEEP for: ts-morph@12.0.0 want: ~0.11.0
+164 silly fetch manifest @fastify/busboy@^2.0.0
+165 silly packumentCache full:https://registry.npmjs.org/@fastify%2fbusboy cache-miss
+166 http fetch GET 200 https://registry.npmjs.org/@fastify%2fbusboy 320ms (cache revalidated)
+167 silly packumentCache full:https://registry.npmjs.org/@fastify%2fbusboy set size:72631 disposed:false
+168 silly placeDep ROOT @fastify/busboy@2.1.1 KEEP for: undici@5.28.4 want: ^2.0.0
+169 silly fetch manifest vite@^5.0.0
+170 silly packumentCache full:https://registry.npmjs.org/vite cache-miss
+171 http fetch GET 200 https://registry.npmjs.org/vite 201ms (cache revalidated)
+172 silly packumentCache full:https://registry.npmjs.org/vite set size:38999531 disposed:false
+173 silly fetch manifest @types/node@^18.0.0 || >=20.0.0
+174 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+175 http cache https://registry.npmjs.org/@types%2fnode 74ms (cache hit)
+176 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:11180437 disposed:false
+177 silly fetch manifest less@*
+178 silly packumentCache full:https://registry.npmjs.org/less cache-miss
+179 http fetch GET 200 https://registry.npmjs.org/less 78ms (cache revalidated)
+180 silly packumentCache full:https://registry.npmjs.org/less set size:583440 disposed:false
+181 silly fetch manifest lightningcss@^1.21.0
+182 silly packumentCache full:https://registry.npmjs.org/lightningcss cache-miss
+183 http fetch GET 200 https://registry.npmjs.org/lightningcss 66ms (cache revalidated)
+184 silly packumentCache full:https://registry.npmjs.org/lightningcss set size:191065 disposed:false
+185 silly fetch manifest sass@*
+186 silly packumentCache full:https://registry.npmjs.org/sass cache-miss
+187 http fetch GET 200 https://registry.npmjs.org/sass 43ms (cache revalidated)
+188 silly packumentCache full:https://registry.npmjs.org/sass set size:763608 disposed:false
+189 silly fetch manifest sass-embedded@*
+190 silly packumentCache full:https://registry.npmjs.org/sass-embedded cache-miss
+191 http fetch GET 200 https://registry.npmjs.org/sass-embedded 70ms (cache revalidated)
+192 silly packumentCache full:https://registry.npmjs.org/sass-embedded set size:458913 disposed:false
+193 silly fetch manifest stylus@*
+194 silly packumentCache full:https://registry.npmjs.org/stylus cache-miss
+195 http fetch GET 200 https://registry.npmjs.org/stylus 49ms (cache revalidated)
+196 silly packumentCache full:https://registry.npmjs.org/stylus set size:286766 disposed:false
+197 silly fetch manifest sugarss@*
+198 silly packumentCache full:https://registry.npmjs.org/sugarss cache-miss
+199 http fetch GET 200 https://registry.npmjs.org/sugarss 60ms (cache revalidated)
+200 silly packumentCache full:https://registry.npmjs.org/sugarss set size:47036 disposed:false
+201 silly fetch manifest postcss@^8.3.3
+202 silly packumentCache full:https://registry.npmjs.org/postcss cache-miss
+203 http fetch GET 200 https://registry.npmjs.org/postcss 50ms (cache revalidated)
+204 silly packumentCache full:https://registry.npmjs.org/postcss set size:776700 disposed:false
+205 silly fetch manifest terser@^5.4.0
+206 silly packumentCache full:https://registry.npmjs.org/terser cache-miss
+207 http fetch GET 200 https://registry.npmjs.org/terser 65ms (cache revalidated)
+208 silly packumentCache full:https://registry.npmjs.org/terser set size:827672 disposed:false
+209 silly placeDep node_modules/vite-node vite@5.4.21 KEEP for: vite-node@2.1.9 want: ^5.0.0
+210 silly fetch manifest @vitest/mocker@2.1.9
+211 silly packumentCache full:https://registry.npmjs.org/@vitest%2fmocker cache-miss
+212 http fetch GET 200 https://registry.npmjs.org/@vitest%2fmocker 79ms (cache revalidated)
+213 silly packumentCache full:https://registry.npmjs.org/@vitest%2fmocker set size:378316 disposed:false
+214 silly fetch manifest msw@^2.4.9
+215 silly packumentCache full:https://registry.npmjs.org/msw cache-miss
+216 http fetch GET 200 https://registry.npmjs.org/msw 66ms (cache revalidated)
+217 silly packumentCache full:https://registry.npmjs.org/msw set size:2061097 disposed:false
+218 silly fetch manifest typescript@>= 4.8.x
+219 silly packumentCache full:https://registry.npmjs.org/typescript cache-miss
+220 http fetch GET 200 https://registry.npmjs.org/typescript 101ms (cache revalidated)
+221 silly packumentCache full:https://registry.npmjs.org/typescript set size:15832105 disposed:false
+222 silly fetch manifest tinypool@^1.0.1
+223 silly packumentCache full:https://registry.npmjs.org/tinypool cache-miss
+224 http fetch GET 200 https://registry.npmjs.org/tinypool 54ms (cache revalidated)
+225 silly packumentCache full:https://registry.npmjs.org/tinypool set size:99111 disposed:false
+226 silly fetch manifest vite-node@2.1.9
+227 silly packumentCache full:https://registry.npmjs.org/vite-node cache-miss
+228 http fetch GET 200 https://registry.npmjs.org/vite-node 61ms (cache revalidated)
+229 silly packumentCache full:https://registry.npmjs.org/vite-node set size:1079451 disposed:false
+230 silly placeDep node_modules/vitest @vitest/mocker@2.1.9 KEEP for: vitest@2.1.9 want: 2.1.9
+231 silly placeDep ROOT tinypool@1.1.1 KEEP for: vitest@2.1.9 want: ^1.0.1
+232 silly placeDep node_modules/vitest vite@5.4.21 KEEP for: vitest@2.1.9 want: ^5.0.0
+233 silly placeDep ROOT vite-node@2.1.9 KEEP for: vitest@2.1.9 want: 2.1.9
+234 silly fetch manifest esbuild@^0.21.3
+235 silly packumentCache full:https://registry.npmjs.org/esbuild cache-miss
+236 http fetch GET 200 https://registry.npmjs.org/esbuild 57ms (cache revalidated)
+237 silly packumentCache full:https://registry.npmjs.org/esbuild set size:1264676 disposed:false
+238 silly placeDep node_modules/vite-node esbuild@0.21.5 KEEP for: vite@5.4.21 want: ^0.21.3
+239 silly placeDep node_modules/vitest vite@5.4.21 KEEP for: @vitest/mocker@2.1.9 want: ^5.0.0
+240 silly placeDep node_modules/vitest esbuild@0.21.5 KEEP for: vite@5.4.21 want: ^0.21.3
+241 silly reify moves {}
+242 silly audit bulk request {
+242 silly audit   '@edge-runtime/format': [ '2.2.1' ],
+242 silly audit   '@edge-runtime/node-utils': [ '2.3.0' ],
+242 silly audit   '@edge-runtime/ponyfill': [ '2.4.2' ],
+242 silly audit   '@edge-runtime/primitives': [ '4.1.0' ],
+242 silly audit   '@edge-runtime/vm': [ '3.2.0' ],
+242 silly audit   '@esbuild/aix-ppc64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/android-arm': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/android-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/android-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/darwin-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/darwin-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/freebsd-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/freebsd-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-arm': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-ia32': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-loong64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-mips64el': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-ppc64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-riscv64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-s390x': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/linux-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/netbsd-arm64': [ '0.27.0', '0.25.12' ],
+242 silly audit   '@esbuild/netbsd-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/openbsd-arm64': [ '0.27.0', '0.25.12' ],
+242 silly audit   '@esbuild/openbsd-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/openharmony-arm64': [ '0.27.0', '0.25.12' ],
+242 silly audit   '@esbuild/sunos-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/win32-arm64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/win32-ia32': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@esbuild/win32-x64': [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   '@fastify/busboy': [ '2.1.1' ],
+242 silly audit   '@isaacs/fs-minipass': [ '4.0.1' ],
+242 silly audit   '@jridgewell/sourcemap-codec': [ '1.6.0' ],
+242 silly audit   '@mapbox/node-pre-gyp': [ '2.0.3' ],
+242 silly audit   '@mlc-ai/web-llm': [ '0.2.86' ],
+242 silly audit   '@napi-rs/canvas': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-android-arm64': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-darwin-arm64': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-darwin-x64': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-linux-arm-gnueabihf': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-linux-arm64-gnu': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-linux-arm64-musl': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-linux-riscv64-gnu': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-linux-x64-gnu': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-linux-x64-musl': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-win32-arm64-msvc': [ '0.1.100' ],
+242 silly audit   '@napi-rs/canvas-win32-x64-msvc': [ '0.1.100' ],
+242 silly audit   '@napi-rs/lzma-linux-x64-gnu': [ '1.5.1' ],
+242 silly audit   '@nodelib/fs.scandir': [ '2.1.5' ],
+242 silly audit   '@nodelib/fs.stat': [ '2.0.5' ],
+242 silly audit   '@nodelib/fs.walk': [ '1.2.8' ],
+242 silly audit   '@rollup/pluginutils': [ '5.5.1' ],
+242 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-android-arm64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-darwin-arm64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-darwin-x64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-freebsd-x64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-openbsd-x64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.64.12' ],
+242 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.64.12' ],
+242 silly audit   '@ts-morph/common': [ '0.11.1' ],
+242 silly audit   'balanced-match': [ '1.0.2', '4.0.4' ],
+242 silly audit   'brace-expansion': [ '1.1.21', '5.0.12' ],
+242 silly audit   minimatch: [ '3.1.5', '10.2.6' ],
+242 silly audit   '@types/estree': [ '1.0.9' ],
+242 silly audit   '@types/json-schema': [ '7.0.15' ],
+242 silly audit   '@types/node': [ '22.20.5', '20.11.0' ],
+242 silly audit   '@types/prop-types': [ '15.7.15' ],
+242 silly audit   '@types/react': [ '18.3.31' ],
+242 silly audit   '@types/react-dom': [ '18.3.7' ],
+242 silly audit   '@upstash/redis': [ '1.39.0' ],
+242 silly audit   '@vercel/build-utils': [ '14.2.0' ],
+242 silly audit   'es-module-lexer': [ '1.5.0', '1.4.1', '1.7.0' ],
+242 silly audit   '@vercel/error-utils': [ '2.2.1' ],
+242 silly audit   '@vercel/nft': [ '1.10.0' ],
+242 silly audit   '@vercel/node': [ '5.10.2' ],
+242 silly audit   typescript: [ '5.9.3', '5.7.3' ],
+242 silly audit   'undici-types': [ '5.26.5', '6.21.0' ],
+242 silly audit   '@vercel/static-config': [ '3.4.1' ],
+242 silly audit   '@vitest/expect': [ '2.1.9' ],
+242 silly audit   '@vitest/pretty-format': [ '2.1.9' ],
+242 silly audit   '@vitest/runner': [ '2.1.9' ],
+242 silly audit   '@vitest/snapshot': [ '2.1.9' ],
+242 silly audit   '@vitest/spy': [ '2.1.9' ],
+242 silly audit   '@vitest/utils': [ '2.1.9' ],
+242 silly audit   abbrev: [ '3.0.1' ],
+242 silly audit   acorn: [ '8.19.0' ],
+242 silly audit   'acorn-import-attributes': [ '1.9.5' ],
+242 silly audit   'agent-base': [ '7.1.4' ],
+242 silly audit   ajv: [ '8.6.3' ],
+242 silly audit   'assertion-error': [ '2.0.1' ],
+242 silly audit   'async-listen': [ '3.0.0', '3.0.1' ],
+242 silly audit   'async-sema': [ '3.1.1' ],
+242 silly audit   bindings: [ '1.5.0' ],
+242 silly audit   'bmp-js': [ '0.1.0' ],
+242 silly audit   braces: [ '3.0.3' ],
+242 silly audit   cac: [ '6.7.14' ],
+242 silly audit   chai: [ '5.3.3' ],
+242 silly audit   'check-error': [ '2.1.3' ],
+242 silly audit   chownr: [ '3.0.0' ],
+242 silly audit   'cjs-module-lexer': [ '1.2.3' ],
+242 silly audit   'code-block-writer': [ '10.1.1' ],
+242 silly audit   'concat-map': [ '0.0.1' ],
+242 silly audit   consola: [ '3.4.2' ],
+242 silly audit   'convert-hrtime': [ '3.0.0' ],
+242 silly audit   csstype: [ '3.2.3' ],
+242 silly audit   debug: [ '4.4.3' ],
+242 silly audit   'deep-eql': [ '5.0.2' ],
+242 silly audit   'detect-libc': [ '2.1.2' ],
+242 silly audit   'edge-runtime': [ '2.5.9' ],
+242 silly audit   picocolors: [ '1.0.0', '1.1.1' ],
+242 silly audit   esbuild: [ '0.27.0', '0.21.5', '0.25.12' ],
+242 silly audit   'estree-walker': [ '2.0.2', '3.0.3' ],
+242 silly audit   etag: [ '1.8.1' ],
+242 silly audit   'expect-type': [ '1.4.0' ],
+242 silly audit   'fake-indexeddb': [ '6.2.6' ],
+242 silly audit   'fast-deep-equal': [ '3.1.3' ],
+242 silly audit   'fast-glob': [ '3.3.3' ],
+242 silly audit   fastq: [ '1.20.3' ],
+242 silly audit   fdir: [ '6.5.0' ],
+242 silly audit   'file-uri-to-path': [ '1.0.0' ],
+242 silly audit   'fill-range': [ '7.1.1' ],
+242 silly audit   fsevents: [ '2.3.3' ],
+242 silly audit   'get-tsconfig': [ '4.14.3' ],
+242 silly audit   glob: [ '13.0.6' ],
+242 silly audit   'glob-parent': [ '5.1.2' ],
+242 silly audit   'graceful-fs': [ '4.2.11' ],
+242 silly audit   'https-proxy-agent': [ '7.0.6' ],
+242 silly audit   'idb-keyval': [ '6.3.0' ],
+242 silly audit   'is-extglob': [ '2.1.1' ],
+242 silly audit   'is-glob': [ '4.0.3' ],
+242 silly audit   'is-number': [ '7.0.0' ],
+242 silly audit   'is-url': [ '1.2.4' ],
+242 silly audit   'js-tokens': [ '4.0.0' ],
+242 silly audit   'json-schema-to-ts': [ '1.6.4' ],
+242 silly audit   'json-schema-traverse': [ '1.0.0' ],
+242 silly audit   loglevel: [ '1.9.2' ],
+242 silly audit   'loose-envify': [ '1.4.0' ],
+242 silly audit   loupe: [ '3.2.1' ],
+242 silly audit   'lucide-react': [ '0.468.0' ],
+242 silly audit   'magic-string': [ '0.30.21' ],
+242 silly audit   merge2: [ '1.4.1' ],
+242 silly audit   micromatch: [ '4.0.8' ],
+242 silly audit   picomatch: [ '2.3.2', '4.0.7' ],
+242 silly audit   'mime-db': [ '1.52.0' ],
+242 silly audit   'mime-types': [ '2.1.35' ],
+242 silly audit   minipass: [ '7.1.3' ],
+242 silly audit   minizlib: [ '3.1.0' ],
+242 silly audit   mkdirp: [ '1.0.4' ],
+242 silly audit   mri: [ '1.2.0' ],
+242 silly audit   ms: [ '2.1.3' ],
+242 silly audit   nanoid: [ '3.3.20' ],
+242 silly audit   'node-fetch': [ '2.6.9' ],
+242 silly audit   'node-gyp-build': [ '4.8.4' ],
+242 silly audit   nopt: [ '8.1.0' ],
+242 silly audit   'opencollective-postinstall': [ '2.0.3' ],
+242 silly audit   'parse-ms': [ '2.1.0' ],
+242 silly audit   'path-browserify': [ '1.0.1' ],
+242 silly audit   'path-scurry': [ '2.0.2' ],
+242 silly audit   'lru-cache': [ '11.5.3' ],
+242 silly audit   'path-to-regexp': [ '6.1.0', '6.3.0' ],
+242 silly audit   pathe: [ '1.1.2' ],
+242 silly audit   pathval: [ '2.0.1' ],
+242 silly audit   'pdfjs-dist': [ '4.10.38' ],
+242 silly audit   postcss: [ '8.5.31' ],
+242 silly audit   'pretty-ms': [ '7.0.1' ],
+242 silly audit   punycode: [ '2.3.1' ],
+242 silly audit   'queue-microtask': [ '1.2.3' ],
+242 silly audit   react: [ '18.3.1' ],
+242 silly audit   'react-dom': [ '18.3.1' ],
+242 silly audit   'regenerator-runtime': [ '0.13.11' ],
+242 silly audit   'require-from-string': [ '2.0.2' ],
+242 silly audit   'resolve-from': [ '5.0.0' ],
+242 silly audit   'resolve-pkg-maps': [ '1.0.0' ],
+242 silly audit   reusify: [ '1.1.0' ],
+242 silly audit   rollup: [ '4.64.12' ],
+242 silly audit   'run-parallel': [ '1.2.0' ],
+242 silly audit   scheduler: [ '0.23.2' ],
+242 silly audit   semver: [ '7.8.5' ],
+242 silly audit   siginfo: [ '2.0.0' ],
+242 silly audit   'signal-exit': [ '4.0.2' ],
+242 silly audit   'source-map-js': [ '1.2.2' ],
+242 silly audit   stackback: [ '0.0.2' ],
+242 silly audit   'std-env': [ '3.10.0' ],
+242 silly audit   tar: [ '7.5.22' ],
+242 silly audit   yallist: [ '5.0.0' ],
+242 silly audit   'tesseract.js': [ '6.0.1' ],
+242 silly audit   'tesseract.js-core': [ '6.1.2' ],
+242 silly audit   'time-span': [ '4.0.0' ],
+242 silly audit   tinybench: [ '2.9.0' ],
+242 silly audit   tinyexec: [ '0.3.2' ],
+242 silly audit   tinyglobby: [ '0.2.17' ],
+242 silly audit   tinypool: [ '1.1.1' ],
+242 silly audit   tinyrainbow: [ '1.2.0' ],
+242 silly audit   tinyspy: [ '3.0.2' ],
+242 silly audit   'to-regex-range': [ '5.0.1' ],
+242 silly audit   tr46: [ '0.0.3' ],
+242 silly audit   'ts-morph': [ '12.0.0' ],
+242 silly audit   'ts-toolbelt': [ '6.15.5' ],
+242 silly audit   tsx: [ '4.21.0' ],
+242 silly audit   uncrypto: [ '0.1.3' ],
+242 silly audit   undici: [ '5.28.4' ],
+242 silly audit   'uri-js': [ '4.4.1' ],
+242 silly audit   vite: [ '6.4.5', '5.4.21' ],
+242 silly audit   'vite-node': [ '2.1.9' ],
+242 silly audit   vitest: [ '2.1.9' ],
+242 silly audit   '@vitest/mocker': [ '2.1.9' ],
+242 silly audit   'wasm-feature-detect': [ '1.9.0' ],
+242 silly audit   'webidl-conversions': [ '3.0.1' ],
+242 silly audit   'whatwg-url': [ '5.0.0' ],
+242 silly audit   'why-is-node-running': [ '2.3.0' ],
+242 silly audit   zlibjs: [ '0.3.1' ]
+242 silly audit }
+243 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 456ms
+244 silly audit report {
+244 silly audit report   '@fastify/busboy': [
+244 silly audit report     {
+244 silly audit report       id: 1240982,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-x8mw-p69m-v3mx',
+244 silly audit report       title: '@fastify/busboy vulnerable to Denial of Service via prototype-named multipart part header',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '>=1.0.0 <3.2.1',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1241276,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-gxm5-99cw-xjw9',
+244 silly audit report       title: '@fastify/busboy vulnerable to CRLF injection via multipart Content-Disposition filename and name',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<3.2.2',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   ajv: [
+244 silly audit report     {
+244 silly audit report       id: 1113715,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-2g4f-4pwh-qvx6',
+244 silly audit report       title: 'ajv has ReDoS when using `$data` option',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '>=7.0.0-alpha.0 <8.18.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   braces: [
+244 silly audit report     {
+244 silly audit report       id: 1240992,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-vfj7-8cjw-p6xm',
+244 silly audit report       title: 'braces vulnerable to stack-exhaustion denial of service through deeply nested patterns',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '<=3.0.3',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   esbuild: [
+244 silly audit report     {
+244 silly audit report       id: 1102341,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-67mh-4wv8-2f99',
+244 silly audit report       title: 'esbuild enables any website to send any requests to the development server and read the response',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<=0.24.2',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   'path-to-regexp': [
+244 silly audit report     {
+244 silly audit report       id: 1101846,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-9wv6-86v2-598j',
+244 silly audit report       title: 'path-to-regexp outputs backtracking regular expressions',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '>=4.0.0 <6.3.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   tinypool: [
+244 silly audit report     {
+244 silly audit report       id: 1241260,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-5gmw-xhrv-c9v3',
+244 silly audit report       title: 'Tinypool: Prototype Pollution gadget in worker options leads to Remote Code Execution',
+244 silly audit report       severity: 'critical',
+244 silly audit report       vulnerable_versions: '<=2.1.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1241261,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-85c8-ppgw-ccpr',
+244 silly audit report       title: 'Tinypool: Prototype Pollution Gadget to RCE in run() options',
+244 silly audit report       severity: 'critical',
+244 silly audit report       vulnerable_versions: '<2.1.2',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   undici: [
+244 silly audit report     {
+244 silly audit report       id: 1101610,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-c76h-2ccp-4975',
+244 silly audit report       title: 'Use of Insufficiently Random Values in undici',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '>=4.5.0 <5.28.5',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1112496,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-g9mf-h72j-4rw9',
+244 silly audit report       title: 'Undici has an unbounded decompression chain in HTTP responses on Node.js Fetch API via Content-Encoding leads to resource exhaustion',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.23.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1113069,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-cxrh-j4jr-qwg3',
+244 silly audit report       title: 'undici Denial of Service attack via bad certificate data',
+244 silly audit report       severity: 'low',
+244 silly audit report       vulnerable_versions: '<5.29.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1114594,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-2mjp-6q6p-2qxm',
+244 silly audit report       title: 'Undici has an HTTP Request/Response Smuggling issue',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.24.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1114638,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-vrm6-8vpv-qv8q',
+244 silly audit report       title: 'Undici has Unbounded Memory Consumption in WebSocket permessage-deflate Decompression',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '<6.24.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1114640,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-v9p9-hfj2-hcw8',
+244 silly audit report       title: 'Undici has Unhandled Exception in WebSocket Client Due to Invalid server_max_window_bits Validation',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '<6.24.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1114642,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-4992-7rv2-5pvq',
+244 silly audit report       title: 'Undici has CRLF Injection in undici via `upgrade` option',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.24.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1130716,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-8xcm-r25x-g524',
+244 silly audit report       title: 'undici vulnerable to downstream response desynchronization via retry interceptor',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.28.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1130727,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-m8rv-5g2x-5cg5',
+244 silly audit report       title: "undici vulnerable to CRLF Injection via blob-like body 'type' property",
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.28.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1130732,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-v3r7-h72x-cjcm',
+244 silly audit report       title: 'undici vulnerable to cookie attribute injection via unsanitized domain and unparsed setCookie fields',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.28.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1121242,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-p88m-4jfj-68fv',
+244 silly audit report       title: 'undici vulnerable to HTTP header injection via Set-Cookie percent-decoding',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<6.27.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1121245,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-vxpw-j846-p89q',
+244 silly audit report       title: 'undici WebSocket client vulnerable to denial of service via fragment count bypass',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '<6.27.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1121255,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-g8m3-5g58-fq7m',
+244 silly audit report       title: 'undici vulnerable to Set-Cookie SameSite attribute downgrade via permissive substring matching',
+244 silly audit report       severity: 'low',
+244 silly audit report       vulnerable_versions: '<6.27.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1137243,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-35p6-xmwp-9g52',
+244 silly audit report       title: 'undici vulnerable to HTTP response queue poisoning via keep-alive socket reuse',
+244 silly audit report       severity: 'low',
+244 silly audit report       vulnerable_versions: '<6.27.0',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1240039,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-r53p-7pc4-xj5r',
+244 silly audit report       title: 'undici vulnerable to downstream response splitting via retry interceptor',
+244 silly audit report       severity: 'low',
+244 silly audit report       vulnerable_versions: '<6.28.1',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   vite: [
+244 silly audit report     {
+244 silly audit report       id: 1120784,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-v6wh-96g9-6wx3',
+244 silly audit report       title: 'launch-editor: NTLMv2 hash disclosure via UNC path handling on Windows',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<=6.4.2',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1116229,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-4w7w-66w2-5vf9',
+244 silly audit report       title: 'Vite Vulnerable to Path Traversal in Optimized Deps `.map` Handling',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<=6.4.1',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1123525,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-fx2h-pf6j-xcff',
+244 silly audit report       title: 'vite: `server.fs.deny` bypass on Windows alternate paths',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '<=6.4.2',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1242724,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-9jrq-w75r-8gcw',
+244 silly audit report       title: 'Vite: Cross origin script execution through Vite custom middleware',
+244 silly audit report       severity: 'low',
+244 silly audit report       vulnerable_versions: '<=6.4.3',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1242730,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-rq7h-c2jc-7f22',
+244 silly audit report       title: 'Vite: Files outside `server.fs.allow` could be served when project paths match system paths on non-Windows machine',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<=6.4.3',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1242622,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-698v-4r3x-3vcv',
+244 silly audit report       title: 'launch-editor: escapeCmdArgs() omits % escaping on Windows',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<=6.4.3',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1242651,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-r825-w8mm-5pxw',
+244 silly audit report       title: 'launch-editor: Editor CLI flag misinterpretation causing arbitrary command execution for some editors',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '<=6.4.3',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1242658,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-587h-7wmj-h5pm',
+244 silly audit report       title: 'launch-editor: `fs.existsSync()` existence check can be bypassed on Windows',
+244 silly audit report       severity: 'high',
+244 silly audit report       vulnerable_versions: '<=6.4.3',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   vitest: [
+244 silly audit report     {
+244 silly audit report       id: 1139528,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-5xrq-8626-4rwp',
+244 silly audit report       title: 'When Vitest UI server is listening, arbitrary file can be read and executed',
+244 silly audit report       severity: 'critical',
+244 silly audit report       vulnerable_versions: '<3.2.6',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1193683,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-82fw-gwwq-j7x9',
+244 silly audit report       title: 'Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '>=2.1.0 <4.1.11',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ],
+244 silly audit report   '@vitest/mocker': [
+244 silly audit report     {
+244 silly audit report       id: 1193684,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-82fw-gwwq-j7x9',
+244 silly audit report       title: 'Vitest: Path Traversal / Arbitrary File Read via @vitest/mocker Redirect Mock',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '>=2.1.0 <4.1.11',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     },
+244 silly audit report     {
+244 silly audit report       id: 1242767,
+244 silly audit report       url: 'https://github.com/advisories/GHSA-qxg6-89mg-rqv8',
+244 silly audit report       title: 'Vitest: Code injection via unauthenticated manual mock registration',
+244 silly audit report       severity: 'moderate',
+244 silly audit report       vulnerable_versions: '>=2.1.0-beta.7 <4.1.12',
+244 silly audit report       cwe: [Array],
+244 silly audit report       cvss: [Object]
+244 silly audit report     }
+244 silly audit report   ]
+244 silly audit report }
+245 silly packumentCache corgi:https://registry.npmjs.org/@fastify%2fbusboy cache-hit
+246 silly packumentCache corgi:https://registry.npmjs.org/ajv cache-hit
+247 silly packumentCache corgi:https://registry.npmjs.org/braces cache-hit
+248 silly packumentCache corgi:https://registry.npmjs.org/esbuild cache-hit
+249 silly packumentCache corgi:https://registry.npmjs.org/path-to-regexp cache-hit
+250 silly packumentCache corgi:https://registry.npmjs.org/tinypool cache-hit
+251 silly packumentCache corgi:https://registry.npmjs.org/undici cache-hit
+252 silly packumentCache corgi:https://registry.npmjs.org/vite cache-miss
+253 silly packumentCache corgi:https://registry.npmjs.org/vitest cache-miss
+254 silly packumentCache corgi:https://registry.npmjs.org/@vitest%2fmocker cache-hit
+255 http cache https://registry.npmjs.org/vitest 39ms (cache hit)
+256 silly packumentCache corgi:https://registry.npmjs.org/vitest set size:1301005 disposed:false
+257 http cache https://registry.npmjs.org/vite 58ms (cache hit)
+258 silly packumentCache corgi:https://registry.npmjs.org/vite set size:2339552 disposed:false
+259 silly packumentCache corgi:https://registry.npmjs.org/@vercel%2fstatic-config cache-hit
+260 silly packumentCache corgi:https://registry.npmjs.org/micromatch cache-hit
+261 silly packumentCache corgi:https://registry.npmjs.org/@vercel%2fnode cache-hit
+262 silly packumentCache corgi:https://registry.npmjs.org/vite-node cache-hit
+263 silly packumentCache corgi:https://registry.npmjs.org/fast-glob cache-hit
+264 silly packumentCache corgi:https://registry.npmjs.org/@ts-morph%2fcommon cache-hit
+265 silly packumentCache corgi:https://registry.npmjs.org/ts-morph cache-hit
+266 warn install-scripts 5 packages have install scripts not yet covered by allowScripts:
+266 warn install-scripts   esbuild@0.27.0 (postinstall: node install.js)
+266 warn install-scripts   tesseract.js@6.0.1 (postinstall: opencollective-postinstall || true)
+266 warn install-scripts   esbuild@0.21.5 (postinstall: node install.js)
+266 warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+266 warn install-scripts   esbuild@0.21.5 (postinstall: node install.js)
+266 warn install-scripts
+266 warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+267 verbose cwd C:\Users\sshub\Videos\ChatBot
+268 verbose os Windows_NT 10.0.26300
+269 verbose node v24.20.0
+270 verbose npm  v11.19.0
+271 verbose exit 1
+272 verbose code 1

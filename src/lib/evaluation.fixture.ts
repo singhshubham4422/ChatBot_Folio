@@ -1,0 +1,43 @@
+import type { Chunk } from '../types';
+
+export const evaluationDocument: Chunk[] = [
+  { id: 'p1', page: 1, start: 0, end: 170, quality: 'good', text: 'Northstar Field Study. The program began in 2019 to assess community energy projects. The 2024 report covers operating results, a participant survey, project costs, and remaining risks.' },
+  { id: 'p2', page: 2, start: 0, end: 220, quality: 'good', text: 'Financial results. Revenue rose 18 percent to 12.4 million dollars in 2024 from 10.5 million dollars in 2023. Operating costs increased by 1.1 million dollars. Operating margin was 8.5 percent. Renewal rate reached 92 percent.' },
+  { id: 'p3', page: 3, start: 0, end: 200, quality: 'good', text: 'Participant survey. 620 people responded. 62 percent rated the program 7.5 or lower. 21 percent rated it from 7.6 to 8.2. The remaining 17 percent rated it above 8.2. Survey responses were self-reported.' },
+  { id: 'p4', page: 4, start: 0, end: 230, quality: 'good', section: 'Project cost table', text: 'Project cost table. Solar retrofit: 14 sites, 3.2 million dollars. Heat pump: 9 sites, 2.7 million dollars. Grid storage: 4 sites, 4.1 million dollars. The grid storage project had the highest cost per site.' },
+  { id: 'p5', page: 5, start: 0, end: 220, quality: 'good', text: 'Risk and limitations. The main report says pilot deployments reduced peak demand by 68 percent. Appendix B reports a 58 percent reduction for the same pilot period. The report does not explain the discrepancy. The pilot was not randomized.' },
+  { id: 'p6', page: 6, start: 0, end: 170, quality: 'ocr', text: 'Field test notes (OCR). The test lasted six weeks across fourteen sites. Two sites had incomplete sensor logs. The field team recommends checking the original meter records before relying on the peak demand figure.' },
+];
+
+export const evaluationQuestions = [
+  { id: '01', kind: 'direct', query: 'When did the Northstar program begin?', pages: [1] },
+  { id: '02', kind: 'direct', query: 'What was revenue in 2024?', pages: [2] },
+  { id: '03', kind: 'direct', query: 'What was revenue in 2023?', pages: [2] },
+  { id: '04', kind: 'direct', query: 'How much did revenue increase by percentage?', pages: [2] },
+  { id: '05', kind: 'direct', query: 'How much did operating costs increase?', pages: [2] },
+  { id: '06', kind: 'direct', query: 'What was operating margin?', pages: [2] },
+  { id: '07', kind: 'direct', query: 'What was the renewal rate?', pages: [2] },
+  { id: '08', kind: 'survey', query: 'How many people responded to the participant survey?', pages: [3] },
+  { id: '09', kind: 'survey', query: 'What share rated the program 7.5 or lower?', pages: [3] },
+  { id: '10', kind: 'survey', query: 'What percentage rated it above 8.2?', pages: [3] },
+  { id: '11', kind: 'survey', query: 'Were survey ratings independently verified?', pages: [3] },
+  { id: '12', kind: 'table', query: 'How many solar retrofit sites were there?', pages: [4] },
+  { id: '13', kind: 'table', query: 'What was the cost of the heat pump project?', pages: [4] },
+  { id: '14', kind: 'table', query: 'Which project had the highest total cost?', pages: [4] },
+  { id: '15', kind: 'table', query: 'Which project cost the most per site?', pages: [4] },
+  { id: '16', kind: 'table', query: 'How many grid storage locations were listed?', pages: [4] },
+  { id: '17', kind: 'cross_page', query: 'Compare the revenue growth and operating cost increase.', pages: [2] },
+  { id: '18', kind: 'cross_page', query: 'Compare survey response count with the number of field test sites.', pages: [3, 6] },
+  { id: '19', kind: 'cross_page', query: 'What should a reader verify before using the demand reduction finding?', pages: [5, 6] },
+  { id: '20', kind: 'contradiction', query: 'What peak demand reduction does the report claim and what does Appendix B say?', pages: [5] },
+  { id: '21', kind: 'contradiction', query: 'Does the report explain why the peak demand percentages differ?', pages: [5] },
+  { id: '22', kind: 'ocr', query: 'How long was the field test?', pages: [6] },
+  { id: '23', kind: 'ocr', query: 'How many field sites had incomplete sensor records?', pages: [6] },
+  { id: '24', kind: 'ocr', query: 'What records should the team check before relying on peak demand?', pages: [6] },
+  { id: '25', kind: 'absent', query: 'Did the volcano erupt during the expedition?', pages: [] },
+  { id: '26', kind: 'absent', query: 'What astronomical object was observed?', pages: [] },
+  { id: '27', kind: 'absent', query: 'Who was the chief botanist?', pages: [] },
+  { id: '28', kind: 'ambiguous', query: 'Was the pilot result causal?', pages: [5] },
+  { id: '29', kind: 'metadata', query: 'How many pages does this document have?', pages: [] },
+  { id: '30', kind: 'contradiction', query: 'What did the randomized control group conclude?', pages: [5] },
+] as const;

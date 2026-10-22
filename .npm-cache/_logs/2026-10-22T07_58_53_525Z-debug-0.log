@@ -1,0 +1,1051 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.19.0
+2 info using node@v24.20.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\sshub\Videos\ChatBot\.npmrc
+5 silly config load:file:C:\Users\sshub\.npmrc
+6 silly config load:file:C:\Users\sshub\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:C:\Users\sshub\Videos\ChatBot\.npm-cache\_logs\2026-10-22T07_58_53_525Z-
+10 verbose logfile C:\Users\sshub\Videos\ChatBot\.npm-cache\_logs\2026-10-22T07_58_53_525Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 silly idealTree buildDeps
+14 silly fetch manifest vitest@^4.1.12
+15 silly packumentCache full:https://registry.npmjs.org/vitest cache-miss
+16 http cache https://registry.npmjs.org/vitest 51ms (cache hit)
+17 silly packumentCache full:https://registry.npmjs.org/vitest set size:2297925 disposed:false
+18 silly fetch manifest @edge-runtime/vm@*
+19 silly packumentCache full:https://registry.npmjs.org/@edge-runtime%2fvm cache-miss
+20 http cache https://registry.npmjs.org/@edge-runtime%2fvm 7ms (cache hit)
+21 silly packumentCache full:https://registry.npmjs.org/@edge-runtime%2fvm set size:269934 disposed:false
+22 silly fetch manifest @opentelemetry/api@^1.9.0
+23 silly packumentCache full:https://registry.npmjs.org/@opentelemetry%2fapi cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/@opentelemetry%2fapi 735ms (cache miss)
+25 silly packumentCache full:https://registry.npmjs.org/@opentelemetry%2fapi set size:undefined disposed:false
+26 silly fetch manifest @types/node@^22.10.2
+27 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+28 http cache https://registry.npmjs.org/@types%2fnode 39ms (cache hit)
+29 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:11180437 disposed:false
+30 silly fetch manifest @vitest/browser-playwright@4.1.12
+31 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-playwright cache-miss
+32 http fetch GET 200 https://registry.npmjs.org/@vitest%2fbrowser-playwright 119ms (cache miss)
+33 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-playwright set size:undefined disposed:false
+34 silly fetch manifest playwright@*
+35 silly packumentCache full:https://registry.npmjs.org/playwright cache-miss
+36 http cache https://registry.npmjs.org/playwright 57ms (cache hit)
+37 silly packumentCache full:https://registry.npmjs.org/playwright set size:16923752 disposed:false
+38 silly fetch manifest @vitest/browser-preview@4.1.12
+39 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-preview cache-miss
+40 http fetch GET 200 https://registry.npmjs.org/@vitest%2fbrowser-preview 85ms (cache miss)
+41 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-preview set size:undefined disposed:false
+42 silly fetch manifest @vitest/browser-webdriverio@^4.1.11
+43 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-webdriverio cache-miss
+44 http fetch GET 200 https://registry.npmjs.org/@vitest%2fbrowser-webdriverio 102ms (cache miss)
+45 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-webdriverio set size:undefined disposed:false
+46 silly fetch manifest vitest@4.1.11
+47 silly packumentCache full:https://registry.npmjs.org/vitest cache-miss
+48 http cache https://registry.npmjs.org/vitest 15ms (cache hit)
+49 silly packumentCache full:https://registry.npmjs.org/vitest set size:2297925 disposed:false
+50 silly fetch manifest @types/node@^20.0.0 || ^22.0.0 || >=24.0.0
+51 silly packumentCache full:https://registry.npmjs.org/@types%2fnode cache-miss
+52 http cache https://registry.npmjs.org/@types%2fnode 48ms (cache hit)
+53 silly packumentCache full:https://registry.npmjs.org/@types%2fnode set size:11180437 disposed:false
+54 silly fetch manifest @vitest/browser-playwright@4.1.11
+55 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-playwright cache-miss
+56 http cache https://registry.npmjs.org/@vitest%2fbrowser-playwright 6ms (cache hit)
+57 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-playwright set size:172080 disposed:false
+58 silly fetch manifest @vitest/browser-preview@4.1.11
+59 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-preview cache-miss
+60 http cache https://registry.npmjs.org/@vitest%2fbrowser-preview 5ms (cache hit)
+61 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-preview set size:164802 disposed:false
+62 silly fetch manifest @vitest/browser-webdriverio@4.1.11
+63 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-webdriverio cache-miss
+64 http cache https://registry.npmjs.org/@vitest%2fbrowser-webdriverio 4ms (cache hit)
+65 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-webdriverio set size:144024 disposed:false
+66 silly fetch manifest webdriverio@*
+67 silly packumentCache full:https://registry.npmjs.org/webdriverio cache-miss
+68 http cache https://registry.npmjs.org/webdriverio 13ms (cache hit)
+69 silly packumentCache full:https://registry.npmjs.org/webdriverio set size:3292000 disposed:false
+70 silly fetch manifest puppeteer-core@>=24 <26
+71 silly packumentCache full:https://registry.npmjs.org/puppeteer-core cache-miss
+72 http cache https://registry.npmjs.org/puppeteer-core 11ms (cache hit)
+73 silly packumentCache full:https://registry.npmjs.org/puppeteer-core set size:1603026 disposed:false
+74 silly fetch manifest @vitest/coverage-istanbul@4.1.11
+75 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-istanbul cache-miss
+76 http fetch GET 200 https://registry.npmjs.org/@vitest%2fcoverage-istanbul 152ms (cache miss)
+77 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-istanbul set size:undefined disposed:false
+78 silly fetch manifest @vitest/coverage-v8@4.1.11
+79 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-v8 cache-miss
+80 http fetch GET 200 https://registry.npmjs.org/@vitest%2fcoverage-v8 126ms (cache miss)
+81 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-v8 set size:undefined disposed:false
+82 silly fetch manifest @vitest/browser@4.1.11
+83 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser cache-miss
+84 http cache https://registry.npmjs.org/@vitest%2fbrowser 10ms (cache hit)
+85 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser set size:833008 disposed:false
+86 silly fetch manifest @vitest/ui@4.1.11
+87 silly packumentCache full:https://registry.npmjs.org/@vitest%2fui cache-miss
+88 http cache https://registry.npmjs.org/@vitest%2fui 9ms (cache hit)
+89 silly packumentCache full:https://registry.npmjs.org/@vitest%2fui set size:1319425 disposed:false
+90 silly fetch manifest happy-dom@*
+91 silly packumentCache full:https://registry.npmjs.org/happy-dom cache-miss
+92 http cache https://registry.npmjs.org/happy-dom 14ms (cache hit)
+93 silly packumentCache full:https://registry.npmjs.org/happy-dom set size:2570034 disposed:false
+94 silly fetch manifest jsdom@*
+95 silly packumentCache full:https://registry.npmjs.org/jsdom cache-miss
+96 http cache https://registry.npmjs.org/jsdom 13ms (cache hit)
+97 silly packumentCache full:https://registry.npmjs.org/jsdom set size:1093308 disposed:false
+98 silly fetch manifest canvas@^3.2.3
+99 silly packumentCache full:https://registry.npmjs.org/canvas cache-miss
+100 http cache https://registry.npmjs.org/canvas 7ms (cache hit)
+101 silly packumentCache full:https://registry.npmjs.org/canvas set size:353371 disposed:false
+102 silly fetch manifest @vitest/coverage-istanbul@4.1.12
+103 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-istanbul cache-miss
+104 http cache https://registry.npmjs.org/@vitest%2fcoverage-istanbul 9ms (cache hit)
+105 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-istanbul set size:728674 disposed:false
+106 silly fetch manifest @vitest/coverage-v8@4.1.12
+107 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-v8 cache-miss
+108 http cache https://registry.npmjs.org/@vitest%2fcoverage-v8 6ms (cache hit)
+109 silly packumentCache full:https://registry.npmjs.org/@vitest%2fcoverage-v8 set size:565107 disposed:false
+110 silly fetch manifest @vitest/browser@4.1.12
+111 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser cache-hit
+112 silly fetch manifest @vitest/ui@4.1.12
+113 silly packumentCache full:https://registry.npmjs.org/@vitest%2fui cache-miss
+114 http cache https://registry.npmjs.org/@vitest%2fui 9ms (cache hit)
+115 silly packumentCache full:https://registry.npmjs.org/@vitest%2fui set size:1319425 disposed:false
+116 silly placeDep ROOT vitest@4.1.12 REPLACE for: local-first-pdf-assistant@1.0.0 want: ^4.1.12
+117 silly fetch manifest obug@^2.1.1
+118 silly packumentCache full:https://registry.npmjs.org/obug cache-miss
+119 silly fetch manifest pathe@^2.0.3
+120 silly packumentCache full:https://registry.npmjs.org/pathe cache-miss
+121 silly fetch manifest std-env@^4.0.0-rc.1
+122 silly packumentCache full:https://registry.npmjs.org/std-env cache-miss
+123 silly fetch manifest tinyexec@^1.0.2
+124 silly packumentCache full:https://registry.npmjs.org/tinyexec cache-miss
+125 silly fetch manifest @vitest/spy@4.1.12
+126 silly packumentCache full:https://registry.npmjs.org/@vitest%2fspy cache-miss
+127 silly fetch manifest tinyrainbow@^3.1.0
+128 silly packumentCache full:https://registry.npmjs.org/tinyrainbow cache-miss
+129 silly fetch manifest magic-string@^0.30.21
+130 silly packumentCache full:https://registry.npmjs.org/magic-string cache-miss
+131 silly fetch manifest @vitest/utils@4.1.12
+132 silly packumentCache full:https://registry.npmjs.org/@vitest%2futils cache-miss
+133 silly fetch manifest @vitest/expect@4.1.12
+134 silly packumentCache full:https://registry.npmjs.org/@vitest%2fexpect cache-miss
+135 silly fetch manifest @vitest/mocker@4.1.12
+136 silly packumentCache full:https://registry.npmjs.org/@vitest%2fmocker cache-miss
+137 silly fetch manifest @vitest/runner@4.1.12
+138 silly packumentCache full:https://registry.npmjs.org/@vitest%2frunner cache-miss
+139 silly fetch manifest es-module-lexer@^2.0.0
+140 silly packumentCache full:https://registry.npmjs.org/es-module-lexer cache-miss
+141 silly fetch manifest @vitest/snapshot@4.1.12
+142 silly packumentCache full:https://registry.npmjs.org/@vitest%2fsnapshot cache-miss
+143 silly fetch manifest @vitest/pretty-format@4.1.12
+144 silly packumentCache full:https://registry.npmjs.org/@vitest%2fpretty-format cache-miss
+145 http cache https://registry.npmjs.org/@vitest%2fmocker 64ms (cache hit)
+146 silly packumentCache full:https://registry.npmjs.org/@vitest%2fmocker set size:378316 disposed:false
+147 http fetch GET 200 https://registry.npmjs.org/tinyrainbow 193ms (cache revalidated)
+148 silly packumentCache full:https://registry.npmjs.org/tinyrainbow set size:33211 disposed:false
+149 http fetch GET 200 https://registry.npmjs.org/@vitest%2futils 194ms (cache revalidated)
+150 silly packumentCache full:https://registry.npmjs.org/@vitest%2futils set size:631961 disposed:false
+151 http fetch GET 200 https://registry.npmjs.org/tinyexec 266ms (cache revalidated)
+152 silly packumentCache full:https://registry.npmjs.org/tinyexec set size:68252 disposed:false
+153 http fetch GET 200 https://registry.npmjs.org/@vitest%2fpretty-format 263ms (cache revalidated)
+154 silly packumentCache full:https://registry.npmjs.org/@vitest%2fpretty-format set size:315358 disposed:false
+155 http fetch GET 200 https://registry.npmjs.org/magic-string 272ms (cache revalidated)
+156 silly packumentCache full:https://registry.npmjs.org/magic-string set size:371658 disposed:false
+157 http fetch GET 200 https://registry.npmjs.org/pathe 277ms (cache revalidated)
+158 silly packumentCache full:https://registry.npmjs.org/pathe set size:68788 disposed:false
+159 http fetch GET 200 https://registry.npmjs.org/@vitest%2frunner 276ms (cache revalidated)
+160 silly packumentCache full:https://registry.npmjs.org/@vitest%2frunner set size:470591 disposed:false
+161 http fetch GET 200 https://registry.npmjs.org/std-env 284ms (cache revalidated)
+162 silly packumentCache full:https://registry.npmjs.org/std-env set size:92527 disposed:false
+163 http fetch GET 200 https://registry.npmjs.org/@vitest%2fexpect 284ms (cache revalidated)
+164 silly packumentCache full:https://registry.npmjs.org/@vitest%2fexpect set size:516222 disposed:false
+165 http fetch GET 200 https://registry.npmjs.org/es-module-lexer 285ms (cache revalidated)
+166 silly packumentCache full:https://registry.npmjs.org/es-module-lexer set size:235276 disposed:false
+167 http fetch GET 200 https://registry.npmjs.org/obug 323ms (cache miss)
+168 silly packumentCache full:https://registry.npmjs.org/obug set size:undefined disposed:false
+169 http fetch GET 200 https://registry.npmjs.org/@vitest%2fsnapshot 500ms (cache revalidated)
+170 silly packumentCache full:https://registry.npmjs.org/@vitest%2fsnapshot set size:493907 disposed:false
+171 http fetch GET 200 https://registry.npmjs.org/@vitest%2fspy 512ms (cache revalidated)
+172 silly packumentCache full:https://registry.npmjs.org/@vitest%2fspy set size:478214 disposed:false
+173 silly fetch manifest msw@^2.4.9
+174 silly packumentCache full:https://registry.npmjs.org/msw cache-miss
+175 http cache https://registry.npmjs.org/msw 13ms (cache hit)
+176 silly packumentCache full:https://registry.npmjs.org/msw set size:2061097 disposed:false
+177 silly fetch manifest typescript@>= 4.8.x
+178 silly packumentCache full:https://registry.npmjs.org/typescript cache-miss
+179 http cache https://registry.npmjs.org/typescript 120ms (cache hit)
+180 silly packumentCache full:https://registry.npmjs.org/typescript set size:15832105 disposed:false
+181 silly fetch manifest vite@^6.0.0 || ^7.0.0 || ^8.0.0
+182 silly packumentCache full:https://registry.npmjs.org/vite cache-miss
+183 http cache https://registry.npmjs.org/vite 1934ms (cache hit)
+184 silly packumentCache full:https://registry.npmjs.org/vite set size:38999531 disposed:false
+185 silly fetch manifest @vitejs/devtools@^0.7.1 || ^0.8.0
+186 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools cache-miss
+187 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fdevtools 106ms (cache miss)
+188 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools set size:undefined disposed:false
+189 silly fetch manifest @vitejs/devtools-oxc@^0.8.0
+190 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-oxc cache-miss
+191 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fdevtools-oxc 63ms (cache miss)
+192 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-oxc set size:undefined disposed:false
+193 silly fetch manifest @vitejs/devtools-rolldown@^0.8.0
+194 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-rolldown cache-miss
+195 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fdevtools-rolldown 144ms (cache miss)
+196 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-rolldown set size:undefined disposed:false
+197 silly fetch manifest @vitejs/devtools-vite@^0.8.0
+198 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-vite cache-miss
+199 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fdevtools-vite 84ms (cache miss)
+200 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-vite set size:undefined disposed:false
+201 silly fetch manifest @vitejs/devtools-vitest@^0.8.0
+202 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-vitest cache-miss
+203 http fetch GET 200 https://registry.npmjs.org/@vitejs%2fdevtools-vitest 72ms (cache miss)
+204 silly packumentCache full:https://registry.npmjs.org/@vitejs%2fdevtools-vitest set size:undefined disposed:false
+205 silly fetch manifest vitest@*
+206 silly packumentCache full:https://registry.npmjs.org/vitest cache-miss
+207 http cache https://registry.npmjs.org/vitest 20ms (cache hit)
+208 silly packumentCache full:https://registry.npmjs.org/vitest set size:2297925 disposed:false
+209 silly fetch manifest @vitest/browser-playwright@5.0.5
+210 silly packumentCache full:https://registry.npmjs.org/@vitest%2fbrowser-playwright cache-hit
+211 silly fetch manifest vitest@4.1.12
+212 silly packumentCache full:https://registry.npmjs.org/vitest cache-miss
+213 http cache https://registry.npmjs.org/vitest 18ms (cache hit)
+214 silly packumentCache full:https://registry.npmjs.org/vitest set size:2297925 disposed:false
+215 silly fetch manifest esbuild@^0.27.0 || ^0.28.0
+216 silly packumentCache full:https://registry.npmjs.org/esbuild cache-miss
+217 http cache https://registry.npmjs.org/esbuild 11ms (cache hit)
+218 silly packumentCache full:https://registry.npmjs.org/esbuild set size:1264676 disposed:false
+219 silly fetch manifest jiti@>=1.21.0
+220 silly packumentCache full:https://registry.npmjs.org/jiti cache-miss
+221 http fetch GET 200 https://registry.npmjs.org/jiti 101ms (cache revalidated)
+222 silly packumentCache full:https://registry.npmjs.org/jiti set size:387989 disposed:false
+223 silly fetch manifest less@^4.0.0
+224 silly packumentCache full:https://registry.npmjs.org/less cache-miss
+225 http cache https://registry.npmjs.org/less 10ms (cache hit)
+226 silly packumentCache full:https://registry.npmjs.org/less set size:583440 disposed:false
+227 silly fetch manifest sass@^1.70.0
+228 silly packumentCache full:https://registry.npmjs.org/sass cache-miss
+229 http cache https://registry.npmjs.org/sass 11ms (cache hit)
+230 silly packumentCache full:https://registry.npmjs.org/sass set size:763608 disposed:false
+231 silly fetch manifest sass-embedded@^1.70.0
+232 silly packumentCache full:https://registry.npmjs.org/sass-embedded cache-miss
+233 http cache https://registry.npmjs.org/sass-embedded 9ms (cache hit)
+234 silly packumentCache full:https://registry.npmjs.org/sass-embedded set size:458913 disposed:false
+235 silly fetch manifest stylus@>=0.54.8
+236 silly packumentCache full:https://registry.npmjs.org/stylus cache-miss
+237 http cache https://registry.npmjs.org/stylus 10ms (cache hit)
+238 silly packumentCache full:https://registry.npmjs.org/stylus set size:286766 disposed:false
+239 silly fetch manifest sugarss@^5.0.0
+240 silly packumentCache full:https://registry.npmjs.org/sugarss cache-miss
+241 http cache https://registry.npmjs.org/sugarss 12ms (cache hit)
+242 silly packumentCache full:https://registry.npmjs.org/sugarss set size:47036 disposed:false
+243 silly fetch manifest postcss@^8.3.3
+244 silly packumentCache full:https://registry.npmjs.org/postcss cache-miss
+245 http cache https://registry.npmjs.org/postcss 14ms (cache hit)
+246 silly packumentCache full:https://registry.npmjs.org/postcss set size:776700 disposed:false
+247 silly fetch manifest terser@^5.16.0
+248 silly packumentCache full:https://registry.npmjs.org/terser cache-miss
+249 http cache https://registry.npmjs.org/terser 9ms (cache hit)
+250 silly packumentCache full:https://registry.npmjs.org/terser set size:827672 disposed:false
+251 silly fetch manifest tsx@^4.8.1
+252 silly packumentCache full:https://registry.npmjs.org/tsx cache-miss
+253 http fetch GET 200 https://registry.npmjs.org/tsx 68ms (cache revalidated)
+254 silly packumentCache full:https://registry.npmjs.org/tsx set size:349770 disposed:false
+255 silly fetch manifest yaml@^2.4.2
+256 silly packumentCache full:https://registry.npmjs.org/yaml cache-miss
+257 http fetch GET 200 https://registry.npmjs.org/yaml 70ms (cache revalidated)
+258 silly packumentCache full:https://registry.npmjs.org/yaml set size:386415 disposed:false
+259 silly placeDep ROOT @vitest/expect@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+260 silly placeDep ROOT @vitest/mocker@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+261 silly placeDep ROOT @vitest/pretty-format@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+262 silly placeDep ROOT @vitest/runner@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+263 silly placeDep ROOT @vitest/snapshot@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+264 silly placeDep ROOT @vitest/spy@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+265 silly placeDep ROOT @vitest/utils@4.1.12 OK for: vitest@4.1.12 want: 4.1.12
+266 silly placeDep node_modules/vitest es-module-lexer@2.3.2 OK for: vitest@4.1.12 want: ^2.0.0
+267 silly placeDep ROOT magic-string@0.30.21 OK for: vitest@4.1.12 want: ^0.30.21
+268 silly placeDep ROOT obug@2.2.1 OK for: vitest@4.1.12 want: ^2.1.1
+269 silly placeDep ROOT pathe@2.0.3 OK for: vitest@4.1.12 want: ^2.0.3
+270 silly placeDep ROOT std-env@4.3.0 OK for: vitest@4.1.12 want: ^4.0.0-rc.1
+271 silly placeDep ROOT tinyexec@1.3.1 OK for: vitest@4.1.12 want: ^1.0.2
+272 silly placeDep ROOT tinyrainbow@3.2.0 OK for: vitest@4.1.12 want: ^3.1.0
+273 silly fetch manifest chai@^6.2.2
+274 silly packumentCache full:https://registry.npmjs.org/chai cache-miss
+275 silly fetch manifest @types/chai@^5.2.2
+276 silly packumentCache full:https://registry.npmjs.org/@types%2fchai cache-miss
+277 silly fetch manifest @standard-schema/spec@^1.1.0
+278 silly packumentCache full:https://registry.npmjs.org/@standard-schema%2fspec cache-miss
+279 silly fetch manifest estree-walker@^3.0.3
+280 silly packumentCache full:https://registry.npmjs.org/estree-walker cache-miss
+281 silly fetch manifest convert-source-map@^2.0.0
+282 silly packumentCache full:https://registry.npmjs.org/convert-source-map cache-miss
+283 silly fetch manifest @jridgewell/sourcemap-codec@^1.5.5
+284 silly packumentCache full:https://registry.npmjs.org/@jridgewell%2fsourcemap-codec cache-miss
+285 http fetch GET 200 https://registry.npmjs.org/chai 61ms (cache revalidated)
+286 silly packumentCache full:https://registry.npmjs.org/chai set size:235612 disposed:false
+287 http fetch GET 200 https://registry.npmjs.org/convert-source-map 64ms (cache revalidated)
+288 silly packumentCache full:https://registry.npmjs.org/convert-source-map set size:66997 disposed:false
+289 http fetch GET 200 https://registry.npmjs.org/@jridgewell%2fsourcemap-codec 66ms (cache revalidated)
+290 silly packumentCache full:https://registry.npmjs.org/@jridgewell%2fsourcemap-codec set size:65255 disposed:false
+291 http fetch GET 200 https://registry.npmjs.org/@standard-schema%2fspec 75ms (cache miss)
+292 silly packumentCache full:https://registry.npmjs.org/@standard-schema%2fspec set size:undefined disposed:false
+293 http fetch GET 200 https://registry.npmjs.org/estree-walker 88ms (cache revalidated)
+294 silly packumentCache full:https://registry.npmjs.org/estree-walker set size:60887 disposed:false
+295 http fetch GET 200 https://registry.npmjs.org/@types%2fchai 97ms (cache miss)
+296 silly packumentCache full:https://registry.npmjs.org/@types%2fchai set size:undefined disposed:false
+297 silly placeDep ROOT @standard-schema/spec@1.1.0 OK for: @vitest/expect@4.1.12 want: ^1.1.0
+298 silly placeDep ROOT @types/chai@5.2.3 OK for: @vitest/expect@4.1.12 want: ^5.2.2
+299 silly placeDep ROOT chai@6.3.0 OK for: @vitest/expect@4.1.12 want: ^6.2.2
+300 silly fetch manifest @types/deep-eql@*
+301 silly packumentCache full:https://registry.npmjs.org/@types%2fdeep-eql cache-miss
+302 silly fetch manifest assertion-error@^2.0.1
+303 silly packumentCache full:https://registry.npmjs.org/assertion-error cache-miss
+304 http fetch GET 200 https://registry.npmjs.org/assertion-error 79ms (cache revalidated)
+305 silly packumentCache full:https://registry.npmjs.org/assertion-error set size:14438 disposed:false
+306 http fetch GET 200 https://registry.npmjs.org/@types%2fdeep-eql 83ms (cache miss)
+307 silly packumentCache full:https://registry.npmjs.org/@types%2fdeep-eql set size:undefined disposed:false
+308 silly placeDep ROOT @types/deep-eql@4.0.2 OK for: @types/chai@5.2.3 want: *
+309 silly placeDep ROOT assertion-error@2.0.1 OK for: @types/chai@5.2.3 want: ^2.0.1
+310 silly placeDep node_modules/@vitest/mocker estree-walker@3.0.3 OK for: @vitest/mocker@4.1.12 want: ^3.0.3
+311 silly placeDep ROOT convert-source-map@2.0.0 OK for: @vitest/utils@4.1.12 want: ^2.0.0
+312 silly placeDep ROOT @jridgewell/sourcemap-codec@1.6.0 OK for: magic-string@0.30.21 want: ^1.5.5
+313 silly reify mark retired [
+313 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\format'
+313 silly reify ]
+314 silly reify mark retired [
+314 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\node-utils'
+314 silly reify ]
+315 silly reify mark retired [
+315 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\ponyfill'
+315 silly reify ]
+316 silly reify mark retired [
+316 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\primitives'
+316 silly reify ]
+317 silly reify mark retired [
+317 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\vm'
+317 silly reify ]
+318 silly reify mark retired [
+318 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@esbuild\\win32-x64'
+318 silly reify ]
+319 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@fastify\\busboy' ]
+320 silly reify mark retired [
+320 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@isaacs\\fs-minipass'
+320 silly reify ]
+321 silly reify mark retired [
+321 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@mapbox\\node-pre-gyp',
+321 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-pre-gyp',
+321 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-pre-gyp.cmd',
+321 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-pre-gyp.ps1'
+321 silly reify ]
+322 silly reify mark retired [
+322 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\fs.scandir'
+322 silly reify ]
+323 silly reify mark retired [
+323 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\fs.stat'
+323 silly reify ]
+324 silly reify mark retired [
+324 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\fs.walk'
+324 silly reify ]
+325 silly reify mark retired [
+325 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@rollup\\pluginutils'
+325 silly reify ]
+326 silly reify mark retired [
+326 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@ts-morph\\common'
+326 silly reify ]
+327 silly reify mark retired [
+327 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@types\\json-schema'
+327 silly reify ]
+328 silly reify mark retired [
+328 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\build-utils'
+328 silly reify ]
+329 silly reify mark retired [
+329 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\error-utils'
+329 silly reify ]
+330 silly reify mark retired [
+330 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\nft',
+330 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nft',
+330 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nft.cmd',
+330 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nft.ps1'
+330 silly reify ]
+331 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\node' ]
+332 silly reify mark retired [
+332 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\static-config'
+332 silly reify ]
+333 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\expect' ]
+334 silly reify mark retired [
+334 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\pretty-format'
+334 silly reify ]
+335 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\runner' ]
+336 silly reify mark retired [
+336 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\snapshot'
+336 silly reify ]
+337 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\spy' ]
+338 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\utils' ]
+339 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\abbrev' ]
+340 silly reify mark retired [
+340 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\acorn',
+340 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\acorn',
+340 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\acorn.cmd',
+340 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\acorn.ps1'
+340 silly reify ]
+341 silly reify mark retired [
+341 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\acorn-import-attributes'
+341 silly reify ]
+342 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\agent-base' ]
+343 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ajv' ]
+344 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\async-listen' ]
+345 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\async-sema' ]
+346 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\balanced-match' ]
+347 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\bindings' ]
+348 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\brace-expansion' ]
+349 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\braces' ]
+350 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\cac' ]
+351 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\chai' ]
+352 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\check-error' ]
+353 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\chownr' ]
+354 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\cjs-module-lexer' ]
+355 silly reify mark retired [
+355 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\code-block-writer'
+355 silly reify ]
+356 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\concat-map' ]
+357 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\consola' ]
+358 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\convert-hrtime' ]
+359 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\debug' ]
+360 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\deep-eql' ]
+361 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\detect-libc' ]
+362 silly reify mark retired [
+362 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\edge-runtime',
+362 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\edge-runtime',
+362 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\edge-runtime.cmd',
+362 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\edge-runtime.ps1'
+362 silly reify ]
+363 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\es-module-lexer' ]
+364 silly reify mark retired [
+364 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\esbuild',
+364 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\esbuild',
+364 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\esbuild.cmd',
+364 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\esbuild.ps1'
+364 silly reify ]
+365 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\estree-walker' ]
+366 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\etag' ]
+367 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fast-deep-equal' ]
+368 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fast-glob' ]
+369 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fastq' ]
+370 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\file-uri-to-path' ]
+371 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fill-range' ]
+372 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\get-tsconfig' ]
+373 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\glob' ]
+374 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\glob-parent' ]
+375 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\graceful-fs' ]
+376 silly reify mark retired [
+376 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\https-proxy-agent'
+376 silly reify ]
+377 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\is-extglob' ]
+378 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\is-glob' ]
+379 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\is-number' ]
+380 silly reify mark retired [
+380 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\json-schema-to-ts'
+380 silly reify ]
+381 silly reify mark retired [
+381 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\json-schema-traverse'
+381 silly reify ]
+382 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\loupe' ]
+383 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\merge2' ]
+384 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\micromatch' ]
+385 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mime-db' ]
+386 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mime-types' ]
+387 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\minimatch' ]
+388 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\minipass' ]
+389 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\minizlib' ]
+390 silly reify mark retired [
+390 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mkdirp',
+390 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\mkdirp',
+390 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\mkdirp.cmd',
+390 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\mkdirp.ps1'
+390 silly reify ]
+391 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mri' ]
+392 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ms' ]
+393 silly reify mark retired [
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\node-gyp-build',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build.cmd',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build.ps1',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-optional',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-optional.cmd',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-optional.ps1',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-test',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-test.cmd',
+393 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-test.ps1'
+393 silly reify ]
+394 silly reify mark retired [
+394 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\nopt',
+394 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nopt',
+394 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nopt.cmd',
+394 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nopt.ps1'
+394 silly reify ]
+395 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\parse-ms' ]
+396 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-browserify' ]
+397 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-scurry' ]
+398 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-to-regexp' ]
+399 silly reify mark retired [
+399 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-to-regexp-updated'
+399 silly reify ]
+400 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\pathe' ]
+401 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\pathval' ]
+402 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\pretty-ms' ]
+403 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\punycode' ]
+404 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\queue-microtask' ]
+405 silly reify mark retired [
+405 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\require-from-string'
+405 silly reify ]
+406 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\resolve-from' ]
+407 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\resolve-pkg-maps' ]
+408 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\reusify' ]
+409 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\run-parallel' ]
+410 silly reify mark retired [
+410 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\semver',
+410 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\semver',
+410 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\semver.cmd',
+410 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\semver.ps1'
+410 silly reify ]
+411 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\signal-exit' ]
+412 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\std-env' ]
+413 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tar' ]
+414 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\time-span' ]
+415 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinyexec' ]
+416 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinypool' ]
+417 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinyrainbow' ]
+418 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinyspy' ]
+419 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\to-regex-range' ]
+420 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ts-morph' ]
+421 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ts-toolbelt' ]
+422 silly reify mark retired [
+422 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tsx',
+422 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\tsx',
+422 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\tsx.cmd',
+422 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\tsx.ps1'
+422 silly reify ]
+423 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\undici' ]
+424 silly reify mark retired [ 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\uri-js' ]
+425 silly reify mark retired [
+425 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\vite-node',
+425 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vite-node',
+425 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vite-node.cmd',
+425 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vite-node.ps1'
+425 silly reify ]
+426 silly reify mark retired [
+426 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\vitest',
+426 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vitest',
+426 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vitest.cmd',
+426 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vitest.ps1'
+426 silly reify ]
+427 silly reify moves {
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\format': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\.format-pgL97Z6T',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\node-utils': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\.node-utils-g8YfgkKH',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\ponyfill': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\.ponyfill-IrKrGUMD',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\primitives': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\.primitives-GYcqGUWQ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\vm': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@edge-runtime\\.vm-3YfMVL5w',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@esbuild\\win32-x64': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@esbuild\\.win32-x64-Wv3Tp0vf',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@fastify\\busboy': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@fastify\\.busboy-0PMlQAm1',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@isaacs\\fs-minipass': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@isaacs\\.fs-minipass-b1K9fm1k',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@mapbox\\node-pre-gyp': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@mapbox\\.node-pre-gyp-3CLErSd5',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-pre-gyp': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-pre-gyp-lY7RqOIy',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-pre-gyp.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-pre-gyp.cmd-G08V13WW',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-pre-gyp.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-pre-gyp.ps1-gFykAh1L',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\fs.scandir': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\.fs.scandir-ixBBWKce',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\fs.stat': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\.fs.stat-pNXphWnM',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\fs.walk': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@nodelib\\.fs.walk-FWdMRwYo',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@rollup\\pluginutils': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@rollup\\.pluginutils-YFDR7TRs',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@ts-morph\\common': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@ts-morph\\.common-emU3UYlE',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@types\\json-schema': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@types\\.json-schema-9hGxKcoe',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\build-utils': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\.build-utils-BLOffIP8',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\error-utils': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\.error-utils-lHtnGomI',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\nft': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\.nft-roPmftgL',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nft': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.nft-K9ocTJ3P',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nft.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.nft.cmd-YtZy8rVm',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nft.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.nft.ps1-qz1kESEC',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\node': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\.node-EdyMKcyZ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\static-config': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vercel\\.static-config-Rx495fPV',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\expect': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\.expect-OWeZvnME',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\pretty-format': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\.pretty-format-x3oDtyuC',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\runner': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\.runner-3QddPl4B',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\snapshot': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\.snapshot-0XpwEM4F',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\spy': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\.spy-vCNsFMbv',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\utils': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\@vitest\\.utils-kSHfWkUu',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\abbrev': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.abbrev-O83D9fJ0',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\acorn': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.acorn-NeO59ANW',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\acorn': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.acorn-eQH3GkJA',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\acorn.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.acorn.cmd-bGICdMRf',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\acorn.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.acorn.ps1-fjPAH8Ho',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\acorn-import-attributes': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.acorn-import-attributes-Rax2ppFI',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\agent-base': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.agent-base-bCPdWEc4',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ajv': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.ajv-XCCoIbDW',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\async-listen': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.async-listen-bMr07eN5',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\async-sema': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.async-sema-Ub68A8QO',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\balanced-match': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.balanced-match-0yN84TVN',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\bindings': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bindings-iqprZgSi',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\brace-expansion': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.brace-expansion-GaRh6Y3c',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\braces': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.braces-npLAnvun',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\cac': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.cac-N8v3t7u6',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\chai': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.chai-39v46Gyp',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\check-error': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.check-error-oYtsGNui',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\chownr': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.chownr-RdsobzPv',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\cjs-module-lexer': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.cjs-module-lexer-nUkCgcFc',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\code-block-writer': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.code-block-writer-adwgCSEF',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\concat-map': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.concat-map-JPUxxvyF',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\consola': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.consola-L2oZN8Vz',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\convert-hrtime': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.convert-hrtime-MPyuhEBQ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\debug': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.debug-IRB5jSMI',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\deep-eql': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.deep-eql-qhy41FUP',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\detect-libc': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.detect-libc-CXPPJxBo',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\edge-runtime': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.edge-runtime-3MMU8few',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\edge-runtime': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.edge-runtime-Spxv5NdI',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\edge-runtime.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.edge-runtime.cmd-JaAR2nYI',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\edge-runtime.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.edge-runtime.ps1-5JrqW8WO',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\es-module-lexer': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.es-module-lexer-4xwFN9f2',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\esbuild': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.esbuild-GuJAdBDd',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\esbuild': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.esbuild-2pj8PXwy',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\esbuild.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.esbuild.cmd-jz5nekQG',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\esbuild.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.esbuild.ps1-pXEdbyW3',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\estree-walker': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.estree-walker-KxdYs6vn',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\etag': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.etag-Tq2YpuS5',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fast-deep-equal': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.fast-deep-equal-fdJ0coKB',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fast-glob': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.fast-glob-Cm40J73R',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fastq': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.fastq-2em5EIz8',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\file-uri-to-path': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.file-uri-to-path-9iLgaWTo',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\fill-range': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.fill-range-AIVMBtL1',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\get-tsconfig': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.get-tsconfig-KEObXGNT',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\glob': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.glob-qEblFzn9',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\glob-parent': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.glob-parent-LirAK0BI',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\graceful-fs': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.graceful-fs-KtCbIpvr',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\https-proxy-agent': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.https-proxy-agent-ZupWjXFS',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\is-extglob': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.is-extglob-iCqL1AuY',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\is-glob': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.is-glob-W5N4qJap',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\is-number': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.is-number-0q2SnWBH',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\json-schema-to-ts': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.json-schema-to-ts-IPvDGh1Y',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\json-schema-traverse': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.json-schema-traverse-IFme35tG',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\loupe': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.loupe-lLAL14NC',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\merge2': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.merge2-f94Fz2wK',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\micromatch': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.micromatch-8QKzEZ2x',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mime-db': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.mime-db-hqciI7ul',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mime-types': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.mime-types-rRWVrokc',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\minimatch': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.minimatch-ZeGSldaK',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\minipass': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.minipass-mkbQmsuP',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\minizlib': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.minizlib-JhLccwqn',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mkdirp': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.mkdirp-3RTIZFdm',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\mkdirp': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.mkdirp-lCxINe8l',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\mkdirp.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.mkdirp.cmd-outCZKdF',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\mkdirp.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.mkdirp.ps1-IgUj6SFP',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\mri': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.mri-TXgSLWL0',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ms': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.ms-9NZKH0RD',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\node-gyp-build': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.node-gyp-build-qYuIxDEx',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-3g9VfAV9',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build.cmd-wn92Px0a',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build.ps1-xGFeB4uc',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-optional': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-optional-oSKKXZHW',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-optional.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-optional.cmd-wtaSSqgV',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-optional.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-optional.ps1-lk4avC3a',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-test': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-test-PfVEJ0hX',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-test.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-test.cmd-j0hWGvbN',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\node-gyp-build-test.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.node-gyp-build-test.ps1-GCWazORK',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\nopt': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.nopt-Qexcjn9b',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nopt': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.nopt-miAu5ivb',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nopt.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.nopt.cmd-JUji7bPU',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\nopt.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.nopt.ps1-zR0sVgkW',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\parse-ms': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.parse-ms-ufaTuwa2',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-browserify': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.path-browserify-yZaNga0B',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-scurry': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.path-scurry-HHkmUuo9',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-to-regexp': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.path-to-regexp-uzm9MDOV',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\path-to-regexp-updated': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.path-to-regexp-updated-7hk3I2iR',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\pathe': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.pathe-flwNjGjr',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\pathval': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.pathval-p9WvceLN',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\pretty-ms': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.pretty-ms-2NkdJfju',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\punycode': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.punycode-Mlu8pqwJ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\queue-microtask': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.queue-microtask-aTUQeCdW',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\require-from-string': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.require-from-string-9nYb2waJ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\resolve-from': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.resolve-from-cYlxHgFG',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\resolve-pkg-maps': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.resolve-pkg-maps-E1nN13Kh',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\reusify': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.reusify-DFmQ4w8N',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\run-parallel': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.run-parallel-D8th3hAX',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\semver': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.semver-SWSq3x9m',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\semver': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.semver-yNQrZ9CC',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\semver.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.semver.cmd-6x5OUGHs',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\semver.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.semver.ps1-aVVJf3Co',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\signal-exit': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.signal-exit-D8eECerJ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\std-env': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.std-env-Pgn9OXPh',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tar': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.tar-CHWdu7rx',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\time-span': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.time-span-9mkRF5cV',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinyexec': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.tinyexec-MkmhZYOn',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinypool': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.tinypool-nBVBxXv7',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinyrainbow': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.tinyrainbow-mCJzj1IF',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tinyspy': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.tinyspy-e6JSXYVp',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\to-regex-range': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.to-regex-range-Jdim0lTG',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ts-morph': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.ts-morph-0YUNvBYj',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\ts-toolbelt': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.ts-toolbelt-RsYXh7rS',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\tsx': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.tsx-TOOVhOYK',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\tsx': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.tsx-gFr1WGQl',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\tsx.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.tsx.cmd-HLHJcOtQ',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\tsx.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.tsx.ps1-0Gc7XcIY',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\undici': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.undici-nUZiWDBj',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\uri-js': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.uri-js-Xj6HsdiP',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\vite-node': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.vite-node-88NiaPdT',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vite-node': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.vite-node-t1m77S81',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vite-node.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.vite-node.cmd-PClfVZxy',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vite-node.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.vite-node.ps1-UTVXoZ03',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\vitest': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.vitest-smXzHYMj',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vitest': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.vitest-S8hJ6bNw',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vitest.cmd': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.vitest.cmd-TuKW5xRq',
+427 silly reify   'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\vitest.ps1': 'C:\\Users\\sshub\\Videos\\ChatBot\\node_modules\\.bin\\.vitest.ps1-SB5nlsvT'
+427 silly reify }
+428 silly audit bulk request {
+428 silly audit   '@esbuild/aix-ppc64': [ '0.25.12' ],
+428 silly audit   '@esbuild/android-arm': [ '0.25.12' ],
+428 silly audit   '@esbuild/android-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/android-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/darwin-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/darwin-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/freebsd-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/freebsd-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-arm': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-ia32': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-loong64': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-mips64el': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-ppc64': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-riscv64': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-s390x': [ '0.25.12' ],
+428 silly audit   '@esbuild/linux-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/netbsd-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/netbsd-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/openbsd-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/openbsd-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/openharmony-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/sunos-x64': [ '0.25.12' ],
+428 silly audit   '@esbuild/win32-arm64': [ '0.25.12' ],
+428 silly audit   '@esbuild/win32-ia32': [ '0.25.12' ],
+428 silly audit   '@esbuild/win32-x64': [ '0.25.12' ],
+428 silly audit   '@mlc-ai/web-llm': [ '0.2.86' ],
+428 silly audit   '@napi-rs/canvas': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-android-arm64': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-darwin-arm64': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-darwin-x64': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-linux-arm-gnueabihf': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-linux-arm64-gnu': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-linux-arm64-musl': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-linux-riscv64-gnu': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-linux-x64-gnu': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-linux-x64-musl': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-win32-arm64-msvc': [ '0.1.100' ],
+428 silly audit   '@napi-rs/canvas-win32-x64-msvc': [ '0.1.100' ],
+428 silly audit   '@napi-rs/lzma-linux-x64-gnu': [ '1.5.1' ],
+428 silly audit   '@rollup/rollup-android-arm-eabi': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-android-arm64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-darwin-arm64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-darwin-x64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-freebsd-arm64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-freebsd-x64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-arm-gnueabihf': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-arm-musleabihf': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-arm64-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-arm64-musl': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-loong64-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-loong64-musl': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-ppc64-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-ppc64-musl': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-riscv64-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-riscv64-musl': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-s390x-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-x64-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-linux-x64-musl': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-openbsd-x64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-openharmony-arm64': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-win32-arm64-msvc': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-win32-ia32-msvc': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-win32-x64-gnu': [ '4.64.12' ],
+428 silly audit   '@rollup/rollup-win32-x64-msvc': [ '4.64.12' ],
+428 silly audit   '@types/estree': [ '1.0.9' ],
+428 silly audit   '@types/node': [ '22.20.5' ],
+428 silly audit   '@types/prop-types': [ '15.7.15' ],
+428 silly audit   '@types/react': [ '18.3.31' ],
+428 silly audit   '@types/react-dom': [ '18.3.7' ],
+428 silly audit   '@upstash/redis': [ '1.39.0' ],
+428 silly audit   'es-module-lexer': [ '2.3.2' ],
+428 silly audit   typescript: [ '5.7.3' ],
+428 silly audit   'undici-types': [ '6.21.0' ],
+428 silly audit   'bmp-js': [ '0.1.0' ],
+428 silly audit   csstype: [ '3.2.3' ],
+428 silly audit   picocolors: [ '1.1.1' ],
+428 silly audit   esbuild: [ '0.25.12' ],
+428 silly audit   'estree-walker': [ '3.0.3' ],
+428 silly audit   'expect-type': [ '1.4.0' ],
+428 silly audit   'fake-indexeddb': [ '6.2.6' ],
+428 silly audit   fdir: [ '6.5.0' ],
+428 silly audit   fsevents: [ '2.3.3' ],
+428 silly audit   'idb-keyval': [ '6.3.0' ],
+428 silly audit   'is-url': [ '1.2.4' ],
+428 silly audit   'js-tokens': [ '4.0.0' ],
+428 silly audit   loglevel: [ '1.9.2' ],
+428 silly audit   'loose-envify': [ '1.4.0' ],
+428 silly audit   'lucide-react': [ '0.468.0' ],
+428 silly audit   picomatch: [ '4.0.7' ],
+428 silly audit   nanoid: [ '3.3.20' ],
+428 silly audit   'node-fetch': [ '2.6.9' ],
+428 silly audit   'opencollective-postinstall': [ '2.0.3' ],
+428 silly audit   'pdfjs-dist': [ '4.10.38' ],
+428 silly audit   postcss: [ '8.5.31' ],
+428 silly audit   react: [ '18.3.1' ],
+428 silly audit   'react-dom': [ '18.3.1' ],
+428 silly audit   'regenerator-runtime': [ '0.13.11' ],
+428 silly audit   rollup: [ '4.64.12' ],
+428 silly audit   scheduler: [ '0.23.2' ],
+428 silly audit   siginfo: [ '2.0.0' ],
+428 silly audit   'source-map-js': [ '1.2.2' ],
+428 silly audit   stackback: [ '0.0.2' ],
+428 silly audit   'tesseract.js': [ '6.0.1' ],
+428 silly audit   'tesseract.js-core': [ '6.1.2' ],
+428 silly audit   tinybench: [ '2.9.0' ],
+428 silly audit   tinyglobby: [ '0.2.17' ],
+428 silly audit   tr46: [ '0.0.3' ],
+428 silly audit   uncrypto: [ '0.1.3' ],
+428 silly audit   vite: [ '6.4.5' ],
+428 silly audit   'wasm-feature-detect': [ '1.9.0' ],
+428 silly audit   'webidl-conversions': [ '3.0.1' ],
+428 silly audit   'whatwg-url': [ '5.0.0' ],
+428 silly audit   'why-is-node-running': [ '2.3.0' ],
+428 silly audit   zlibjs: [ '0.3.1' ],
+428 silly audit   vitest: [ '4.1.12' ],
+428 silly audit   '@vitest/expect': [ '4.1.12' ],
+428 silly audit   '@vitest/mocker': [ '4.1.12' ],
+428 silly audit   '@vitest/pretty-format': [ '4.1.12' ],
+428 silly audit   '@vitest/runner': [ '4.1.12' ],
+428 silly audit   '@vitest/snapshot': [ '4.1.12' ],
+428 silly audit   '@vitest/spy': [ '4.1.12' ],
+428 silly audit   '@vitest/utils': [ '4.1.12' ],
+428 silly audit   'magic-string': [ '0.30.21' ],
+428 silly audit   obug: [ '2.2.1' ],
+428 silly audit   pathe: [ '2.0.3' ],
+428 silly audit   'std-env': [ '4.3.0' ],
+428 silly audit   tinyexec: [ '1.3.1' ],
+428 silly audit   tinyrainbow: [ '3.2.0' ],
+428 silly audit   '@standard-schema/spec': [ '1.1.0' ],
+428 silly audit   '@types/chai': [ '5.2.3' ],
+428 silly audit   chai: [ '6.3.0' ],
+428 silly audit   '@types/deep-eql': [ '4.0.2' ],
+428 silly audit   'assertion-error': [ '2.0.1' ],
+428 silly audit   'convert-source-map': [ '2.0.0' ],
+428 silly audit   '@jridgewell/sourcemap-codec': [ '1.6.0' ]
+428 silly audit }
+429 http cache convert-source-map@https://registry.npmjs.org/convert-source-map/-/convert-source-map-2.0.0.tgz 0ms (cache hit)
+430 http cache @standard-schema/spec@https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz 1ms (cache hit)
+431 http cache @types/chai@https://registry.npmjs.org/@types/chai/-/chai-5.2.3.tgz 0ms (cache hit)
+432 http cache @types/deep-eql@https://registry.npmjs.org/@types/deep-eql/-/deep-eql-4.0.2.tgz 0ms (cache hit)
+433 http cache obug@https://registry.npmjs.org/obug/-/obug-2.2.1.tgz 0ms (cache hit)
+434 http cache vitest@https://registry.npmjs.org/vitest/-/vitest-4.1.12.tgz 0ms (cache hit)
+435 http cache @vitest/mocker@https://registry.npmjs.org/@vitest/mocker/-/mocker-4.1.12.tgz 0ms (cache hit)
+436 http cache tinyexec@https://registry.npmjs.org/tinyexec/-/tinyexec-1.3.1.tgz 0ms (cache hit)
+437 http cache tinyrainbow@https://registry.npmjs.org/tinyrainbow/-/tinyrainbow-3.2.0.tgz 0ms (cache hit)
+438 http cache @vitest/spy@https://registry.npmjs.org/@vitest/spy/-/spy-4.1.12.tgz 0ms (cache hit)
+439 http cache @vitest/utils@https://registry.npmjs.org/@vitest/utils/-/utils-4.1.12.tgz 0ms (cache hit)
+440 http cache std-env@https://registry.npmjs.org/std-env/-/std-env-4.3.0.tgz 0ms (cache hit)
+441 http cache pathe@https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz 0ms (cache hit)
+442 http cache chai@https://registry.npmjs.org/chai/-/chai-6.3.0.tgz 0ms (cache hit)
+443 http cache @vitest/snapshot@https://registry.npmjs.org/@vitest/snapshot/-/snapshot-4.1.12.tgz 0ms (cache hit)
+444 http cache estree-walker@https://registry.npmjs.org/estree-walker/-/estree-walker-3.0.3.tgz 0ms (cache hit)
+445 http cache @vitest/runner@https://registry.npmjs.org/@vitest/runner/-/runner-4.1.12.tgz 0ms (cache hit)
+446 http cache @vitest/pretty-format@https://registry.npmjs.org/@vitest/pretty-format/-/pretty-format-4.1.12.tgz 1ms (cache hit)
+447 http cache @vitest/expect@https://registry.npmjs.org/@vitest/expect/-/expect-4.1.12.tgz 0ms (cache hit)
+448 silly tarball no local data for @standard-schema/spec@https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz. Extracting by manifest.
+449 silly tarball no local data for @types/chai@https://registry.npmjs.org/@types/chai/-/chai-5.2.3.tgz. Extracting by manifest.
+450 silly tarball no local data for @types/deep-eql@https://registry.npmjs.org/@types/deep-eql/-/deep-eql-4.0.2.tgz. Extracting by manifest.
+451 silly tarball no local data for obug@https://registry.npmjs.org/obug/-/obug-2.2.1.tgz. Extracting by manifest.
+452 silly tarball no local data for vitest@https://registry.npmjs.org/vitest/-/vitest-4.1.12.tgz. Extracting by manifest.
+453 silly tarball no local data for @vitest/mocker@https://registry.npmjs.org/@vitest/mocker/-/mocker-4.1.12.tgz. Extracting by manifest.
+454 silly tarball no local data for tinyexec@https://registry.npmjs.org/tinyexec/-/tinyexec-1.3.1.tgz. Extracting by manifest.
+455 silly tarball no local data for tinyrainbow@https://registry.npmjs.org/tinyrainbow/-/tinyrainbow-3.2.0.tgz. Extracting by manifest.
+456 silly tarball no local data for @vitest/spy@https://registry.npmjs.org/@vitest/spy/-/spy-4.1.12.tgz. Extracting by manifest.
+457 silly tarball no local data for @vitest/utils@https://registry.npmjs.org/@vitest/utils/-/utils-4.1.12.tgz. Extracting by manifest.
+458 silly tarball no local data for std-env@https://registry.npmjs.org/std-env/-/std-env-4.3.0.tgz. Extracting by manifest.
+459 silly tarball no local data for pathe@https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz. Extracting by manifest.
+460 silly tarball no local data for chai@https://registry.npmjs.org/chai/-/chai-6.3.0.tgz. Extracting by manifest.
+461 silly tarball no local data for @vitest/snapshot@https://registry.npmjs.org/@vitest/snapshot/-/snapshot-4.1.12.tgz. Extracting by manifest.
+462 http cache es-module-lexer@https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-2.3.2.tgz 0ms (cache hit)
+463 silly tarball no local data for @vitest/runner@https://registry.npmjs.org/@vitest/runner/-/runner-4.1.12.tgz. Extracting by manifest.
+464 silly tarball no local data for @vitest/pretty-format@https://registry.npmjs.org/@vitest/pretty-format/-/pretty-format-4.1.12.tgz. Extracting by manifest.
+465 silly tarball no local data for @vitest/expect@https://registry.npmjs.org/@vitest/expect/-/expect-4.1.12.tgz. Extracting by manifest.
+466 silly tarball no local data for es-module-lexer@https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-2.3.2.tgz. Extracting by manifest.
+467 http fetch GET 200 https://registry.npmjs.org/@types/deep-eql/-/deep-eql-4.0.2.tgz 123ms (cache miss)
+468 http fetch GET 200 https://registry.npmjs.org/tinyrainbow/-/tinyrainbow-3.2.0.tgz 121ms (cache miss)
+469 http fetch GET 200 https://registry.npmjs.org/tinyexec/-/tinyexec-1.3.1.tgz 146ms (cache miss)
+470 http fetch GET 200 https://registry.npmjs.org/std-env/-/std-env-4.3.0.tgz 163ms (cache miss)
+471 http fetch GET 200 https://registry.npmjs.org/@types/chai/-/chai-5.2.3.tgz 175ms (cache miss)
+472 http fetch GET 200 https://registry.npmjs.org/@vitest/spy/-/spy-4.1.12.tgz 177ms (cache miss)
+473 http fetch GET 200 https://registry.npmjs.org/obug/-/obug-2.2.1.tgz 203ms (cache miss)
+474 http fetch GET 200 https://registry.npmjs.org/@vitest/pretty-format/-/pretty-format-4.1.12.tgz 251ms (cache miss)
+475 http fetch GET 200 https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz 255ms (cache miss)
+476 http fetch GET 200 https://registry.npmjs.org/@standard-schema/spec/-/spec-1.1.0.tgz 285ms (cache miss)
+477 http fetch GET 200 https://registry.npmjs.org/@vitest/expect/-/expect-4.1.12.tgz 268ms (cache miss)
+478 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 347ms
+479 silly audit report {}
+480 http fetch GET 200 https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-2.3.2.tgz 303ms (cache miss)
+481 http fetch GET 200 https://registry.npmjs.org/@vitest/runner/-/runner-4.1.12.tgz 334ms (cache miss)
+482 http fetch GET 200 https://registry.npmjs.org/@vitest/mocker/-/mocker-4.1.12.tgz 362ms (cache miss)
+483 http fetch GET 200 https://registry.npmjs.org/chai/-/chai-6.3.0.tgz 363ms (cache miss)
+484 http fetch GET 200 https://registry.npmjs.org/@vitest/utils/-/utils-4.1.12.tgz 379ms (cache miss)
+485 http fetch GET 200 https://registry.npmjs.org/@vitest/snapshot/-/snapshot-4.1.12.tgz 379ms (cache miss)
+486 http fetch GET 200 https://registry.npmjs.org/vitest/-/vitest-4.1.12.tgz 614ms (cache miss)
+487 silly ADD node_modules/convert-source-map
+488 silly ADD node_modules/@types/deep-eql
+489 silly ADD node_modules/@types/chai
+490 silly ADD node_modules/@standard-schema/spec
+491 silly ADD node_modules/obug
+492 silly ADD node_modules/@vitest/mocker
+493 silly ADD node_modules/@vitest/mocker/node_modules/estree-walker
+494 silly CHANGE node_modules/vitest
+495 silly ADD node_modules/vitest/node_modules/es-module-lexer
+496 silly REMOVE node_modules/vitest/node_modules/vite
+497 silly REMOVE node_modules/vitest/node_modules/estree-walker
+498 silly REMOVE node_modules/vitest/node_modules/esbuild
+499 silly REMOVE node_modules/vitest/node_modules/@vitest/mocker
+500 silly REMOVE node_modules/vitest/node_modules/@esbuild/win32-x64
+501 silly REMOVE node_modules/vite-node
+502 silly REMOVE node_modules/vite-node/node_modules/vite
+503 silly REMOVE node_modules/vite-node/node_modules/esbuild
+504 silly REMOVE node_modules/vite-node/node_modules/es-module-lexer
+505 silly REMOVE node_modules/vite-node/node_modules/@esbuild/win32-x64
+506 silly REMOVE node_modules/uri-js
+507 silly REMOVE node_modules/undici
+508 silly REMOVE node_modules/tsx
+509 silly REMOVE node_modules/ts-toolbelt
+510 silly REMOVE node_modules/ts-morph
+511 silly REMOVE node_modules/to-regex-range
+512 silly REMOVE node_modules/tinyspy
+513 silly CHANGE node_modules/tinyrainbow
+514 silly REMOVE node_modules/tinypool
+515 silly CHANGE node_modules/tinyexec
+516 silly REMOVE node_modules/time-span
+517 silly REMOVE node_modules/tar
+518 silly REMOVE node_modules/tar/node_modules/yallist
+519 silly CHANGE node_modules/std-env
+520 silly REMOVE node_modules/signal-exit
+521 silly REMOVE node_modules/semver
+522 silly REMOVE node_modules/run-parallel
+523 silly REMOVE node_modules/reusify
+524 silly REMOVE node_modules/resolve-pkg-maps
+525 silly REMOVE node_modules/resolve-from
+526 silly REMOVE node_modules/require-from-string
+527 silly REMOVE node_modules/queue-microtask
+528 silly REMOVE node_modules/punycode
+529 silly REMOVE node_modules/pretty-ms
+530 silly REMOVE node_modules/pathval
+531 silly CHANGE node_modules/pathe
+532 silly REMOVE node_modules/path-to-regexp-updated
+533 silly REMOVE node_modules/path-to-regexp
+534 silly REMOVE node_modules/path-scurry
+535 silly REMOVE node_modules/path-scurry/node_modules/lru-cache
+536 silly REMOVE node_modules/path-browserify
+537 silly REMOVE node_modules/parse-ms
+538 silly REMOVE node_modules/nopt
+539 silly REMOVE node_modules/node-gyp-build
+540 silly REMOVE node_modules/ms
+541 silly REMOVE node_modules/mri
+542 silly REMOVE node_modules/mkdirp
+543 silly REMOVE node_modules/minizlib
+544 silly REMOVE node_modules/minipass
+545 silly REMOVE node_modules/minimatch
+546 silly REMOVE node_modules/mime-types
+547 silly REMOVE node_modules/mime-db
+548 silly REMOVE node_modules/micromatch
+549 silly REMOVE node_modules/micromatch/node_modules/picomatch
+550 silly REMOVE node_modules/merge2
+551 silly REMOVE node_modules/loupe
+552 silly REMOVE node_modules/json-schema-traverse
+553 silly REMOVE node_modules/json-schema-to-ts
+554 silly REMOVE node_modules/is-number
+555 silly REMOVE node_modules/is-glob
+556 silly REMOVE node_modules/is-extglob
+557 silly REMOVE node_modules/https-proxy-agent
+558 silly REMOVE node_modules/graceful-fs
+559 silly REMOVE node_modules/glob-parent
+560 silly REMOVE node_modules/glob
+561 silly REMOVE node_modules/get-tsconfig
+562 silly REMOVE node_modules/fill-range
+563 silly REMOVE node_modules/file-uri-to-path
+564 silly REMOVE node_modules/fastq
+565 silly REMOVE node_modules/fast-glob
+566 silly REMOVE node_modules/fast-deep-equal
+567 silly REMOVE node_modules/etag
+568 silly REMOVE node_modules/estree-walker
+569 silly REMOVE node_modules/esbuild
+570 silly REMOVE node_modules/es-module-lexer
+571 silly REMOVE node_modules/edge-runtime
+572 silly REMOVE node_modules/edge-runtime/node_modules/picocolors
+573 silly REMOVE node_modules/edge-runtime/node_modules/async-listen
+574 silly REMOVE node_modules/detect-libc
+575 silly REMOVE node_modules/deep-eql
+576 silly REMOVE node_modules/debug
+577 silly REMOVE node_modules/convert-hrtime
+578 silly REMOVE node_modules/consola
+579 silly REMOVE node_modules/concat-map
+580 silly REMOVE node_modules/code-block-writer
+581 silly REMOVE node_modules/cjs-module-lexer
+582 silly REMOVE node_modules/chownr
+583 silly REMOVE node_modules/check-error
+584 silly CHANGE node_modules/chai
+585 silly REMOVE node_modules/cac
+586 silly REMOVE node_modules/braces
+587 silly REMOVE node_modules/brace-expansion
+588 silly REMOVE node_modules/bindings
+589 silly REMOVE node_modules/balanced-match
+590 silly REMOVE node_modules/async-sema
+591 silly REMOVE node_modules/async-listen
+592 silly REMOVE node_modules/ajv
+593 silly REMOVE node_modules/agent-base
+594 silly REMOVE node_modules/acorn-import-attributes
+595 silly REMOVE node_modules/acorn
+596 silly REMOVE node_modules/abbrev
+597 silly CHANGE node_modules/@vitest/utils
+598 silly CHANGE node_modules/@vitest/spy
+599 silly CHANGE node_modules/@vitest/snapshot
+600 silly CHANGE node_modules/@vitest/runner
+601 silly CHANGE node_modules/@vitest/pretty-format
+602 silly CHANGE node_modules/@vitest/expect
+603 silly REMOVE node_modules/@vercel/static-config
+604 silly REMOVE node_modules/@vercel/node
+605 silly REMOVE node_modules/@vercel/node/node_modules/undici-types
+606 silly REMOVE node_modules/@vercel/node/node_modules/typescript
+607 silly REMOVE node_modules/@vercel/node/node_modules/@types/node
+608 silly REMOVE node_modules/@vercel/nft
+609 silly REMOVE node_modules/@vercel/error-utils
+610 silly REMOVE node_modules/@vercel/build-utils
+611 silly REMOVE node_modules/@vercel/build-utils/node_modules/es-module-lexer
+612 silly REMOVE node_modules/@types/json-schema
+613 silly REMOVE node_modules/@ts-morph/common
+614 silly REMOVE node_modules/@ts-morph/common/node_modules/minimatch
+615 silly REMOVE node_modules/@ts-morph/common/node_modules/brace-expansion
+616 silly REMOVE node_modules/@ts-morph/common/node_modules/balanced-match
+617 silly REMOVE node_modules/@rollup/pluginutils
+618 silly REMOVE node_modules/@nodelib/fs.walk
+619 silly REMOVE node_modules/@nodelib/fs.stat
+620 silly REMOVE node_modules/@nodelib/fs.scandir
+621 silly REMOVE node_modules/@mapbox/node-pre-gyp
+622 silly REMOVE node_modules/@isaacs/fs-minipass
+623 silly REMOVE node_modules/@fastify/busboy
+624 silly REMOVE node_modules/@esbuild/win32-x64
+625 silly REMOVE node_modules/@edge-runtime/vm
+626 silly REMOVE node_modules/@edge-runtime/primitives
+627 silly REMOVE node_modules/@edge-runtime/ponyfill
+628 silly REMOVE node_modules/@edge-runtime/node-utils
+629 silly REMOVE node_modules/@edge-runtime/format
+630 warn install-scripts 2 packages have install scripts not yet covered by allowScripts:
+630 warn install-scripts   tesseract.js@6.0.1 (postinstall: opencollective-postinstall || true)
+630 warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+630 warn install-scripts
+630 warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+631 verbose cwd C:\Users\sshub\Videos\ChatBot
+632 verbose os Windows_NT 10.0.26300
+633 verbose node v24.20.0
+634 verbose npm  v11.19.0
+635 verbose exit 0
+636 info ok
