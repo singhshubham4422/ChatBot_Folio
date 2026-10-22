@@ -7,6 +7,7 @@
     "dev": "vite --config vite.folio.config.ts --configLoader runner",
     "build": "tsc -b && vite build --config vite.folio.config.ts --configLoader runner",
     "build:quick-index": "node scripts/build-quick-index.mjs",
+    "train:smart-quickbot": "npm run build:quick-index && node scripts/train-smart-quickbot.mjs",
     "test": "vitest run",
     "evaluate": "vitest run src/lib/evaluation.test.ts --reporter=verbose",
     "preview": "vite preview"

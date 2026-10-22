@@ -2,6 +2,7 @@ import { ArrowLeft, FileText, LoaderCircle, Search, Send, ShieldCheck } from 'lu
 import { useEffect, useState } from 'react';
 import type { Chunk } from './types';
 import { loadQuickBotIndex, searchQuickBot, deterministicQuickAnswer, extractiveQuickAnswer, type QuickBotIndex } from './lib/quickBot';
+import { searchSmartQuickBot } from './lib/smartQuickBot';
 
 function compactAnswer(value: string, maxChars = 1400) {
   const normalized = value.replace(/\s+/g, ' ').trim();
@@ -26,7 +27,13 @@ export function QuickBot({ localReady, askLocal, askTransformers, onOpenSettings
     if (!text || !index || busy) return;
     const deterministic = deterministicQuickAnswer(text, index);
     if (deterministic) { setAnswer(deterministic.answer); setEvidence(deterministic.evidence); setError(''); return; }
-    const selected = searchQuickBot(index, text, 5);
+    let selected = searchQuickBot(index, text, 5);
+    try {
+      const smartSelected = await searchSmartQuickBot(text, 5);
+      if (smartSelected.length) selected = smartSelected;
+    } catch {
+      // Keep the existing BM25 retriever if the optional local model is absent.
+    }
     if (!selected.length) { setAnswer('I could not find supporting text in the quick-bot documents.'); setEvidence([]); return; }
     setBusy(true); setError(''); setAnswer(''); setEvidence(selected);
     try {
@@ -53,12 +60,12 @@ export function QuickBot({ localReady, askLocal, askTransformers, onOpenSettings
   }
 
   return <section className="quick-bot-view">
-    <div className="quick-bot-heading"><button className="text-button" onClick={onBack}><ArrowLeft size={14}/> Back to library</button><div className="eyebrow muted">FIXED KNOWLEDGE BASE</div><h1>Quick bot</h1><p>Ask questions across the PDFs prepared for this deployment.</p></div>
+    <div className="quick-bot-heading"><button className="text-button" onClick={onBack}><ArrowLeft size={14}/> Back to library</button><div className="eyebrow muted">TRAINED LOCAL KNOWLEDGE BASE</div><h1>Smart Quick Bot</h1><p>Ask questions across the PDFs prepared for this deployment.</p></div>
     <div className="quick-bot-card">
       <div className="quick-bot-status"><FileText size={16}/><span>{index ? `${index.documents.length} documents · ${index.chunks.length} searchable passages` : 'Loading prepared documents…'}</span></div>
       <textarea value={question} onChange={event => setQuestion(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask(); } }} placeholder="Ask about the prepared documents…" disabled={!index || busy} rows={3}/>
       <button className="primary-button" onClick={() => void ask()} disabled={!index || busy || !question.trim()}>{busy ? <LoaderCircle size={16}/> : <Send size={16}/>} {busy ? 'Reading…' : 'Ask quick bot'}</button>
-      <p className="quick-bot-note"><ShieldCheck size={14}/> Quick Bot searches only the PDFs packaged from <code>Data/</code> and answers in the browser. It does not use uploaded session PDFs. {!localReady && <><span> A compact browser model is tried first.</span> <button className="text-button" onClick={onOpenSettings}>Load local model</button></>}</p>
+      <p className="quick-bot-note"><ShieldCheck size={14}/> Smart Quick Bot uses its trained local passage model and searches only the PDFs packaged from <code>Data/</code>. It does not use uploaded session PDFs or online mode. {!localReady && <><span> A compact browser model is tried next.</span> <button className="text-button" onClick={onOpenSettings}>Load local model</button></>}</p>
       {error && <p className="error-note">{error}</p>}
     </div>
     {answer && <article className="quick-bot-answer"><div className="eyebrow muted">ANSWER</div><p>{answer}</p><div className="quick-bot-sources"><b><Search size={13}/> Retrieved sources</b>{evidence.map(chunk => <span key={chunk.id}><FileText size={12}/> {chunk.fileName} · p. {chunk.page}</span>)}</div></article>}
