@@ -165,9 +165,17 @@ export function selectChunksForQuestion(query: string, chunks: Chunk[], maxChars
   const selected: Chunk[] = [];
   let size = 0;
   for (const chunk of [...chunks].sort((a, b) => a.page - b.page || a.start - b.start)) {
+    const words = new Set(chunk.text.toLowerCase().match(/[\p{L}\p{N}]{2,}/gu) ?? []);
+    const duplicate = selected.some(existing => {
+      const existingWords = new Set(existing.text.toLowerCase().match(/[\p{L}\p{N}]{2,}/gu) ?? []);
+      const overlap = [...words].filter(word => existingWords.has(word)).length;
+      return chunk.text.trim() === existing.text.trim() || (overlap / Math.max(1, Math.min(words.size, existingWords.size))) >= 0.82;
+    });
+    if (duplicate) continue;
     if (size + chunk.text.length > maxChars && selected.length) break;
     selected.push(chunk);
     size += chunk.text.length;
+    if (selected.length === 5) break;
   }
   return selected;
 }

@@ -57,7 +57,7 @@ async function callProvider(provider: OnlineProvider, config: ProviderConfig, qu
     try {
       if (provider === 'groq') {
         response = await fetcher('https://api.groq.com/openai/v1/chat/completions', {
-          method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${config.groqKey}` }, signal: controller.signal,
+          method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + (config.groqKey ?? '') }, signal: controller.signal,
           body: JSON.stringify({ model: config.groqModel || DEFAULT_GROQ_MODEL, temperature: 0.15, max_tokens: 700, messages: [{ role: 'user', content }] }),
         });
       } else {

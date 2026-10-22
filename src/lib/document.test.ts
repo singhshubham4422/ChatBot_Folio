@@ -22,6 +22,11 @@ describe('local lexical retrieval', () => {
   });
   it('selects document-wide evidence for natural-language summaries', () => {
     expect(selectChunksForQuestion('Summarize this PDF', chunks).map(chunk => chunk.page)).toEqual([1, 2, 6]);
+    expect(selectChunksForQuestion('Summarize this PDF', [
+      make('a', 1, 'The same repeated conclusion appears in this section.'),
+      make('b', 1, 'The same repeated conclusion appears in this section.'),
+      make('c', 2, 'A distinct pricing plan is described on this page.'),
+    ]).map(chunk => chunk.page)).toEqual([1, 2]);
   });
   it('answers page-count metadata deterministically', () => {
     expect(deterministicAnswer('How many pages does this document have?', { pageCount: 12 })).toBe('This document has 12 pages.');

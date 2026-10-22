@@ -3,7 +3,7 @@ import { ArrowRight, BookOpen, Check, ChevronDown, FileText, Gauge, LoaderCircle
 import type { Chunk, Message, Session, Preferences } from './types';
 import { allSessions, clearApplicationData, deleteDocumentData, getChunks, getDocument, getPages, getPreferences, newSession, removeSession, saveDocProgress, saveDocument, savePageAndChunks, savePreferences, saveSession } from './lib/db';
 import { deterministicAnswer, hashFile, MAX_PDF_BYTES, MAX_PDF_PAGES, parsePdf, rankChunks, selectChunksForQuestion } from './lib/document';
-import { askOnline, OnlineRequestError, onlineCooldownActive, getOnlineStatus } from './lib/online';
+import { askOnline, OnlineRequestError, onlineCooldownActive } from './lib/online';
 import { LocalModel, MODELS, type ModelId } from './lib/localModel';
 import { routeQuestion } from './lib/router';
 import { shouldAutoLoadModel } from './lib/modelLoading';
@@ -44,7 +44,6 @@ export default function App() {
   const [voiceError, setVoiceError] = useState('');
   const [speaking, setSpeaking] = useState(false);
   const [speechPaused, setSpeechPaused] = useState(false);
-  const [onlineAvailability, setOnlineAvailability] = useState<'Available' | 'Partially available' | 'Unavailable'>('Unavailable');
   const [engine, setEngine] = useState<'online' | 'offline'>('online');
   const [query, setQuery] = useState('');
   const [busy, setBusy] = useState(false);
@@ -115,7 +114,6 @@ export default function App() {
   }, []);
   useEffect(() => { if (loaded && 'storage' in navigator && navigator.storage?.persist) void navigator.storage.persist().catch(() => false); }, [loaded]);
   useEffect(() => { if (shouldAutoLoadModel({ appLoaded: loaded, displayName, enabled: prefs.modelAutoDownload, state: modelState })) void loadModel(modelId); }, [loaded, displayName, prefs.modelAutoDownload, modelState, modelId]);
-  useEffect(() => { if (loaded) void getOnlineStatus().then(setOnlineAvailability).catch(() => setOnlineAvailability('Unavailable')); }, [loaded]);
   useEffect(() => { if (active) chatEnd.current?.scrollIntoView({ behavior: 'smooth' }); }, [active?.messages.length, busy]);
   useEffect(() => { activeIdRef.current = active?.id ?? null; }, [active?.id]);
   useEffect(() => { if (toast) { const timer = setTimeout(() => setToast(''), 3600); return () => clearTimeout(timer); } }, [toast]);
@@ -265,7 +263,7 @@ export default function App() {
       const context = [active.summary ?? '', ...active.messages.slice(-6).map(m => `${m.role === 'user' ? 'Reader' : 'Assistant'}: ${m.content.slice(0, 500)}`)].filter(Boolean);
       let answer = '';
       const isLocalReady = modelState === 'ready' && modelManager.isReady(modelId);
-      const route = routeQuestion({ mode: engine, deterministic: false, consent: onlineConsent, modelReady: isLocalReady, onlineAvailable: onlineAvailability !== 'Unavailable' && !onlineCooldownActive() });
+      const route = routeQuestion({ mode: engine, deterministic: false, consent: onlineConsent, modelReady: isLocalReady, onlineAvailable: !onlineCooldownActive() });
       let answerMode: 'online' | 'offline' = engine;
       if (route === 'local') {
         answer = await modelManager.ask(userMessage.content, evidence, context, token => setStreamingText(current => current + token));

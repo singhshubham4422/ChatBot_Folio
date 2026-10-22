@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { askOnline } from './online';
+import { askOnline, onlineCooldownActive, resetOnlineCooldown } from './online';
 import type { Chunk } from '../types';
 
 const evidence: Chunk[] = [{ id: 'p1', page: 1, text: 'A verified statement.', start: 0, end: 21, quality: 'good' }];
-afterEach(() => vi.restoreAllMocks());
+afterEach(() => { vi.restoreAllMocks(); resetOnlineCooldown(); });
 
 describe('online consent boundary', () => {
   it('checks consent before every online request', async () => {
@@ -33,5 +33,19 @@ describe('online consent boundary', () => {
     expect(body).not.toHaveProperty('apiKey');
     expect(body).not.toHaveProperty('Groq_Api');
     expect(body).not.toHaveProperty('Gemini_Api');
+  });
+  it('allows consecutive successful online requests without entering cooldown', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(JSON.stringify({ answer: 'First [p. 1]' }), { status: 200 }))
+      .mockResolvedValueOnce(new Response(JSON.stringify({ answer: 'Second [p. 1]' }), { status: 200 }));
+    await expect(askOnline('First question', evidence, true, 'online')).resolves.toBe('First [p. 1]');
+    await expect(askOnline('Second question', evidence, true, 'online')).resolves.toBe('Second [p. 1]');
+    expect(fetchSpy).toHaveBeenCalledTimes(2);
+    expect(onlineCooldownActive()).toBe(false);
+  });
+  it('does not cool down for an endpoint or malformed-response failure', async () => {
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('not json', { status: 502 }));
+    await expect(askOnline('Question', evidence, true, 'online')).rejects.toThrow(/unreadable response/i);
+    expect(onlineCooldownActive()).toBe(false);
   });
 });

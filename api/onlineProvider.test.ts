@@ -21,6 +21,7 @@ describe('server-side online providers', () => {
     await expect(answerOnline(input, { groqKey: 'g', geminiKey: 'm' }, fetcher)).resolves.toEqual({ answer: 'Groq answer [p. 1]' });
     expect(fetcher).toHaveBeenCalledTimes(1);
     expect(fetcher.mock.calls[0][0]).toBe('https://api.groq.com/openai/v1/chat/completions');
+    expect(fetcher.mock.calls[0][1]).toMatchObject({ headers: { Authorization: 'Bearer g' } });
   });
   it('supports Gemini as the primary when it is the only configured provider', async () => {
     const fetcher = vi.fn().mockResolvedValue(response(geminiAnswer));
