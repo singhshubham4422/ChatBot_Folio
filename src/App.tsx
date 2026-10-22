@@ -138,7 +138,7 @@ export default function App() {
     setPrefs(nextPrefs); void savePreferences(nextPrefs).catch(() => setToast('Could not save your preferences locally.'));
   }
   function startSession() {
-    const created = newSession('New conversation'); updateSession(created); setQuickBotOpen(false); setViewerOpen(false); setQuery('');
+    const created = newSession('New conversation'); updateSession(created); setQuickBotOpen(false); setSidebar(false); setViewerOpen(false); setQuery('');
     requestAnimationFrame(() => fileRef.current?.click());
   }
   async function uploadFiles(files: File[]) {
@@ -349,7 +349,7 @@ export default function App() {
     setViewerOpen(false); setEvidenceOpen(true);
   }
   async function chooseSession(session: Session) {
-    setQuickBotOpen(false); setActive(session); setViewerOpen(false); setEvidenceOpen(false); setSettingsOpen(false); setQuery(''); setViewerPage(1);
+    setQuickBotOpen(false); setSidebar(false); setActive(session); setViewerOpen(false); setEvidenceOpen(false); setSettingsOpen(false); setQuery(''); setViewerPage(1);
     const next = { ...prefs, selectedSessionId: session.id }; setPrefs(next); void savePreferences(next);
   }
   async function deleteSession(session: Session) {
@@ -397,7 +397,7 @@ export default function App() {
     <aside className={`sidebar ${sidebar ? '' : 'sidebar-hidden'}`}>
       <div className="sidebar-head"><Logo/><button className="icon-button subtle" onClick={() => setSidebar(false)} aria-label="Hide sidebar"><PanelLeftClose size={17}/></button></div>
       <button className="new-chat" onClick={startSession}><Plus size={17}/> New conversation <span>⌘ K</span></button>
-      <button className="new-chat quick-bot-nav" onClick={() => setQuickBotOpen(true)}><Sparkles size={16}/> Quick bot</button>
+      <button className="new-chat quick-bot-nav" onClick={() => { setQuickBotOpen(true); setSidebar(false); }}><Sparkles size={16}/> Quick bot</button>
       <div className="nav-label">YOUR LIBRARY <button aria-label="Search sessions" onClick={() => setSearchOpen(!searchOpen)}><Search size={15}/></button></div>
       {searchOpen && <input className="session-search" autoFocus placeholder="Search sessions" value={filter} onChange={e => setFilter(e.target.value)}/>}
       <div className="session-list">{visibleSessions.map(s => <div key={s.id} className={`session-item ${active?.id === s.id ? 'selected' : ''}`}><button className="session-pick" onClick={() => void chooseSession(s)}><FileText size={16}/><span><b>{s.name}</b><small>{s.fileName || 'No PDF yet'}</small></span></button><button className="session-more" aria-label={`Options for ${s.name}`} onClick={() => setMenuSessionId(menuSessionId === s.id ? '' : s.id)}><MoreHorizontal size={16}/></button>{menuSessionId === s.id && <div className="session-menu"><button onClick={() => { setMenuSessionId(''); void renameSession(s); }}>Rename</button><button className="danger" onClick={() => { setMenuSessionId(''); void deleteSession(s); }}>Delete</button></div>}</div>)}{!visibleSessions.length && <div className="no-sessions">{filter ? 'No matching sessions' : 'Your recent conversations will appear here.'}</div>}</div>
@@ -405,6 +405,7 @@ export default function App() {
       <button className="privacy-card" onClick={() => setSettingsOpen(true)}><div className="privacy-icon"><ShieldCheck size={18}/></div><span><b>Your space stays yours</b><small>PDFs and chats live on this device.</small></span><ArrowRight size={15}/></button>
       <div className="profile-row"><div className="avatar">{displayName.slice(0,1).toUpperCase()}</div><div><b>{displayName}</b><small>Personal library</small></div><button className="icon-button subtle" onClick={() => setSettingsOpen(true)} aria-label="Settings"><Settings2 size={17}/></button></div>
     </aside>
+    {sidebar && <button type="button" className="sidebar-scrim" onClick={() => setSidebar(false)} aria-label="Close navigation" />}
 
     <main className="main-area">
       <header className="topbar">{!sidebar && <button className="icon-button" onClick={() => setSidebar(true)} aria-label="Show sidebar"><ArrowRight size={18}/></button>}<div className="breadcrumbs"><span>Library</span><span className="crumb-slash">/</span><b>{active?.name ?? 'Your reading space'}</b></div><div className="top-actions">{active?.fileName && <button className={`file-chip ${viewerOpen ? 'on' : ''}`} onClick={() => { setEvidenceOpen(false); setViewerOpen(!viewerOpen); }}><FileText size={15}/><span>{active.fileName}</span><ChevronDown size={14}/></button>}{active?.fileName && <button className="file-chip" onClick={() => void openEvidence()}><Search size={14}/>Evidence</button>}<button className="icon-button" onClick={() => setSettingsOpen(true)} aria-label="Settings"><Settings2 size={18}/></button></div></header>
