@@ -1,6 +1,6 @@
 # Folio: local first PDF assistant
 
-Folio stores PDFs, extracted pages, retrieval chunks, conversations, and preferences in this browser's IndexedDB. PDF parsing, OCR, retrieval, and citations run locally. An optional WebLLM model runs through WebGPU. With consent, selected excerpts and necessary recent conversation context can be sent through the Folio server to one of two configured online AI providers. The whole PDF is not intentionally uploaded by this feature.
+Folio stores PDFs, extracted pages, retrieval chunks, conversations, and preferences in this browser's IndexedDB. PDF parsing, OCR, retrieval, and citations run locally. A small WebLLM model can run through WebGPU. Online sharing is enabled by default for the existing Online mode, but can be revoked in Settings; only selected excerpts and necessary recent conversation context are sent through the Folio server. The whole PDF is not intentionally uploaded by this feature.
 
 ## Run locally
 
@@ -30,6 +30,18 @@ The default provider order is deterministic: Groq first, then Gemini. Set `ONLIN
 
 Import the repository into Vercel. The functions are `api/online.ts` and `api/online-status.ts`. Configure `Groq_Api` and/or `Gemini_Api` as server-side project environment variables. Optional model variables are `GROQ_MODEL` and `GEMINI_MODEL`; `ONLINE_PRIMARY_PROVIDER` can be set to `gemini` to reverse the default order. Redeploy after changing environment variables. Vercel does not automatically receive a local `.env` file; configure these values in the Vercel project settings. Do not use browser-visible `VITE_` variables for secrets.
 
+## Quick Bot
+
+Quick Bot is a separate fixed knowledge base for PDFs stored locally in `Data/`. The source PDFs are ignored by Git. Run:
+
+```sh
+npm run build:quick-index
+```
+
+This creates `public/quick-bot/index.json` and `manifest.json`. Commit those generated files; Vercel serves them as static assets. Users do not upload PDFs for Quick Bot, and uploaded session PDFs are never searched by it.
+
+Quick Bot is browser-first. It answers supported fact questions locally, uses the selected WebLLM model when it is ready, and otherwise shows retrieved passages without silently calling an online provider. Rebuild the index whenever the PDFs in `Data/` change.
+
 ## Online privacy and consent
 
 Folio checks saved consent before every online request and also requires consent at the server route. Revoking consent prevents subsequent requests. The settings disclosure says:
@@ -44,11 +56,15 @@ The app checks each selected ID against the installed `@mlc-ai/web-llm` `prebuil
 
 | Model ID | Declared WebGPU memory | Required feature |
 | --- | ---: | --- |
+| `SmolLM2-135M-Instruct-q0f16-MLC` | 359.69 MB | `shader-f16` |
+| `SmolLM2-135M-Instruct-q0f32-MLC` | 719.38 MB | None declared |
 | `SmolLM2-360M-Instruct-q4f16_1-MLC` | 376.06 MB | `shader-f16` |
 | `SmolLM2-360M-Instruct-q4f32_1-MLC` | 579.61 MB | None declared |
 | `Llama-3.2-1B-Instruct-q4f16_1-MLC` | 879.04 MB | None declared |
 
-When “Load the selected model automatically in the background” is enabled, loading begins after the library opens. Otherwise the model loads only when requested manually. Download and initialization progress, WebGPU compatibility issues, shader-f16 support, and initialization errors are shown in Settings. Device support and available GPU memory vary.
+The smallest 135M model is selected by default. When automatic loading is enabled, preparation begins as soon as the app opens, even before a display name or Settings interaction. Download and initialization progress, WebGPU compatibility issues, shader-f16 support, and initialization errors are shown in Settings. Device support and available GPU memory vary; iPhones may not support WebGPU or may not have enough memory for model initialization.
+
+The local model is not a 50 MB artifact. The listed memory values are WebGPU memory requirements, not guaranteed download sizes. A strict 50 MB total browser budget is not sufficient for a capable general-purpose generative model.
 
 ## Processing and retrieval
 

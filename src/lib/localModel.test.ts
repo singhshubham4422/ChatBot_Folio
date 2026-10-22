@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 const runtime = vi.hoisted(() => ({
   create: vi.fn(),
   config: { model_list: [
+    { model_id: 'SmolLM2-135M-Instruct-q0f16-MLC', required_features: ['shader-f16'] },
+    { model_id: 'SmolLM2-135M-Instruct-q0f32-MLC', required_features: [] },
     { model_id: 'SmolLM2-360M-Instruct-q4f16_1-MLC', required_features: ['shader-f16'] },
     { model_id: 'SmolLM2-360M-Instruct-q4f32_1-MLC', required_features: [] },
     { model_id: 'Llama-3.2-1B-Instruct-q4f16_1-MLC', required_features: [] },

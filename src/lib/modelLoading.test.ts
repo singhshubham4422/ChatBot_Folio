@@ -15,8 +15,8 @@ describe('automatic local model loading preference', () => {
     expect(shouldAutoLoadModel({ appLoaded: true, displayName: 'Reader', enabled: true, state: 'ready' })).toBe(false);
     expect(shouldAutoLoadModel({ appLoaded: true, displayName: 'Reader', enabled: true, state: 'failed' })).toBe(false);
   });
-  it('does not load when displayName is blank or whitespace', () => {
-    expect(shouldAutoLoadModel({ appLoaded: true, displayName: '   ', enabled: true, state: 'not-loaded' })).toBe(false);
-    expect(shouldAutoLoadModel({ appLoaded: true, displayName: '', enabled: true, state: 'not-loaded' })).toBe(false);
+  it('loads before a display name is entered', () => {
+    expect(shouldAutoLoadModel({ appLoaded: true, displayName: '   ', enabled: true, state: 'not-loaded' })).toBe(true);
+    expect(shouldAutoLoadModel({ appLoaded: true, displayName: '', enabled: true, state: 'not-loaded' })).toBe(true);
   });
 });

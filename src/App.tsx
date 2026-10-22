@@ -18,7 +18,7 @@ declare global { interface Window { SpeechRecognition?: RecognitionConstructor; 
 const modelManager = new LocalModel();
 const makeId = () => crypto.randomUUID();
 const fmtTime = (stamp: number) => new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(stamp);
-const defaultPreferences: Preferences = { displayName: '', modelId: 'SmolLM2-360M-Instruct-q4f32_1-MLC', modelAutoDownload: true, ocrEnabled: true, onlineConsent: false, readAloud: false, answerMode: 'online' };
+const defaultPreferences: Preferences = { displayName: '', modelId: 'SmolLM2-135M-Instruct-q0f16-MLC', modelAutoDownload: true, ocrEnabled: true, onlineConsent: true, readAloud: false, answerMode: 'online' };
 function compactMemory(session: Session, messages: Message[]) {
   const through = Math.max(session.summaryThrough ?? 0, messages.length - 6);
   if (through <= (session.summaryThrough ?? 0)) return { summary: session.summary, summaryThrough: session.summaryThrough };
@@ -84,7 +84,7 @@ export default function App() {
           ...defaultPreferences,
           ...(storedPrefs ?? {}),
           modelAutoDownload: storedPrefs?.modelAutoDownload ?? true,
-          onlineConsent: legacy?.onlineConsent ?? legacy?.geminiConsent ?? false,
+          onlineConsent: legacy?.onlineConsent ?? legacy?.geminiConsent ?? true,
           answerMode: resolvedMode,
           displayName: storedPrefs?.displayName ?? localStorage.getItem('folio-name') ?? '',
         };
