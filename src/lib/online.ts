@@ -11,9 +11,9 @@ export async function getOnlineStatus(): Promise<'Available' | 'Partially availa
   return payload.availability === 'Available' || payload.availability === 'Partially available' ? payload.availability : 'Unavailable';
 }
 
-export async function askOnline(question: string, evidence: Chunk[], consent: boolean, mode: 'automatic' | 'local' | 'online' | 'offline', context: string[] = [], signal?: AbortSignal): Promise<string> {
+export async function askOnline(question: string, evidence: Chunk[], consent: boolean, mode: 'online' | 'offline' | 'local' | 'automatic', context: string[] = [], signal?: AbortSignal): Promise<string> {
   if (!consent) throw new OnlineRequestError('Enable online AI providers before sharing document excerpts.', 'consent_required');
-  if (mode === 'local' || mode === 'offline') throw new OnlineRequestError('Offline (local-only) mode cannot contact an online provider.', 'local_only');
+  if (mode === 'offline' || mode === 'local') throw new OnlineRequestError('Offline (local-only) mode cannot contact an online provider.', 'local_only');
   const response = await fetch('/api/online', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, signal,
     body: JSON.stringify({ question, consent, mode, context: context.slice(-6).map(item => item.slice(0, 500)), evidence: evidence.map(c => ({ page: c.page, text: c.text })) }),

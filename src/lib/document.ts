@@ -149,9 +149,27 @@ export function rankChunks(query: string, chunks: Chunk[], limit = 5): Chunk[] {
       const k1 = 1.2; const b = 0.75;
       score += idf * (tf * (k1 + 1)) / (tf + k1 * (1 - b + b * doc.words.length / avgLen));
     }
+
     return { chunk: doc.chunk, score };
   });
   return scores.filter(x => x.score > 0).sort((a, b) => b.score - a.score).slice(0, limit).map(x => x.chunk);
+}
+
+export function isWholeDocumentQuery(query: string): boolean {
+  return /\b(summar(?:y|ize|ise)|key points?|main (?:ideas?|points?|conclusions?)|what is this document about|important dates?|important figures?|compare (?:the )?(?:main )?sections?)\b/i.test(query);
+}
+
+export function selectChunksForQuestion(query: string, chunks: Chunk[], maxChars = 18_000): Chunk[] {
+  if (!chunks.length) return [];
+  if (!isWholeDocumentQuery(query)) return rankChunks(query, chunks, 6);
+  const selected: Chunk[] = [];
+  let size = 0;
+  for (const chunk of [...chunks].sort((a, b) => a.page - b.page || a.start - b.start)) {
+    if (size + chunk.text.length > maxChars && selected.length) break;
+    selected.push(chunk);
+    size += chunk.text.length;
+  }
+  return selected;
 }
 
 export function exactPageLookup(query: string, pageCount?: number): string | undefined {

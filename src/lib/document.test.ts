@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { chunkPage, deterministicAnswer, rankChunks } from './document';
+import { chunkPage, deterministicAnswer, rankChunks, selectChunksForQuestion } from './document';
 import type { Chunk } from '../types';
 
 const make = (id: string, page: number, text: string): Chunk => ({ id, page, text, start: 0, end: text.length, quality: 'good' });
@@ -19,6 +19,9 @@ describe('local lexical retrieval', () => {
   });
   it('abstains when no query terms match', () => {
     expect(rankChunks('volcanic geology', chunks)).toEqual([]);
+  });
+  it('selects document-wide evidence for natural-language summaries', () => {
+    expect(selectChunksForQuestion('Summarize this PDF', chunks).map(chunk => chunk.page)).toEqual([1, 2, 6]);
   });
   it('answers page-count metadata deterministically', () => {
     expect(deterministicAnswer('How many pages does this document have?', { pageCount: 12 })).toBe('This document has 12 pages.');

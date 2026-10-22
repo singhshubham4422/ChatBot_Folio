@@ -23,4 +23,4 @@
 .model-status-text{font-size:10px;color:#5c6758;font-weight:500}
 .inline-action{border:0;background:none;color:#506f4e;text-decoration:underline;text-underline-offset:2px;font-weight:600;padding:0 3px;cursor:pointer;font-size:10px}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
+.voice-controls{display:flex;align-items:center;gap:2px}.voice-controls .icon-button.active{background:#edf3eb;color:#526c54;border-color:#dce7d8}.voice-error{font-size:10px;color:#a9695e;padding:5px 2px 0}
