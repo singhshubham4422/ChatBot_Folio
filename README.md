@@ -1,6 +1,6 @@
 # Smart Bot — BITS PDF assistant
 
-Smart Bot keeps the Folio interface and branding while its prepared-document mode uses a client-side BITS PDF engine. It searches the three official brochures with hybrid embedding + BM25 retrieval, classifies coverage as `FULL`, `PARTIAL`, `ASPECT_ONLY`, or `NONE`, and returns short extractive answers with file/page citations. It does not send Smart Bot questions to an online provider.
+Smart Bot keeps the Folio interface and branding while its prepared-document mode uses a client-side BITS PDF engine. It searches the three official brochures with hybrid embedding + BM25 retrieval, classifies coverage as `FULL`, `PARTIAL`, `ASPECT_ONLY`, or `NONE`, and returns extractive answers with file/page citations. List/table questions can expand into section-aware tables, qualifiers, source links, and original passages; yes/no questions stay short. It does not send Smart Bot questions to an online provider.
 
 ## Run locally
 
@@ -19,6 +19,7 @@ npm run build
 
 - `src/App.tsx`, `src/styles.css`, and `src/QuickBot.tsx`: existing Folio UI, branding, responsive layout, and Smart Bot screen.
 - `src/engine/`: BITS hybrid retrieval, query analysis, coverage rules, answer builder, and embedding worker.
+- `src/useVoiceInput.ts`: optional Web Speech API voice input, transcript normalization, language selection, and auto-send preference.
 - `scripts/build-index.ts`: parses `public/pdfs/` and creates `public/index.json`.
 - `public/pdfs/`: the three committed source brochures served for citations.
 - `public/index.json`: committed searchable chunks, vocabulary, and embeddings.
@@ -36,6 +37,16 @@ npm run build
 Commit both the PDFs and `public/index.json`. The PDFs are currently below GitHub's 50 MB review threshold and 100 MB hard limit; use Git LFS if a future source exceeds 50 MB.
 
 PDF links use `import.meta.env.BASE_URL` and open the cited page with `#page=N`.
+
+## Detailed answers and voice input
+
+The index stores section titles, chunk neighbors, chunk type, table rows, page ranges, and nearby qualifiers. Detailed mode expands the best section up to about 900 words and renders tables horizontally scrollable on small screens. Every figure shown in a table must also occur in the cleaned source passage. “View original passage” exposes the exact cleaned extractive text.
+
+The prepared index and embedding worker begin loading in the background when the Folio site mounts, so Smart Quick Bot is usually ready before it is opened. This warm-up is non-blocking and the model is cached by the browser after the first load.
+
+The microphone uses the browser Web Speech API when available. English India (`en-IN`) and Hindi (`hi-IN`) are supported, with auto-send enabled by default and saved in local storage. Retrieval is English-only; Hindi recognition is accepted, but results work best when the transcript contains English terms. Chrome/Edge and Android Chrome are the best-supported browsers; Firefox does not expose the required API and Safari support is partial. Browser speech recognition may send audio to the browser vendor’s service (Chrome commonly uses Google), so voice is not claimed to be offline. Typed questions remain client-side.
+
+Add retrieval synonyms in `src/engine/config.ts` under `SYNONYM_MAP`. Add spoken-form replacements under `VOICE_NORMALIZATION`. Fully offline Whisper transcription is intentionally left as a future TODO; it is not built into this release.
 
 ## Environment and Vercel
 

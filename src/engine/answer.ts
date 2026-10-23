@@ -17,6 +17,8 @@ export function cleanText(raw: string): string {
   return raw
     .replace(/\b(\d+)\s+(th|st|nd|rd)\b/gi, '$1$2')
     .replace(/\s+([,.:;?!])/g, '$1')
+    .replace(/:\.+/g, ':')
+    .replace(/\.{2,}/g, '.')
     .replace(/[\r\t\f\v]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -52,7 +54,7 @@ export function isListQuestion(query: string): boolean {
 
 export function isValidBullet(text: string): boolean {
   const trimmed = text.trim();
-  if (!trimmed) return false;
+  if (!trimmed || trimmed.endsWith(':') || trimmed.split(/\s+/).length < 5) return false;
 
   // Reject if it starts with punctuation or digit fragments (e.g. ,000/- or 10,000/- without label)
   if (/^[,.\/\-]|^\d+[\/,\-]/.test(trimmed)) {
@@ -73,6 +75,11 @@ export function isValidBullet(text: string): boolean {
 
   if (isBoilerplate(trimmed)) return false;
   return true;
+}
+
+export function isUsefulAnswerText(text: string): boolean {
+  const cleaned = cleanText(text).replace(/^[-*•\d.)\s]+/, '').trim();
+  return isValidBullet(cleaned) && !cleaned.endsWith(':') && !/^[a-z]/.test(cleaned);
 }
 
 /**

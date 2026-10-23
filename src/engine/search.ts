@@ -94,6 +94,21 @@ export class VectorStore {
     return this.termPages;
   }
 
+  expandSection(sectionTitle: string, sourceFile: string, maxWords = 900): Chunk[] {
+    const section = this.chunks
+      .filter(chunk => chunk.sectionTitle === sectionTitle && chunk.sourceFile === sourceFile)
+      .sort((a, b) => a.pageStart - b.pageStart);
+    const expanded: Chunk[] = [];
+    let words = 0;
+    for (const chunk of section) {
+      const count = chunk.text.split(/\s+/).length;
+      if (expanded.length && words + count > maxWords) break;
+      expanded.push(chunk);
+      words += count;
+    }
+    return expanded;
+  }
+
   search(
     query: string,
     queryVector: Float32Array,
