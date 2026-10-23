@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite --config vite.folio.config.ts --configLoader runner",
     "build": "tsc -b && vite build --config vite.folio.config.ts --configLoader runner",
-    "build:quick-index": "node scripts/build-quick-index.mjs",
-    "train:smart-quickbot": "npm run build:quick-index && node scripts/train-smart-quickbot.mjs",
+    "build:index": "tsx scripts/build-index.ts --force",
     "test": "vitest run",
     "evaluate": "vitest run src/lib/evaluation.test.ts --reporter=verbose",
     "preview": "vite preview"
@@ -28,6 +27,7 @@
     "fake-indexeddb": "^6.0.0",
     "typescript": "~5.7.2",
     "vite": "^6.0.5",
-    "vitest": "^4.1.12"
+    "vitest": "^4.1.12",
+    "tsx": "^4.23.15"
   }
 }
