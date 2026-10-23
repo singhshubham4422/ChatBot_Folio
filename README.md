@@ -1,91 +1,60 @@
-# Folio: local first PDF assistant
+# Smart Bot — BITS PDF assistant
 
-Folio stores PDFs, extracted pages, retrieval chunks, conversations, and preferences in this browser's IndexedDB. PDF parsing, OCR, retrieval, and citations run locally. A small WebLLM model can run through WebGPU. Online sharing is enabled by default for the existing Online mode, but can be revoked in Settings; only selected excerpts and necessary recent conversation context are sent through the Folio server. The whole PDF is not intentionally uploaded by this feature.
+Smart Bot keeps the Folio interface and branding while its prepared-document mode uses a client-side BITS PDF engine. It searches the three official brochures with hybrid embedding + BM25 retrieval, classifies coverage as `FULL`, `PARTIAL`, `ASPECT_ONLY`, or `NONE`, and returns short extractive answers with file/page citations. It does not send Smart Bot questions to an online provider.
 
 ## Run locally
 
-Requires Node.js 20 or newer and npm.
+Requires Node.js 20+ and npm.
 
 ```sh
 npm install
 npm run dev
-npm test
+npm run build:index
 npm run build
 ```
 
-The development server includes the same `/api/online` and `/api/online-status` routes used by Vercel. It loads the root `.env` on the server only. The existing `.env` file is ignored by Git. Do not add a `VITE_` prefix to API secrets.
+`npm run dev` uses `vite.folio.config.ts`, which preserves the existing Folio local API middleware and Hugging Face model proxy used by the broader app. `npm run build` does not regenerate the prepared index. Run `npm run build:index` only after replacing PDFs.
 
-Expected local server environment variables:
+## Project structure
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `Groq_Api` | At least one online provider | Groq API key |
-| `Gemini_Api` | At least one online provider | Google Gemini API key |
-| `GROQ_MODEL` | Optional | Groq model ID; defaults to `openai/gpt-oss-120b` |
-| `GEMINI_MODEL` | Optional | Gemini model ID; defaults to `gemini-3.8-flash` |
+- `src/App.tsx`, `src/styles.css`, and `src/QuickBot.tsx`: existing Folio UI, branding, responsive layout, and Smart Bot screen.
+- `src/engine/`: BITS hybrid retrieval, query analysis, coverage rules, answer builder, and embedding worker.
+- `scripts/build-index.ts`: parses `public/pdfs/` and creates `public/index.json`.
+- `public/pdfs/`: the three committed source brochures served for citations.
+- `public/index.json`: committed searchable chunks, vocabulary, and embeddings.
+- `vite.folio.config.ts`: the existing Vite config plus development/preview middleware and the Hugging Face asset proxy.
 
-The default provider order is deterministic: Groq first, then Gemini. Set `ONLINE_PRIMARY_PROVIDER=gemini` to reverse the order. Folio tries the other configured provider once after a network failure, timeout, rate limit, quota exhaustion, or server error. Authentication and model configuration errors do not trigger a retry. Each provider attempt has a 12-second timeout. Short in-memory cooldowns reduce repeated calls after timeouts, rate limits, and provider outages. The status endpoint only reports generic configuration availability; a key's presence does not prove that it works.
+## Updating the PDFs
 
-## Deploy to Vercel
-
-Import the repository into Vercel. The functions are `api/online.ts` and `api/online-status.ts`. Configure `Groq_Api` and/or `Gemini_Api` as server-side project environment variables. Optional model variables are `GROQ_MODEL` and `GEMINI_MODEL`; `ONLINE_PRIMARY_PROVIDER` can be set to `gemini` to reverse the default order. Redeploy after changing environment variables. Vercel does not automatically receive a local `.env` file; configure these values in the Vercel project settings. Do not use browser-visible `VITE_` variables for secrets.
-
-## Quick Bot
-
-Smart Quick Bot is a separate fixed knowledge base for PDFs stored locally in `Data/`. The source PDFs are ignored by Git. Train its lightweight local passage model with:
+Replace the files in `public/pdfs/` using the exact expected filenames, then run:
 
 ```sh
-npm run build:quick-index
+npm run build:index
+npm run build
 ```
 
-For the complete build, run:
+Commit both the PDFs and `public/index.json`. The PDFs are currently below GitHub's 50 MB review threshold and 100 MB hard limit; use Git LFS if a future source exceeds 50 MB.
 
-```sh
-npm run train:smart-quickbot
-```
+PDF links use `import.meta.env.BASE_URL` and open the cited page with `#page=N`.
 
-This creates `public/quick-bot/index.json`, `manifest.json`, and `smart-model.json`. Commit those generated files; Vercel serves them as static assets. Users do not upload PDFs for Smart Quick Bot, and uploaded session PDFs are never searched by it.
+## Environment and Vercel
 
-Smart Quick Bot is browser-first. It first uses the trained local passage model, then the selected WebLLM model when it is ready, and otherwise lazy-loads the Transformers.js SmolLM2-135M ONNX model. Transformers.js tries WebGPU first and WASM second, with model files cached in IndexedDB to avoid the Android `Cache.add` failure path. If both browser backends fail, Smart Quick Bot still returns a short extractive answer from the retrieved passages. It never sends Smart Quick Bot questions to an online provider and never searches uploaded session PDFs. Retrain whenever the PDFs in `Data/` change.
+The new PDF engine requires no API key or new environment variable. The existing Folio online mode still recognizes these server-side variable names if that separate feature is enabled:
 
-The Transformers.js model is downloaded from Hugging Face on first use; it is not committed to GitHub and is not a 50 MB model. The fallback checks for a usable WebGPU adapter, initializes only one backend at a time, and uses q4 quantization for both WebGPU and WASM. The repository contains only the Quick Bot index and browser code, keeping Vercel deployment small. A capable generative model under a strict 50 MB download budget is not realistic; the extractive layer remains the no-model fallback.
+- `Groq_Api`
+- `Gemini_Api`
+- `GROQ_MODEL`
+- `GEMINI_MODEL`
+- `ONLINE_PRIMARY_PROVIDER`
 
-## Online privacy and consent
+Never use `VITE_` variables for secrets. Configure any existing online-mode variables in Vercel Project Settings; `.env` is local-only and ignored. Import the repository into Vercel and use the branch preview deployment for testing. No production deployment is part of this change.
 
-Folio checks saved consent before every online request and also requires consent at the server route. Revoking consent prevents subsequent requests. The settings disclosure says:
+## Debugging and rollback
 
-> Allow online AI providers. When enabled, Folio may send your question, relevant PDF excerpts, and necessary recent conversation context to a configured online AI provider. Your full PDF is not intentionally uploaded by this feature. Requests are processed by an external provider through the Folio server.
+Internal coverage, score, and passage counts appear only with `?debug=1`. Normal answers show only the answer, citations, and follow-up chips.
 
-If both providers are configured, a request can be processed by either provider because Folio may fail over. Explicit Local model mode never contacts an online endpoint. Automatic mode may use the selected local model after online failure, and requires consent before attempting an online provider.
+The protected rollback tag is `backup-smartbot-before-replace`. To restore the pre-change state locally, create a recovery branch from that tag. After an approved merge, rollback can use `git revert` on the merge or redeploy the backup tag in Vercel.
 
-## WebLLM model compatibility
+## Assumptions
 
-The app checks each selected ID against the installed `@mlc-ai/web-llm` `prebuiltAppConfig`; it never substitutes another model. Verified against installed WebLLM 0.2.86:
-
-| Model ID | Declared WebGPU memory | Required feature |
-| --- | ---: | --- |
-| `SmolLM2-135M-Instruct-q0f16-MLC` | 359.69 MB | `shader-f16` |
-| `SmolLM2-135M-Instruct-q0f32-MLC` | 719.38 MB | None declared |
-| `SmolLM2-360M-Instruct-q4f16_1-MLC` | 376.06 MB | `shader-f16` |
-| `SmolLM2-360M-Instruct-q4f32_1-MLC` | 579.61 MB | None declared |
-| `Llama-3.2-1B-Instruct-q4f16_1-MLC` | 879.04 MB | None declared |
-
-The smallest 135M model is selected by default. When automatic loading is enabled, preparation begins as soon as the app opens, even before a display name or Settings interaction. Download and initialization progress, WebGPU compatibility issues, shader-f16 support, and initialization errors are shown in Settings. Device support and available GPU memory vary; iPhones may not support WebGPU or may not have enough memory for model initialization.
-
-The local model is not a 50 MB artifact. The listed memory values are WebGPU memory requirements, not guaranteed download sizes. A strict 50 MB total browser budget is not sufficient for a capable general-purpose generative model.
-
-## Processing and retrieval
-
-PDF.js parses pages and retains original page numbers and text. English Tesseract.js OCR is lazy-loaded for scanned or text-poor pages when enabled. Processing is sequential and checkpointed per page in IndexedDB. Retry skips completed good/OCR pages. Search uses BM25, stop-word removal, original page numbers, and extraction-quality tags; it does not download an embedding model. The PDF viewer opens the original page from each citation.
-
-Current ingestion limits are 100 MB and 2,000 pages. Very large files can exceed browser memory or storage limits. Browser storage is best effort and can be evicted. Use **Clear all local data** in Settings to delete sessions, PDFs, pages, chunks, and saved preferences.
-
-## Evaluation
-
-`src/lib/evaluation.fixture.ts` contains a fixed six-page synthetic document and 30 manually labeled questions. Run `npm run evaluate` for retrieval supporting-page hit@4 or `npm test` for routing, model-loading, consent, provider, and IndexedDB tests. These tests do not measure language-model factual accuracy, real-PDF OCR quality, latency, or device memory.
-
-## Limitations
-
-- Online provider availability depends on deployment configuration, model access, and current provider status.
-- Browser storage can be evicted and large PDFs can exceed device limits.
-- Review cited source passages, especially for scanned pages, tables, and conflicting text.
+The existing Folio library, uploads, local model settings, voice controls, and online mode are separate app features and remain intact. “Old smart bot logic/data” means the previous prepared Quick Bot index, model, training scripts, and `Data/` PDFs; they were removed from the branch after the rollback tag was created. The untracked legacy `Data/` PDFs were moved to a temporary system backup before removal.
