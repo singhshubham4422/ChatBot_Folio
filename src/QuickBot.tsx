@@ -1,6 +1,7 @@
 import { ArrowLeft, FileText, LoaderCircle, Mic, MicOff, Search, Send, ShieldCheck, Square } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { askEngine, loadEngine, type AnswerBlock, type EngineResult } from './engine/client';
+import { CONFIG } from './engine/config';
 import { useVoiceInput } from './useVoiceInput';
 
 function debugEnabled() { return new URLSearchParams(window.location.search).get('debug') === '1'; }
@@ -19,7 +20,7 @@ function StructuredBlock({ block, detailed }: { block: AnswerBlock; detailed: bo
   </section>;
 }
 
-export function QuickBot({ onBack }: { onBack: () => void }) {
+export function QuickBot({ displayName, onBack }: { displayName: string; onBack: () => void }) {
   const [question, setQuestion] = useState('');
   const [result, setResult] = useState<EngineResult>();
   const [busy, setBusy] = useState(false);
@@ -45,13 +46,14 @@ export function QuickBot({ onBack }: { onBack: () => void }) {
   const chips = result?.coverage.disambiguationChips.length ? result.coverage.disambiguationChips : result?.coverage.suggestedQuestions ?? [];
   const details = showDetails || result?.mode === 'DETAILED';
   return <section className="quick-bot-view">
-    <div className="quick-bot-heading"><button className="text-button" onClick={onBack}><ArrowLeft size={14}/> Back to library</button><div className="eyebrow muted">TRAINED LOCAL KNOWLEDGE BASE</div><h1>Smart Quick Bot</h1><p>Ask questions across the official BITS admission documents.</p></div>
+    <div className="quick-bot-heading"><button className="text-button" onClick={onBack}><ArrowLeft size={14}/> Back to library</button><div className="eyebrow muted">TRAINED LOCAL KNOWLEDGE BASE</div><h1>Hello, {displayName || 'there'}.</h1><p>Smart Quick Bot is ready to explore the official BITS admission documents with you.</p></div>
     <div className="quick-bot-card">
       <div className="quick-bot-status"><FileText size={16}/><span>{status}</span></div>
       <div className="quick-bot-input-row"><textarea value={voice.transcript || question} maxLength={300} onChange={event => { voice.notifyEdit(); setQuestion(event.target.value); }} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask(); } }} placeholder="Ask about BITS admissions…" disabled={busy} rows={3}/><div className="voice-controls">{voice.supported && <><select value={voice.language} onChange={event => voice.setLanguage(event.target.value)} aria-label="Voice language"><option value="en-IN">English India</option><option value="hi-IN">Hindi</option></select><button type="button" className={`voice-button ${voice.state === 'listening' ? 'listening' : ''}`} onClick={() => voice.state === 'listening' ? voice.stop() : voice.start()} aria-label={voice.state === 'listening' ? 'Stop voice input' : 'Start voice input'} aria-pressed={voice.state === 'listening'}>{voice.state === 'listening' ? <Square size={15}/> : voice.state === 'error' ? <MicOff size={16}/> : <Mic size={16}/>}</button></>}</div></div>
       <button className="primary-button" onClick={() => void ask()} disabled={busy || !question.trim()}>{busy ? <LoaderCircle size={16}/> : <Send size={16}/>} {busy ? 'Searching…' : 'Ask quick bot'}</button>
       {voice.supported && <div className="voice-status" aria-live="polite">{voice.state === 'listening' && 'Listening…'}{voice.state === 'processing' && 'Processing voice input…'}{voice.error && voice.error}<label><input type="checkbox" checked={voice.autoSend} onChange={event => voice.setAutoSend(event.target.checked)}/> Auto-send voice questions</label></div>}
       <p className="quick-bot-note"><ShieldCheck size={14}/> Answers use only the three official BITS documents. Browser voice recognition may send audio to the browser vendor’s service; typed questions stay on this device.</p>
+      {!result && <div className="demo-questions"><div><b>Try a question</b><small>Start with one of these document-based examples</small></div><div className="demo-question-grid">{CONFIG.EXAMPLE_QUESTIONS.map(example => <button key={example} onClick={() => void ask(example)} disabled={busy}>{example}<Send size={12}/></button>)}</div></div>}
       {error && <p className="error-note">{error}</p>}
     </div>
     {result && <article className="quick-bot-answer"><div className="eyebrow muted">{result.mode === 'DETAILED' ? 'DETAILED ANSWER' : 'ANSWER'}</div><p className="engine-answer">{result.answer}</p>{result.blocks.map(block => <StructuredBlock key={`${block.sourceFile}-${block.sectionTitle}`} block={block} detailed={details}/>) }<div className="quick-bot-sources"><b><Search size={13}/> Sources</b>{result.blocks.map(block => <SourceLink key={`${block.sourceFile}-${block.pageStart}`} block={block}/>)}</div><button className="details-toggle" onClick={() => setShowDetails(value => !value)}>{details ? 'Show shorter answer' : 'Show more details'}</button>{chips.length > 0 && <div className="quick-bot-suggestions">{chips.slice(0, 3).map(chip => <button key={chip} onClick={() => void ask(chip)}>{chip}</button>)}</div>}{debug && <small className="engine-debug">mode={result.mode} · coverage={result.coverage.type} · score={result.score.toFixed(3)} · passages={result.passages.length}</small>}</article>}
