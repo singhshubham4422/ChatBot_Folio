@@ -8,6 +8,7 @@ import { LocalModel, MODELS, type ModelId } from './lib/localModel';
 import { routeQuestion } from './lib/router';
 import { shouldAutoLoadModel } from './lib/modelLoading';
 import { QuickBot } from './QuickBot';
+import { loadEngine } from './engine/client';
 
 type RecognitionResult = { isFinal: boolean; 0: { transcript: string } };
 type RecognitionEvent = Event & { results: { length: number; [index: number]: RecognitionResult } };
@@ -73,6 +74,13 @@ export default function App() {
   const modelLoadPromise = useRef<Promise<void> | null>(null);
   const recognition = useRef<Recognition | null>(null);
   const spokenMessageId = useRef<string | null>(null);
+
+  useEffect(() => {
+    // Warm the prepared BITS search index and embedding worker after the Folio
+    // shell mounts. This is deliberately non-blocking; Smart Quick Bot still
+    // reports a normal loading/error state if the browser or network declines.
+    void loadEngine().catch(() => undefined);
+  }, []);
 
   useEffect(() => {
     void (async () => {

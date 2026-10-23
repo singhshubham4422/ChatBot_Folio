@@ -42,6 +42,8 @@ PDF links use `import.meta.env.BASE_URL` and open the cited page with `#page=N`.
 
 The index stores section titles, chunk neighbors, chunk type, table rows, page ranges, and nearby qualifiers. Detailed mode expands the best section up to about 900 words and renders tables horizontally scrollable on small screens. Every figure shown in a table must also occur in the cleaned source passage. “View original passage” exposes the exact cleaned extractive text.
 
+The prepared index and embedding worker begin loading in the background when the Folio site mounts, so Smart Quick Bot is usually ready before it is opened. This warm-up is non-blocking and the model is cached by the browser after the first load.
+
 The microphone uses the browser Web Speech API when available. English India (`en-IN`) and Hindi (`hi-IN`) are supported, with auto-send enabled by default and saved in local storage. Retrieval is English-only; Hindi recognition is accepted, but results work best when the transcript contains English terms. Chrome/Edge and Android Chrome are the best-supported browsers; Firefox does not expose the required API and Safari support is partial. Browser speech recognition may send audio to the browser vendor’s service (Chrome commonly uses Google), so voice is not claimed to be offline. Typed questions remain client-side.
 
 Add retrieval synonyms in `src/engine/config.ts` under `SYNONYM_MAP`. Add spoken-form replacements under `VOICE_NORMALIZATION`. Fully offline Whisper transcription is intentionally left as a future TODO; it is not built into this release.
