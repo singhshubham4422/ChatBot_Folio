@@ -6,7 +6,7 @@ export const CONFIG = {
   // Hybrid search weights: final = 0.6*embedding + 0.4*normalized_bm25
   EMBEDDING_WEIGHT: 0.6,
   BM25_WEIGHT: 0.4,
-  SOURCE_ROUTING_BOOST: 0.05,
+  SOURCE_ROUTING_BOOST: 0.12,
   KEYWORD_BOOST: 0.03,
   MAX_KEYWORD_BOOST_WORDS: 3,
   OUT_OF_CONTEXT_MESSAGE: 'Out of context — I can only answer from the provided documents.',
@@ -44,7 +44,7 @@ export const CONFIG = {
       targetFile: 'BITSAT-2026_brochure.pdf',
     },
     {
-      patterns: [/\bm\.?e\.?\b/i, /\bm\.?pharm\.?\b/i, /\bhigher degree\b/i, /\bph\.?d\b/i, /\bassistantship\b/i, /\bhd\b/i],
+      patterns: [/\bm\s*\.?\s*e\s*\.?\b/i, /\bm\s*\.?\s*pharm\s*\.?\b/i, /\bhigher degree\b/i, /\bph\s*\.?\s*d\s*\.?\b/i, /\bassistantship\b/i, /\bhd\b/i],
       targetFile: 'HD_Brochure_2025_26.pdf',
     },
     {
@@ -66,4 +66,24 @@ export const CONFIG = {
     'What financial assistance is provided for Higher Degree students?',
     'test centers in Delhi',
   ],
+
+  DETAILED_PATTERNS: [
+    /\b(fees?|dates?|eligibility|documents? required|test centers?|programmes?|marking scheme|steps?|procedure)\b/i,
+    /\b(list|table|what are|which|requirements?)\b/i,
+  ],
+
+  VOICE_NORMALIZATION: [
+    [/\bbit\s*sat\b/gi, 'BITSAT'],
+    [/\bb\s*i\s*t\s*s\s*a\s*t\b/gi, 'BITSAT'],
+    [/\bm\s*e\b/gi, 'M.E.'],
+    [/\bm\s*pharm\b/gi, 'M.Pharm'],
+    [/\btwenty\s+twenty\s+six\b/gi, '2026'],
+    [/\btwenty\s+twenty[- ]six\b/gi, '2026'],
+  ] as Array<[RegExp, string]>,
 };
+
+export type AnswerMode = 'DETAILED' | 'SHORT';
+
+export function detectAnswerMode(query: string): AnswerMode {
+  return CONFIG.DETAILED_PATTERNS.some(pattern => pattern.test(query)) ? 'DETAILED' : 'SHORT';
+}

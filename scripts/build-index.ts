@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { pipeline } from '@huggingface/transformers';
+import { normalizeTableRows } from '../src/engine/tables.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,14 +13,28 @@ interface SentenceItem {
   page: number;
 }
 
+interface TableData {
+  heading: string;
+  columns: string[];
+  rows: string[][];
+  page: number;
+}
+
+type ChunkType = 'text' | 'table' | 'list';
+
 interface Chunk {
   id: string;
   heading: string;
+  sectionTitle: string;
   text: string;
   sourceFile: string;
   pageStart: number;
   pageEnd: number;
   sentences: SentenceItem[];
+  type: ChunkType;
+  tables: TableData[];
+  neighboringIds: { prev?: string; next?: string };
+  qualifiers: string[];
   termFreqs: Record<string, number>;
   docLen: number;
 }
@@ -88,7 +103,7 @@ function isHeadingCandidate(line: string): boolean {
 /**
  * Reconstruct table rows on fee-heavy pages using coordinate grouping (group by y, sort by x)
  */
-function extractStructuredTableLines(items: any[]): string[] {
+function reconstructTable(items: any[], page: number, heading: string): TableData | undefined {
   const rows: Map<number, any[]> = new Map();
   for (const it of items) {
     if (!it.str || !it.str.trim()) continue;
@@ -108,51 +123,62 @@ function extractStructuredTableLines(items: any[]): string[] {
   }
 
   const sortedY = Array.from(rows.keys()).sort((a, b) => b - a);
-  const structuredLines: string[] = [];
-  let pendingLabel = '';
-
-  for (const y of sortedY) {
-    const rowItems = rows.get(y)!.sort((a, b) => a.transform[4] - b.transform[4]);
-    const rowText = rowItems.map(it => it.str.trim()).join(' | ');
-
-    // If row contains fee/number values
-    if (/[\d,]+\/-\b|\b\d{4,}\b/.test(rowText) && /[A-Za-z]/.test(rowText)) {
-      const parts = rowText.split(' | ');
-      const label = (pendingLabel ? pendingLabel + ' ' : '') + parts[0];
-      pendingLabel = '';
-      const values = parts.slice(1).join(', ');
-      structuredLines.push(`${label}: ${values}.`);
-    } else if (!/[\d,]+\/-\b/.test(rowText) && rowText.length < 60 && !rowText.includes('III-')) {
-      // Continuation of a label
-      pendingLabel = (pendingLabel ? pendingLabel + ' ' : '') + rowText.replace(/ \| /g, ' ');
-    } else {
-      if (pendingLabel) {
-        structuredLines.push(pendingLabel + '.');
-        pendingLabel = '';
-      }
-      structuredLines.push(rowText.replace(/ \| /g, ' '));
+  const matrix = sortedY.map(y => {
+    const items = rows.get(y)!.sort((a, b) => a.transform[4] - b.transform[4]);
+    const cells: string[] = [];
+    let previousEnd = -Infinity;
+    for (const item of items) {
+      const text = cleanExtractedText(item.str);
+      if (!text) continue;
+      const x = Number(item.transform[4]);
+      const gap = x - previousEnd;
+      if (!cells.length || gap > 8) cells.push(text);
+      else if (gap <= 2) cells[cells.length - 1] = cleanExtractedText(`${cells[cells.length - 1]}${text}`);
+      else cells[cells.length - 1] = cleanExtractedText(`${cells[cells.length - 1]} ${text}`);
+      previousEnd = x + Number(item.width || text.length * 4);
     }
-  }
+    return cells;
+  });
+  const useful = matrix.filter(row => row.length >= 2 && row.some(cell => /\d|%|USD|INR|Rs\.?|March|April|May|June|July|August|September|October|November|December/i.test(cell)));
+  if (useful.length < 2) return undefined;
 
-  if (pendingLabel) {
-    structuredLines.push(pendingLabel + '.');
-  }
+  const headerCandidate = matrix.find(row => row.length >= 2 && row.every(cell => !/[\d₹$]/.test(cell)));
+  const columns = headerCandidate && headerCandidate.length <= 3 ? headerCandidate : ['Item', 'Amount / details'];
+  const rowsData = useful.map(row => {
+    if (columns.length <= 2) return normalizeTableRows([row])[0] ?? [];
+    const normalized = [...row];
+    while (normalized.length < columns.length) normalized.push('');
+    return normalized.slice(0, columns.length);
+  }).filter(row => row.some(Boolean));
+  const amountRows = rowsData.filter(row => row[0] && row.slice(1).some(cell => /\d|%|USD|INR|Rs\.?|January|February|March|April|May|June|July|August|September|October|November|December/i.test(cell)));
+  if (amountRows.length < 2) return undefined;
+  return { heading, columns, rows: amountRows, page };
+}
 
-  return structuredLines;
+function tableLines(table: TableData): string[] {
+  return table.rows
+    .filter(row => row[0] && row.slice(1).some(Boolean))
+    .map(row => row.join(' | '));
+}
+
+function findQualifiers(text: string): string[] {
+  const found = new Set<string>();
+  for (const match of text.match(/\b(?:20\d\d[-–]\d\d|AY\s*20\d\d[-–]\d\d|ISA|First Degree|Higher Degree|M\.E\.|M\.Pharm|Dubai|Pilani|Hyderabad|Goa|International Student Admission)\b/gi) ?? []) found.add(cleanExtractedText(match));
+  return [...found];
 }
 
 async function extractPagesFromPdf(
   filePath: string,
   fontUrl: string,
   fileName: string
-): Promise<{ pages: Array<{ pageNum: number; sentences: SentenceItem[]; heading: string }>; pageCount: number; emptyPages: number[] }> {
+): Promise<{ pages: Array<{ pageNum: number; sentences: SentenceItem[]; heading: string; type: ChunkType; tables: TableData[]; qualifiers: string[] }>; pageCount: number; emptyPages: number[] }> {
   const data = new Uint8Array(fs.readFileSync(filePath));
   const doc = await pdfjs.getDocument({
     data,
     standardFontDataUrl: fontUrl,
   }).promise;
 
-  const pages: Array<{ pageNum: number; sentences: SentenceItem[]; heading: string }> = [];
+  const pages: Array<{ pageNum: number; sentences: SentenceItem[]; heading: string; type: ChunkType; tables: TableData[]; qualifiers: string[] }> = [];
   const emptyPages: number[] = [];
 
   let currentHeading = 'Overview';
@@ -180,11 +206,12 @@ async function extractPagesFromPdf(
     }
 
     const pageSentences: SentenceItem[] = [];
+    const pageTables = [reconstructTable(content.items as any[], pageNum, currentHeading)].filter((table): table is TableData => Boolean(table));
 
     // On fee-table pages in Admission Modality (pages 28-31), use coordinate-based row reconstruction
-    if (fileName.includes('Admission_Modality') && pageNum >= 28 && pageNum <= 31) {
-      const tableLines = extractStructuredTableLines(content.items as any[]);
-      for (const line of tableLines) {
+    if (pageTables.length > 0) {
+      const tableRows = pageTables.flatMap(tableLines);
+      for (const line of tableRows) {
         let cleaned = cleanExtractedText(line).replace(/^[-*•\d.)\s]+/, '').trim();
         if (!cleaned || cleaned.startsWith('III-')) continue;
         if (!/[.!?]$/.test(cleaned)) cleaned += '.';
@@ -218,10 +245,14 @@ async function extractPagesFromPdf(
       }
     }
 
+    const pageType: ChunkType = pageTables.length ? 'table' : pageSentences.some(sentence => /^[-*•]/.test(sentence.text)) ? 'list' : 'text';
     pages.push({
       pageNum,
       sentences: pageSentences,
       heading: currentHeading,
+      type: pageType,
+      tables: pageTables,
+      qualifiers: findQualifiers(fullPageText),
     });
   }
 
@@ -229,29 +260,61 @@ async function extractPagesFromPdf(
 }
 
 function chunkDocumentPages(
-  pages: Array<{ pageNum: number; sentences: SentenceItem[]; heading: string }>,
+  pages: Array<{ pageNum: number; sentences: SentenceItem[]; heading: string; type: ChunkType; tables: TableData[]; qualifiers: string[] }>,
   sourceFile: string,
   startChunkId: number
 ): Chunk[] {
   const chunks: Chunk[] = [];
   let chunkCount = startChunkId;
 
-  const allDocSentences: Array<{ text: string; page: number; heading: string }> = [];
+  const allDocSentences: Array<{ text: string; page: number; heading: string; type: ChunkType; tables: TableData[]; qualifiers: string[] }> = [];
   for (const p of pages) {
     for (const s of p.sentences) {
       allDocSentences.push({
         text: s.text,
         page: s.page,
         heading: p.heading,
+        type: p.type,
+        tables: p.tables,
+        qualifiers: p.qualifiers,
       });
     }
   }
 
   if (allDocSentences.length === 0) return chunks;
 
+  const sectionGroups: Array<typeof allDocSentences> = [];
+  for (const sentence of allDocSentences) {
+    const group = sectionGroups[sectionGroups.length - 1];
+    if (!group || group[0].heading !== sentence.heading) sectionGroups.push([sentence]);
+    else group.push(sentence);
+  }
+  if (sectionGroups.length > 1) {
+    const merged: Chunk[] = [];
+    let nextId = startChunkId;
+    for (const group of sectionGroups) {
+      const pseudoPages = group.map(item => ({
+        pageNum: item.page,
+        sentences: [{ text: item.text, page: item.page }],
+        heading: item.heading,
+        type: item.type,
+        tables: item.tables,
+        qualifiers: item.qualifiers,
+      }));
+      const part = chunkDocumentPages(pseudoPages, sourceFile, nextId);
+      merged.push(...part);
+      nextId += part.length;
+    }
+    for (let i = 0; i < merged.length; i++) merged[i].neighboringIds = { prev: merged[i - 1]?.id, next: merged[i + 1]?.id };
+    return merged;
+  }
+
   let currentChunkSentences: SentenceItem[] = [];
   let currentWords = 0;
   let currentHeading = allDocSentences[0].heading;
+  let currentType: ChunkType = allDocSentences[0].type;
+  let currentTables: TableData[] = [];
+  let currentQualifiers: string[] = [];
 
   for (let i = 0; i < allDocSentences.length; i++) {
     const s = allDocSentences[i];
@@ -260,6 +323,9 @@ function chunkDocumentPages(
     currentChunkSentences.push({ text: s.text, page: s.page });
     currentWords += sWords.length;
     if (s.heading) currentHeading = s.heading;
+    currentType = s.type;
+    currentTables.push(...s.tables);
+    currentQualifiers = [...new Set([...currentQualifiers, ...s.qualifiers])];
 
     if (currentWords >= CHUNK_SIZE || i === allDocSentences.length - 1) {
       const pageStart = currentChunkSentences[0].page;
@@ -277,11 +343,16 @@ function chunkDocumentPages(
       chunks.push({
         id: `${sourceFile.replace(/\.[^/.]+$/, '')}_chunk_${chunkCount++}`,
         heading: currentHeading,
+        sectionTitle: currentHeading,
         text: prefixedText,
         sourceFile,
         pageStart,
         pageEnd,
         sentences: [...currentChunkSentences],
+        type: currentType,
+        tables: [...new Map(currentTables.map(table => [`${table.page}:${table.heading}`, table])).values()],
+        neighboringIds: {},
+        qualifiers: currentQualifiers,
         termFreqs,
         docLen: tokens.length,
       });
@@ -300,7 +371,17 @@ function chunkDocumentPages(
 
       currentChunkSentences = overlapSentences;
       currentWords = overlapWords;
+      currentTables = [];
+      currentQualifiers = [];
+      currentType = 'text';
     }
+  }
+
+  for (let i = 0; i < chunks.length; i++) {
+    chunks[i].neighboringIds = {
+      prev: chunks[i - 1]?.id,
+      next: chunks[i + 1]?.id,
+    };
   }
 
   return chunks;

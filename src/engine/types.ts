@@ -3,14 +3,28 @@ export interface SentenceItem {
   page: number;
 }
 
+export interface TableData {
+  heading: string;
+  columns: string[];
+  rows: string[][];
+  page: number;
+}
+
+export type ChunkType = 'text' | 'table' | 'list';
+
 export interface Chunk {
   id: string;
   heading: string;
+  sectionTitle: string;
   text: string;
   sourceFile: string;
   pageStart: number;
   pageEnd: number;
   sentences: SentenceItem[];
+  type: ChunkType;
+  tables: TableData[];
+  neighboringIds: { prev?: string; next?: string };
+  qualifiers: string[];
   termFreqs: Record<string, number>;
   docLen: number;
 }
