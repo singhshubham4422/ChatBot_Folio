@@ -1,10 +1,10 @@
-node_modules
-dist
-.env*
-!.env.example
-.vercel
-Data/
-.env
+node_modules/
+dist/
 .env
 .env.*
 !.env.example
+.npm-cache/
+.vercel/
+*.log
+.DS_Store
+Data/
