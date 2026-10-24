@@ -1,83 +1,119 @@
-import { ArrowLeft, Copy, FileText, LoaderCircle, Mic, MicOff, Plus, Search, Send, ShieldCheck, Square, ThumbsDown, ThumbsUp, Volume2 } from 'lucide-react';
+import { FileText, LoaderCircle, Mic, MicOff, Plus, Search, Send, Square } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { askConversational, sanitizeMarkdown, stopLocalGeneration, unloadLocalModel, type AnswerBlock, type EngineResult } from './engine/client';
-import { CONFIG } from './engine/config';
+import { askConversational, type AnswerBlock, type EngineResult } from './engine/client';
 import { loadFaqKnowledge } from './engine/faq';
 import { useVoiceInput, voiceStatusMessage } from './useVoiceInput';
 
-function debugEnabled() { return new URLSearchParams(window.location.search).get('debug') === '1'; }
-function SourceLink({ block }: { block: AnswerBlock }) { return <a href={`${import.meta.env.BASE_URL}pdfs/${encodeURIComponent(block.sourceFile)}#page=${block.pageStart}`} target="_blank" rel="noreferrer"><FileText size={12}/> {block.sourceFile} - p. {block.pageStart}{block.pageEnd !== block.pageStart ? `-${block.pageEnd}` : ''}</a>; }
-function FaqSources({ result }: { result: EngineResult }) {
-  if (!result.faqSources?.length) return null;
-  return <div className="quick-bot-sources"><b><Search size={13}/> Verified source{result.faqSources.length > 1 ? 's' : ''}</b>{result.faqSources.map((source, index) => {
-    const fileName = source.file.replace(/ \(1\)(?=\.pdf$)/i, '');
-    const pageMatch = source.pages.match(/p\.\s*(\d+)/i) ?? source.pages.match(/\b(\d+)\b/);
-    const page = pageMatch?.[1] ?? '1';
-    return <a key={`${source.file}-${index}`} href={`${import.meta.env.BASE_URL}pdfs/${encodeURIComponent(fileName)}#page=${page}`} target="_blank" rel="noreferrer"><FileText size={12}/> {fileName} - {source.pages} ({source.admission_year})</a>;
-  })}</div>;
-}
-function StructuredBlock({ block, detailed }: { block: AnswerBlock; detailed: boolean }) {
-  return <section className="answer-block"><div className="answer-block-head"><b>{block.sectionTitle}</b><SourceLink block={block}/></div>{block.qualifiers.length > 0 && <div className="answer-scope"><b>Applies to:</b> {block.qualifiers.join(', ')}<span>Check the BITS website for current figures where the document year is old.</span></div>}{detailed && block.tables.map(table => <div className="answer-table-wrap" key={`${table.heading}-${table.page}`}><table><caption>{table.heading}</caption><thead><tr>{table.columns.map(column => <th key={column}>{column}</th>)}</tr></thead><tbody>{table.rows.map((row, index) => <tr key={`${table.page}-${index}`}>{row.map((cell, cellIndex) => <td key={`${index}-${cellIndex}`}>{cell}</td>)}</tr>)}</tbody></table><small className="table-source"><SourceLink block={{ ...block, pageStart: table.page, pageEnd: table.page }}/></small></div>)}{block.bullets.length > 0 && <ul className="answer-bullets">{block.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>}{detailed && <details className="original-passage"><summary>View original passage</summary><p>{block.originalText}</p></details>}</section>;
+type ChatMessage = { role: 'user' | 'assistant'; text: string; result?: EngineResult };
+const STORAGE_KEY = 'bot-admissions-history';
+const SUGGESTIONS = [
+  'What is BITSAT-2026 used for?',
+  'What are the eligibility requirements?',
+  'What fees and scholarships are available?',
+  'How does Higher-Degree admission work?',
+];
+
+function SourceLink({ block }: { block: AnswerBlock }) {
+  return <a href={`${import.meta.env.BASE_URL}pdfs/${encodeURIComponent(block.sourceFile)}#page=${block.pageStart}`} target="_blank" rel="noreferrer">
+    <FileText size={13} /> {block.sourceFile} · p. {block.pageStart}{block.pageEnd !== block.pageStart ? `–${block.pageEnd}` : ''}
+  </a>;
 }
 
-export function QuickBot({ onBack }: { onBack: () => void }) {
+function Sources({ result }: { result: EngineResult }) {
+  const faqSources = result.faqSources ?? [];
+  const retrievalSources = result.sources;
+  if (!faqSources.length && !retrievalSources.length) return null;
+  return <div className="bot-sources">
+    <strong><Search size={13} /> Sources</strong>
+    {faqSources.map((source, index) => {
+      const fileName = source.file.replace(/ \(1\)(?=\.pdf$)/i, '');
+      const page = source.pages.match(/p\.\s*(\d+)/i)?.[1] ?? source.pages.match(/\b(\d+)\b/)?.[1] ?? '1';
+      return <a key={`${source.file}-${index}`} href={`${import.meta.env.BASE_URL}pdfs/${encodeURIComponent(fileName)}#page=${page}`} target="_blank" rel="noreferrer">
+        <FileText size={13} /> {fileName} · {source.pages} · {source.admission_year}
+      </a>;
+    })}
+    {!faqSources.length && retrievalSources.map(source => <SourceLink key={`${source.fileName}-${source.page}`} block={{ sourceFile: source.fileName, sectionTitle: source.sectionTitle, pageStart: source.page, pageEnd: source.pageEnd, type: 'text', tables: [], bullets: [], qualifiers: [], originalText: '' }} />)}
+  </div>;
+}
+
+function AnswerExtras({ result, onSuggestion }: { result: EngineResult; onSuggestion: (text: string) => void }) {
+  const suggestions = (result.faqSuggestions?.length ? result.faqSuggestions : result.coverage.disambiguationChips.length ? result.coverage.disambiguationChips : result.coverage.suggestedQuestions).slice(0, 3);
+  return <>
+    <Sources result={result} />
+    {result.faqSources?.some(source => source.admission_year !== '2026-27') && <p className="bot-note">This answer is from a different admission cycle. Check the official BITS admissions website for current dates, fees, and rules.</p>}
+    {suggestions.length > 0 && <div className="bot-followups">{suggestions.map(suggestion => <button key={suggestion} onClick={() => onSuggestion(suggestion)}>{suggestion}</button>)}</div>}
+  </>;
+}
+
+export function QuickBot() {
   const [question, setQuestion] = useState('');
-  const [result, setResult] = useState<EngineResult>();
+  const [messages, setMessages] = useState<ChatMessage[]>(() => {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]').slice(-12); } catch { return []; }
+  });
   const [busy, setBusy] = useState(false);
-  const [showDetails, setShowDetails] = useState(true);
-  const [status, setStatus] = useState('Loading verified FAQ knowledge...');
-  const [error, setError] = useState('');
+  const [faqStatus, setFaqStatus] = useState('Loading verified FAQs…');
   const [faqError, setFaqError] = useState('');
-  const [debug] = useState(debugEnabled);
-  const [history, setHistory] = useState<Array<{ role: 'user' | 'assistant'; text: string }>>(() => { try { return JSON.parse(localStorage.getItem('folio-smartbot-history') || '[]').slice(-6); } catch { return []; } });
-  const [controller, setController] = useState<AbortController>();
+  const [error, setError] = useState('');
+  const controllerRef = useRef<AbortController>();
   const requestId = useRef(0);
   const voice = useVoiceInput(text => { setQuestion(text); return ask(text, true); });
+  const history = messages.map(message => ({ role: message.role, text: message.text }));
 
   async function loadFaq() {
-    setFaqError(''); setStatus('Loading verified FAQ knowledge...');
+    setFaqError(''); setFaqStatus('Loading verified FAQs…');
     try {
-      const data = await loadFaqKnowledge();
-      setStatus(`${data.faqs.length.toLocaleString()} verified FAQs ready`);
+      const knowledge = await loadFaqKnowledge();
+      setFaqStatus(`${knowledge.faqs.length.toLocaleString()} FAQs ready`);
     } catch (cause) {
-      setStatus('Verified FAQ knowledge unavailable');
-      setFaqError(cause instanceof Error ? cause.message : 'The verified FAQ knowledge base could not be loaded.');
+      setFaqStatus('FAQs unavailable');
+      setFaqError(cause instanceof Error ? cause.message : 'The verified FAQ dataset could not be loaded.');
     }
   }
 
-  useEffect(() => { void loadFaq(); return () => { void unloadLocalModel(); }; }, []);
-  async function ask(text = question, fromVoice = false) {
-    const value = text.trim().slice(0, 300);
+  useEffect(() => { void loadFaq(); return () => { voice.stop(); controllerRef.current?.abort(); }; }, []);
+
+  async function ask(input = question, fromVoice = false) {
+    const value = input.trim().slice(0, 300);
     if (!value || busy) return;
-    if (!fromVoice) voice.stop(); setBusy(true); setError(''); setResult(undefined); setQuestion(value);
-    const nextController = new AbortController(); setController(nextController);
+    if (!fromVoice) voice.stop();
+    setQuestion(''); setError(''); setBusy(true);
     const currentRequest = ++requestId.current;
+    const nextController = new AbortController();
+    controllerRef.current = nextController;
+    setMessages(previous => [...previous, { role: 'user' as const, text: value }].slice(-12));
     try {
-      const next = await askConversational(value, history, nextController.signal);
+      const result = await askConversational(value, history, nextController.signal);
       if (currentRequest !== requestId.current) return;
-      setResult(next); setShowDetails(next.mode === 'DETAILED' && !next.fallback);
-      const nextHistory = [...history, { role: 'user' as const, text: value }, { role: 'assistant' as const, text: next.answer }].slice(-6);
-      setHistory(nextHistory); localStorage.setItem('folio-smartbot-history', JSON.stringify(nextHistory));
+      setMessages(previous => [...previous, { role: 'assistant' as const, text: result.answer, result }].slice(-12));
     } catch (cause) {
-      if ((cause as Error)?.name !== 'AbortError' && currentRequest === requestId.current) setError(cause instanceof Error ? cause.message : 'The documents could not be searched.');
-    } finally { if (currentRequest === requestId.current) { setBusy(false); setController(undefined); } }
+      if ((cause as Error)?.name !== 'AbortError' && currentRequest === requestId.current) setError(cause instanceof Error ? cause.message : 'I could not search the official documents.');
+    } finally {
+      if (currentRequest === requestId.current) { setBusy(false); controllerRef.current = undefined; }
+    }
   }
 
-  function newChat() { requestId.current += 1; controller?.abort(); setBusy(false); setController(undefined); setResult(undefined); setQuestion(''); setError(''); setHistory([]); localStorage.removeItem('folio-smartbot-history'); }
+  function newChat() {
+    requestId.current += 1; controllerRef.current?.abort(); voice.stop(); setMessages([]); setQuestion(''); setError(''); setBusy(false); controllerRef.current = undefined; localStorage.removeItem(STORAGE_KEY);
+  }
 
-  function speak() { if (result?.answer && 'speechSynthesis' in window) window.speechSynthesis.speak(new SpeechSynthesisUtterance(result.answer)); }
-  const chips = result?.faqSuggestions?.length ? result.faqSuggestions : result?.coverage.disambiguationChips.length ? result.coverage.disambiguationChips : result?.coverage.suggestedQuestions ?? [];
-  const details = showDetails;
+  useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(messages.map(({ role, text }) => ({ role, text })))); }, [messages]);
 
-  return <section className="quick-bot-view">
-    <div className="quick-bot-heading"><div className="quick-bot-heading-actions"><button className="text-button" onClick={onBack}><ArrowLeft size={14}/> Back to library</button><button className="text-button" onClick={newChat}><Plus size={14}/> New chat</button></div><div className="eyebrow muted">BITS ADMISSIONS ASSISTANT</div><h1>Hello! Welcome to your BITS Admissions Assistant.</h1><p>Explore BITSAT, eligibility, programmes, fees, scholarships, and admission procedures using verified official documents.</p></div>
-    <div className="quick-bot-card">
-      <div className="quick-bot-status"><FileText size={16}/><span>{status}</span><small>FAQ answers are instant; document search remains available for uncovered questions.</small></div>
-      <div className="quick-bot-input-row"><textarea value={voice.transcript || question} maxLength={300} onChange={event => { voice.notifyEdit(); setQuestion(event.target.value); }} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask(); } }} placeholder="Ask about BITS admissions..." disabled={busy} rows={3}/><div className="quick-bot-composer-actions"><div className="voice-controls">{voice.supported && <><select value={voice.language} onChange={event => voice.setLanguage(event.target.value)} aria-label="Voice language"><option value="en-IN">English India</option><option value="hi-IN">Hindi</option></select><button type="button" className={`voice-button ${voice.state === 'listening' ? 'listening' : ''}`} onClick={() => voice.state === 'listening' ? voice.stop() : voice.start()} aria-label={voice.state === 'listening' ? 'Stop voice input' : 'Start voice input'}>{voice.state === 'listening' ? <Square size={15}/> : voice.state === 'error' ? <MicOff size={16}/> : <Mic size={16}/>}</button></>}</div><button className="primary-button quick-bot-send" onClick={() => void ask()} disabled={busy || !question.trim()}>{busy ? <LoaderCircle size={16}/> : <Send size={16}/>} {busy ? 'Thinking...' : 'Ask'}</button></div></div>{busy && <button className="details-toggle" onClick={() => { controller?.abort(); void stopLocalGeneration(); }}><Square size={13}/> Stop</button>}
-      {voice.supported && <div className="voice-status" aria-live="polite">{voiceStatusMessage(voice.state)}{voice.error && voice.error}<label><input type="checkbox" checked={voice.autoSend} onChange={event => voice.setAutoSend(event.target.checked)}/> Auto-send voice questions</label></div>}
-      <p className="quick-bot-note"><ShieldCheck size={14}/> Known questions are answered instantly from the verified FAQ dataset. Uncovered questions can use the existing document search. Browser voice recognition may send audio to the browser vendor service.</p>
-      {!result && history.length === 0 && <div className="demo-questions"><div><b>What would you like to know?</b><small>Choose a category or start with a verified example</small></div><div className="demo-question-grid">{['BITSAT', 'First-Degree Admissions', 'Higher-Degree Admissions', 'Fees and Scholarships', 'Eligibility', 'Admission Process', 'Important Dates', 'Campus Information'].map(category => <button key={category} onClick={() => void ask(category === 'BITSAT' ? 'What is BITSAT-2026 used for?' : category === 'Eligibility' ? 'What are the eligibility requirements?' : category === 'Fees and Scholarships' ? 'What scholarships are available?' : category === 'Important Dates' ? 'What are the important admission dates?' : `Tell me about ${category}.`)} disabled={busy}>{category}<Send size={12}/></button>)}{CONFIG.EXAMPLE_QUESTIONS.slice(0, 3).map(example => <button key={example} onClick={() => void ask(example)} disabled={busy}>{example}<Send size={12}/></button>)}</div></div>}{faqError && <p className="error-note">{faqError} <button className="inline-action" onClick={() => void loadFaq()}>Retry</button></p>}{error && <p className="error-note">{error}</p>}
-    </div>
-    {result && <article className="quick-bot-answer"><div className="eyebrow muted">{result.provider === 'verified-faq' ? 'VERIFIED FAQ ANSWER' : result.mode === 'DETAILED' ? 'DETAILED ANSWER' : 'ANSWER'}</div><div className="engine-answer">{sanitizeMarkdown(result.answer).map((part, index) => part.type === 'bullet' ? <li key={index}>{part.text}</li> : part.type === 'break' ? <br key={index}/> : <p key={index}>{part.text}</p>)}</div><div className="message-actions"><button title="Copy" onClick={() => void navigator.clipboard?.writeText(result.answer)}><Copy size={14}/></button><button title="Helpful"><ThumbsUp size={14}/></button><button title="Not helpful"><ThumbsDown size={14}/></button><button title="Read aloud" onClick={speak}><Volume2 size={14}/></button></div><FaqSources result={result}/>{result.blocks.map(block => <StructuredBlock key={`${block.sourceFile}-${block.sectionTitle}`} block={block} detailed={details}/>) }{result.generatedCitations?.length ? <div className="quick-bot-sources"><b><Search size={13}/> Sources</b>{result.generatedCitations.map(source => <a key={`${source.fileName}-${source.page}`} href={`${import.meta.env.BASE_URL}pdfs/${encodeURIComponent(source.fileName)}#page=${source.page}`} target="_blank" rel="noreferrer"><FileText size={12}/> {source.fileName} - p. {source.page}</a>)}</div> : result.blocks.length > 0 && <div className="quick-bot-sources"><b><Search size={13}/> Sources</b>{result.blocks.map(block => <SourceLink key={`${block.sourceFile}-${block.pageStart}`} block={block}/>)}</div>}{result.fallback && <p className="quick-bot-note">Local generation was unavailable or failed validation; the response above uses only verified document evidence.</p>}{result.provider === 'verified-faq' && result.faqSources?.some(source => source.admission_year !== '2026-27') && <p className="quick-bot-note">This answer comes from an older or different admission cycle. Verify current dates, fees, and rules on the official BITS admissions website.</p>}<button className="details-toggle" onClick={() => setShowDetails(value => !value)}>{details ? 'Show shorter answer' : 'Show more details'}</button>{chips.length > 0 && <div className="quick-bot-suggestions">{chips.slice(0, 3).map(chip => <button key={chip} onClick={() => void ask(chip)}>{chip}</button>)}{result.nextQuestion && <button onClick={() => void ask(result.nextQuestion!)}>{result.nextQuestion}</button>}<button onClick={() => void ask('explain that simply in 3 bullets')}>Simplify</button></div>}{debug && <small className="engine-debug">intent={result.intent} - query={result.rewrittenQuery ?? ''} - coverage={result.coverage.type} - provider={result.provider ?? 'none'} - passages={result.passages.length}</small>}</article>}
-  </section>;
+  return <div className="bot-app">
+    <header className="bot-header"><div><div className="bot-logo">Bot</div><span>BITS admissions assistant</span></div>{messages.length > 0 && <button className="bot-new-chat" onClick={newChat}><Plus size={15} /> New chat</button>}</header>
+    <main className="bot-main">
+      {messages.length === 0 ? <section className="bot-welcome" aria-labelledby="welcome-title">
+        <div className="bot-mark">B</div><h1 id="welcome-title">Hi! I’m Bot. How can I help you with BITS admissions?</h1>
+        <p>Ask about BITSAT, eligibility, programmes, fees, scholarships, and admission procedures. Answers come from the verified admission documents.</p>
+        <div className="bot-suggestion-grid">{SUGGESTIONS.map(suggestion => <button key={suggestion} onClick={() => void ask(suggestion)}>{suggestion}<Send size={14} /></button>)}</div>
+      </section> : <section className="bot-messages" aria-live="polite">{messages.map((message, index) => <div className={`bot-message ${message.role}`} key={`${message.role}-${index}`}><div className="bot-bubble">{message.text}</div>{message.role === 'assistant' && message.result && <AnswerExtras result={message.result} onSuggestion={suggestion => void ask(suggestion)} />}</div>)}{busy && <div className="bot-message assistant"><div className="bot-loading"><LoaderCircle size={15} /> Looking through the official answers…</div></div>}{error && <div className="bot-error">{error}<button onClick={() => void ask()}>Retry</button></div>}</section>}
+      {faqError && <div className="bot-faq-error">{faqError}<button onClick={() => void loadFaq()}>Retry</button></div>}
+    </main>
+    <form className="bot-composer" onSubmit={event => { event.preventDefault(); void ask(); }}>
+      <div className="bot-input-row"><textarea value={voice.transcript || question} onChange={event => { voice.notifyEdit(); setQuestion(event.target.value); }} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask(); } }} placeholder="Ask about BITS admissions…" maxLength={300} rows={1} disabled={busy} aria-label="Your question" />
+        <div className="bot-actions">{voice.supported && <><select aria-label="Voice language" value={voice.language} onChange={event => voice.setLanguage(event.target.value)}><option value="en-IN">EN</option><option value="hi-IN">HI</option></select><button type="button" className={voice.state === 'listening' ? 'active' : ''} onClick={() => voice.state === 'listening' ? voice.stop() : voice.start()} aria-label={voice.state === 'listening' ? 'Stop listening' : 'Start voice input'}>{voice.state === 'listening' ? <Square size={18} /> : voice.state === 'error' ? <MicOff size={18} /> : <Mic size={18} />}</button></>}{busy && <button type="button" onClick={() => { requestId.current += 1; controllerRef.current?.abort(); setBusy(false); controllerRef.current = undefined; }} aria-label="Stop request"><Square size={17} /></button>}<button className="bot-send" type="submit" disabled={busy || !question.trim()} aria-label="Send question"><Send size={18} /></button></div>
+      </div>
+      {voice.supported && voice.state !== 'idle' && <div className="bot-voice-status" aria-live="polite">{voiceStatusMessage(voice.state)}{voice.error ? ` ${voice.error}` : ''}<label><input type="checkbox" checked={voice.autoSend} onChange={event => voice.setAutoSend(event.target.checked)} /> auto-send</label></div>}
+      <div className="bot-footer-status"><span className={faqError ? 'offline' : ''}>{faqStatus}</span><span>Enter to send · Shift+Enter for a new line</span></div>
+    </form>
+  </div>;
 }

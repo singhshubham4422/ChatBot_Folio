@@ -4,7 +4,7 @@ import { analyzeQuery, evaluateCoverage, isUnsupportedDocumentQuestion, type Cov
 import { VectorStore } from './search.ts';
 import type { ScoredChunk, SearchResult, TableData } from './types.ts';
 import { tableNumbersAreGrounded } from './tables.ts';
-import { classifyIntent, hasLongVerbatimCopy, parseCitations, rewriteFollowup, sanitizeMarkdown, smallTalkReply, STARTER_CHIPS, stripNext, numbersAreGrounded, type ConversationTurn, type Intent } from './conversation';
+import { classifyIntent, rewriteFollowup, sanitizeMarkdown, smallTalkReply, STARTER_CHIPS, type ConversationTurn, type Intent } from './conversation';
 import { loadFaqKnowledge, matchConversationIntent, matchFaq, type FaqRecord, type FaqSourceReference } from './faq';
 
 export type EngineSource = { fileName: string; page: number; pageEnd: number; sectionTitle: string };
@@ -75,65 +75,9 @@ function faqResult(record: FaqRecord, matchedBy: 'exact' | 'alias' | 'keywords')
   };
 }
 
-let localModelPromise: Promise<import('../lib/localModel').LocalModel> | undefined;
-async function getLocalModel() {
-  localModelPromise ??= import('../lib/localModel').then(({ LocalModel }) => new LocalModel());
-  return localModelPromise;
-}
-
-export async function prepareLocalModel(onProgress: (text: string, value: number) => void, retry = false) {
-  const model = await getLocalModel();
-  if (retry) model.resetSessionFailure();
-  const { selectLocalModel } = await import('../lib/localModel');
-  const modelId = selectLocalModel();
-  await model.load(modelId, onProgress);
-  return modelId;
-}
-
-export async function localModelPlan() {
-  const { selectLocalModel, modelInfo } = await import('../lib/localModel');
-  const id = selectLocalModel();
-  return modelInfo(id);
-}
-export async function unloadLocalModel() {
-  if (localModelPromise) await (await localModelPromise).unload();
-}
-
-export async function stopLocalGeneration() {
-  if (localModelPromise) await (await localModelPromise).stop();
-}
-
-async function generatedAnswer(question: string, history: ConversationTurn[], result: EngineResult, signal?: AbortSignal, onToken?: (text: string) => void): Promise<Pick<EngineResult, 'generatedAnswer' | 'generatedCitations' | 'nextQuestion' | 'fallback' | 'fallbackReason' | 'provider'>> {
-  if (result.coverage.type === 'NONE' || !result.passages.length) return { fallback: false, provider: 'none' };
-  const evidence = result.passages.slice(0, 6);
-  const evidenceText = evidence.map(item => `${item.text} ${(item.tables ?? []).map(table => `${table.heading} ${table.columns.join(' ')} ${table.rows.flat().join(' ')}`).join(' ')}`).join(' ');
-  const model = await getLocalModel();
-  if (!model.isReady()) return { fallback: true, fallbackReason: 'local_model_not_ready', provider: 'extractive' };
-  let stopped = false;
-  const stop = () => { stopped = true; void model.stop(); };
-  signal?.addEventListener('abort', stop, { once: true });
-  try {
-    const answer = await model.ask(question, evidence, history.slice(-6).map(turn => `${turn.role}: ${turn.text}`), onToken, { maxTokens: result.mode === 'DETAILED' ? 420 : 260 });
-    if (stopped || signal?.aborted) throw new DOMException('Aborted', 'AbortError');
-    const withNext = stripNext(answer);
-    const parsed = parseCitations(withNext.text, new Set(evidence.map((_item, index) => index + 1)));
-    const citationSources = parsed.citations.map(id => { const item = evidence[id - 1]; return { fileName: item.sourceFile, page: item.pageStart, pageEnd: item.pageEnd, sectionTitle: item.sectionTitle }; });
-    const grounded = numbersAreGrounded(parsed.text, evidenceText);
-    if (!parsed.citations.length || !grounded || hasLongVerbatimCopy(parsed.text, evidenceText)) {
-      console.debug('[smart-bot-debug]', { stage: 'local-answer-validation', citationCount: parsed.citations.length, numbersGrounded: grounded });
-      return { fallback: true, fallbackReason: 'answer_validation_failed', provider: 'extractive' };
-    }
-    return { generatedAnswer: parsed.text, generatedCitations: citationSources, nextQuestion: withNext.next, fallback: false, provider: 'local-webllm' };
-  } catch (error) {
-    if ((error as Error)?.name === 'AbortError') throw error;
-    console.debug('[smart-bot-debug]', { stage: 'local-generation', error: error instanceof Error ? error.name : 'unknown' });
-    return { fallback: true, fallbackReason: 'local_generation_failed', provider: 'extractive' };
-  } finally {
-    signal?.removeEventListener('abort', stop);
-  }
-}
-
 export async function askConversational(input: string, history: ConversationTurn[] = [], signal?: AbortSignal, onToken?: (text: string) => void): Promise<EngineResult> {
+  void signal;
+  void onToken;
   const knowledge = await loadFaqKnowledge();
   const conversationIntent = matchConversationIntent(input, knowledge.intents);
   if (conversationIntent) {
@@ -154,8 +98,9 @@ export async function askConversational(input: string, history: ConversationTurn
   if (result.coverage.disambiguationChips.length > 0) {
     return { ...result, intent, rewrittenQuery, blocks: [], sources: [], passages: [], answer: 'Which programme or admission scheme do you mean?', provider: 'none', fallback: false };
   }
-  const generated = await generatedAnswer(rewrittenQuery, history, result, signal, onToken);
-  return { ...result, intent, rewrittenQuery, ...generated, answer: generated.generatedAnswer ?? result.answer };
+  // The dedicated Bot UI is FAQ-first and deterministic. Retrieval remains an
+  // extractive fallback; it must never silently invoke or download a local model.
+  return { ...result, intent, rewrittenQuery, provider: result.provider ?? 'retrieval', fallback: false };
 }
 
 export { sanitizeMarkdown };
