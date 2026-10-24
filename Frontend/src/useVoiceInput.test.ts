@@ -12,6 +12,8 @@ describe('voice input helpers', () => {
     expect(normalizeVoiceTranscript('what is bit sat eligibility')).toBe('What is BITSAT eligibility');
     expect(normalizeVoiceTranscript('m e fees in twenty twenty six')).toBe('M.E. fees in 2026');
     expect(normalizeVoiceTranscript('m pharm')).toBe('M.Pharm');
+    expect(normalizeVoiceTranscript('tell me about bits pilani first degree')).toBe('Tell me about BITS Pilani First Degree');
+    expect(normalizeVoiceTranscript('higher degree in twenty twenty five')).toBe('Higher Degree in 2025');
   });
 
   it('maps recognition errors safely', () => {

@@ -91,10 +91,17 @@ export const CONFIG = {
   VOICE_NORMALIZATION: [
     [/\bbit\s*sat\b/gi, 'BITSAT'],
     [/\bb\s*i\s*t\s*s\s*a\s*t\b/gi, 'BITSAT'],
-    [/\bm\s*e\b/gi, 'M.E.'],
+    [/\bm\s+e\b/gi, 'M.E.'],
     [/\bm\s*pharm\b/gi, 'M.Pharm'],
     [/\btwenty\s+twenty\s+six\b/gi, '2026'],
     [/\btwenty\s+twenty[- ]six\b/gi, '2026'],
+    [/\bbits\s+pilani\b/gi, 'BITS Pilani'],
+    [/\bbits\s+goa\b/gi, 'BITS Goa'],
+    [/\bbits\s+hyderabad\b/gi, 'BITS Hyderabad'],
+    [/\bfirst\s+degree\b/gi, 'First Degree'],
+    [/\bhigher\s+degree\b/gi, 'Higher Degree'],
+    [/\btwenty\s+twenty\s+five\b/gi, '2025'],
+    [/\btwenty\s+twenty[- ]five\b/gi, '2025'],
   ] as Array<[RegExp, string]>,
 };
 

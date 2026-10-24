@@ -51,6 +51,13 @@ button:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3p
 .bot-actions .bot-send:hover { background: #285b40; }
 .bot-actions .bot-send:disabled { cursor: not-allowed; opacity: .4; }
 .bot-voice-status { display: flex; align-items: center; gap: 9px; min-height: 22px; padding: 4px 3px 0; color: #648271; font-size: 12px; }
+.bot-actions button.recording { background: #fde8e8 !important; color: #c53030 !important; animation: voice-mic-pulse 1.4s ease-in-out infinite; }
+@keyframes voice-mic-pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229,62,62,.4); } 50% { transform: scale(1.08); box-shadow: 0 0 0 6px rgba(229,62,62,0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(229,62,62,0); } }
+.bot-voice-indicator { display: inline-flex; align-items: center; gap: 7px; font-weight: 500; }
+.bot-voice-pulse { width: 8px; height: 8px; border-radius: 50%; background: #e53e3e; animation: voice-dot-pulse .9s infinite alternate; }
+@keyframes voice-dot-pulse { from { opacity: .35; transform: scale(.75); } to { opacity: 1; transform: scale(1.25); } }
+.bot-voice-status.has-error { color: #a54639; }
+.bot-voice-error-text { color: #a54639; font-size: 12px; }
 .bot-voice-status label { margin-left: auto; display: flex; align-items: center; gap: 4px; }
 .bot-footer-status { display: flex; justify-content: space-between; gap: 12px; padding: 7px 3px 0; color: #98a59d; font-size: 11px; }
 .bot-footer-status .offline { color: #a55b4e; }

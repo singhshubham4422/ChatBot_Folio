@@ -56,7 +56,10 @@ export function QuickBot() {
   const controllerRef = useRef<AbortController>();
   const requestId = useRef(0);
   const lastQuestion = useRef('');
-  const voice = useVoiceInput(text => { setQuestion(text); return ask(text, true); });
+  const voice = useVoiceInput(
+    text => { setQuestion(text); return ask(text, true); },
+    { onInterim: text => setQuestion(text) }
+  );
   const history = messages.map(message => ({ role: message.role, text: message.text }));
 
   async function loadFaq() {
@@ -107,11 +110,11 @@ export function QuickBot() {
       </section> : <section className="bot-messages" aria-live="polite">{messages.map((message, index) => <div className={`bot-message ${message.role}`} key={`${message.role}-${index}`}><div className="bot-bubble">{message.text}</div>{message.role === 'assistant' && message.result && <AnswerExtras result={message.result} onSuggestion={suggestion => void ask(suggestion)} />}</div>)}{busy && <div className="bot-message assistant"><div className="bot-loading"><LoaderCircle size={15} /> Looking through the official answers…</div></div>}{error && <div className="bot-error">{error}<button onClick={() => void ask(lastQuestion.current)}>Retry</button></div>}</section>}
       {faqError && <div className="bot-faq-error">{faqError}<button onClick={() => void loadFaq()}>Retry</button></div>}
     </main>
-    <form className="bot-composer" onSubmit={event => { event.preventDefault(); void ask(); }}>
-      <div className="bot-input-row"><textarea value={voice.transcript || question} onChange={event => { voice.notifyEdit(); setQuestion(event.target.value); }} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask(); } }} placeholder="Ask about BITS admissions…" maxLength={300} rows={1} disabled={busy} aria-label="Your question" />
-        <div className="bot-actions">{voice.supported && <><select aria-label="Voice language" value={voice.language} onChange={event => voice.setLanguage(event.target.value)}><option value="en-IN">EN</option><option value="hi-IN">HI</option></select><button type="button" className={voice.state === 'listening' ? 'active' : ''} onClick={() => voice.state === 'listening' ? voice.stop() : voice.start()} aria-label={voice.state === 'listening' ? 'Stop listening' : 'Start voice input'}>{voice.state === 'listening' ? <Square size={18} /> : voice.state === 'error' ? <MicOff size={18} /> : <Mic size={18} />}</button></>}{busy && <button type="button" onClick={() => { requestId.current += 1; controllerRef.current?.abort(); setBusy(false); controllerRef.current = undefined; }} aria-label="Stop request"><Square size={17} /></button>}<button className="bot-send" type="submit" disabled={busy || !question.trim()} aria-label="Send question"><Send size={18} /></button></div>
+    <form className="bot-composer" onSubmit={event => { event.preventDefault(); void ask((question || voice.transcript).trim()); }}>
+      <div className="bot-input-row"><textarea value={question} onChange={event => { voice.notifyEdit(); setQuestion(event.target.value); }} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); void ask((question || voice.transcript).trim()); } }} placeholder={voice.state === 'listening' ? 'Listening to your voice...' : 'Ask about BITS admissions…'} maxLength={300} rows={1} disabled={busy} aria-label="Your question" />
+        <div className="bot-actions">{voice.supported && <><select aria-label="Voice language" value={voice.language} onChange={event => voice.setLanguage(event.target.value)}><option value="en-IN">EN</option><option value="hi-IN">HI</option></select><button type="button" className={voice.state === 'listening' ? 'active recording' : ''} onClick={() => voice.state === 'listening' ? voice.stop() : voice.start()} aria-label={voice.state === 'listening' ? 'Stop listening' : 'Start voice input'} title={voice.state === 'listening' ? 'Stop listening' : 'Start voice input'}>{voice.state === 'listening' ? <Square size={18} /> : voice.state === 'error' ? <MicOff size={18} /> : <Mic size={18} />}</button></>}{busy && <button type="button" onClick={() => { requestId.current += 1; controllerRef.current?.abort(); setBusy(false); controllerRef.current = undefined; }} aria-label="Stop request"><Square size={17} /></button>}<button className="bot-send" type="submit" disabled={busy || !(question || voice.transcript).trim()} aria-label="Send question"><Send size={18} /></button></div>
       </div>
-      {voice.supported && voice.state !== 'idle' && <div className="bot-voice-status" aria-live="polite">{voiceStatusMessage(voice.state)}{voice.error ? ` ${voice.error}` : ''}<label><input type="checkbox" checked={voice.autoSend} onChange={event => voice.setAutoSend(event.target.checked)} /> auto-send</label></div>}
+      {voice.supported && (voice.state !== 'idle' || voice.error) && <div className={`bot-voice-status ${voice.error ? 'has-error' : ''}`} aria-live="polite"><span className="bot-voice-indicator">{voice.state === 'listening' && <span className="bot-voice-pulse" />}{voiceStatusMessage(voice.state)}</span>{voice.error ? <span className="bot-voice-error-text"> {voice.error}</span> : null}<label title="Automatically send your question after you finish speaking"><input type="checkbox" checked={voice.autoSend} onChange={event => voice.setAutoSend(event.target.checked)} /> auto-send</label></div>}
       <div className="bot-footer-status"><span>Enter to send · Shift+Enter for a new line</span></div>
     </form>
   </div>;
