@@ -5,6 +5,7 @@ import { VectorStore } from './search.ts';
 import type { ScoredChunk, SearchResult, TableData } from './types.ts';
 import { tableNumbersAreGrounded } from './tables.ts';
 import { classifyIntent, hasLongVerbatimCopy, parseCitations, rewriteFollowup, sanitizeMarkdown, smallTalkReply, STARTER_CHIPS, stripNext, numbersAreGrounded, type ConversationTurn, type Intent } from './conversation';
+import { loadFaqKnowledge, matchConversationIntent, matchFaq, type FaqRecord, type FaqSourceReference } from './faq';
 
 export type EngineSource = { fileName: string; page: number; pageEnd: number; sectionTitle: string };
 export type AnswerBlock = {
@@ -35,12 +36,43 @@ export type EngineResult = {
   fallback?: boolean;
   fallbackReason?: string;
   provider?: string;
+  faqId?: string;
+  faqSources?: FaqSourceReference[];
+  faqSuggestions?: string[];
+  faqMatchedBy?: 'exact' | 'alias' | 'keywords';
 };
 
 function emptyCoverage(): CoverageDecision { return { type: 'NONE', topic: null, missingAspect: null, presentAspect: null, limitationMessage: null, scopeNote: null, suggestedQuestions: STARTER_CHIPS, disambiguationChips: [] }; }
 
 function smallTalkResult(intent: Intent): EngineResult {
   return { answer: smallTalkReply(intent as Exclude<Intent, 'DOC_QUESTION' | 'FOLLOWUP' | 'CHITCHAT' | 'UNSAFE'>), mode: 'SHORT', blocks: [], sources: [], coverage: emptyCoverage(), score: 0, passages: [], ready: true, intent };
+}
+
+function faqResult(record: FaqRecord, matchedBy: 'exact' | 'alias' | 'keywords'): EngineResult {
+  const rawReferences = record.source_references ?? record.source_files.map((file, index) => ({ file, pages: record.source_pages[index] ?? record.source_pages[0] ?? '?', admission_year: record.admission_year }));
+  const faqSources = rawReferences.map(reference => {
+    const label = reference.file.includes('BITSAT') ? 'BITSAT-2026' : reference.file.includes('Admission_Modality') ? 'FD-Admission-Modality' : reference.file.includes('HD_Brochure') ? 'BITS-HD-2025-26' : '';
+    const pages = label && reference.pages.includes(';')
+      ? reference.pages.match(new RegExp(`${label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s+p\\.\\s*([^;]+)`, 'i'))?.[1]?.trim() ?? reference.pages
+      : reference.pages;
+    return { ...reference, pages };
+  });
+  return {
+    answer: record.answer,
+    mode: 'SHORT',
+    blocks: [],
+    sources: [],
+    coverage: emptyCoverage(),
+    score: 1,
+    passages: [],
+    ready: true,
+    intent: 'DOC_QUESTION',
+    provider: 'verified-faq',
+    faqId: record.id,
+    faqSources,
+    faqSuggestions: record.follow_up_suggestions ?? [],
+    faqMatchedBy: matchedBy,
+  };
 }
 
 let localModelPromise: Promise<import('../lib/localModel').LocalModel> | undefined;
@@ -102,6 +134,17 @@ async function generatedAnswer(question: string, history: ConversationTurn[], re
 }
 
 export async function askConversational(input: string, history: ConversationTurn[] = [], signal?: AbortSignal, onToken?: (text: string) => void): Promise<EngineResult> {
+  const knowledge = await loadFaqKnowledge();
+  const conversationIntent = matchConversationIntent(input, knowledge.intents);
+  if (conversationIntent) {
+    const conversationalIntent: Intent = conversationIntent.intent === 'greeting' ? 'GREETING' : conversationIntent.intent === 'farewell' ? 'GOODBYE' : conversationIntent.intent === 'thanks' ? 'THANKS' : 'ABOUT_BOT';
+    return { ...smallTalkResult(conversationalIntent), answer: conversationIntent.answer, nextQuestion: conversationIntent.follow_up_suggestions[0], faqSuggestions: conversationIntent.follow_up_suggestions, provider: 'conversation-intent' };
+  }
+  const previousQuestion = [...history].reverse().find(turn => turn.role === 'user')?.text;
+  const previousMatch = previousQuestion ? matchFaq(previousQuestion, knowledge.faqs) : undefined;
+  const faqMatch = matchFaq(input, knowledge.faqs, previousMatch ? { admissionYear: previousMatch.record.admission_year, category: previousMatch.record.category } : undefined);
+  if (faqMatch) return faqResult(faqMatch.record, faqMatch.matchedBy);
+
   const intent = classifyIntent(input);
   if (intent === 'GREETING' || intent === 'THANKS' || intent === 'GOODBYE' || intent === 'ABOUT_BOT') return { ...smallTalkResult(intent), nextQuestion: STARTER_CHIPS[0] };
   if (intent === 'UNSAFE') return { ...smallTalkResult('ABOUT_BOT'), answer: 'I can’t follow instructions that try to override my safeguards. I can help with the official BITS admissions documents.', intent };

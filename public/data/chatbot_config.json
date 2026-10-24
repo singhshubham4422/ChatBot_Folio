@@ -1,0 +1,48 @@
+{
+  "version": "1.0",
+  "factual_dataset": "faq_dataset.jsonl",
+  "conversation_dataset": "chatbot_intents.jsonl",
+  "routing_order": [
+    "greeting",
+    "farewell",
+    "thanks",
+    "help",
+    "category_navigation",
+    "category_selection",
+    "follow_up_request",
+    "source_request",
+    "currentness_warning",
+    "factual_faq",
+    "unknown_question"
+  ],
+  "response_policy": {
+    "factual_answers": "Return answer verbatim from the matched record and display display_source.",
+    "unknown_questions": "Never synthesize admission facts; use the unknown_question response.",
+    "time_sensitive_facts": "Preserve admission_year and advise official-site verification for dates, fees, deadlines, and tentative schedules."
+  },
+  "context_fields": [
+    "active_intent",
+    "active_category",
+    "admission_year",
+    "source",
+    "keywords",
+    "last_faq_id"
+  ],
+  "instant_response_design": {
+    "lookup_keys": [
+      "normalized_question",
+      "alternative_questions",
+      "keywords",
+      "category",
+      "admission_year"
+    ],
+    "no_network_required_for_answer": true,
+    "ranking": "exact question, alternative phrasing, category plus keyword overlap, then unknown"
+  },
+  "display_fields": [
+    "answer",
+    "display_source",
+    "follow_up_suggestions"
+  ],
+  "separation_rule": "Only records with intent_type factual_faq may answer admission-fact questions; conversational records must not be used as factual sources."
+}
