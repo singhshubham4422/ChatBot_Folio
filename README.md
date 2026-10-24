@@ -15,10 +15,10 @@ Smart Bot combines the Folio reading workspace and branding with a conversationa
 - Real HTML tables with horizontal scrolling on mobile when PDF table data is extractable.
 - Browser voice input with English India and Hindi recognition, transcript normalization, and optional auto-send.
 - Background loading of the PDF index and embedding worker when the Folio app mounts.
-- Smart Bot questions run without an online provider; typed questions stay in the browser.
+- Smart Quick Bot is local-only: retrieval, generation and validation run in the browser. It never calls Groq, Gemini, or `/api/conversation`.
 - Rules-first intent routing handles greetings, thanks, goodbyes, bot questions, small talk, unsafe prompt-injection requests, and document questions before retrieval.
 - The last six user/assistant turns are stored locally per Folio conversation. Follow-ups are rewritten into standalone queries before retrieval.
-- Grounded answers stream through `api/conversation.ts`, cite numbered evidence, verify every number against retrieved text, and fall back to the structured extractive answer when providers fail, time out, rate-limit, or return untrusted output.
+- Grounded local answers cite numbered evidence, verify every number against retrieved text, and fall back to cleaned extractive evidence when the local model is unavailable or fails validation.
 - Generated text is rendered through DOM nodes only. Retrieved tables remain real HTML tables, with generated summaries above them.
 
 ## Run locally
@@ -101,16 +101,32 @@ Run the detailed query report with:
 node --import tsx scripts/test-detailed-queries.ts
 ```
 
+Run the 20-question Smart Bot retrieval evaluation offline:
+
+```sh
+node --import tsx scripts/evaluate-quick-bot.ts
+```
+
+This reports source-document hit@3 and source-page hit@3 separately. It loads the optional local `.env` only to report credential presence and model IDs; presence does not validate credentials or provider access. The evaluation remains offline unless explicitly run with `--live`:
+
+```sh
+node --import tsx scripts/evaluate-quick-bot.ts --live
+```
+
+The `--live` command prints the planned providers, models, request count, and usage warning before making any provider requests. `scripts/test-conversation.ts` follows the same rule and requires `--live` for provider calls.
+
 The protected rollback tag is `backup-smartbot-before-replace`. After a merged change, rollback can use `git revert` or redeploy that tag in Vercel.
 
-## Conversational architecture
+## Smart Quick Bot local architecture
 
-The request path is: intent router -> follow-up rewrite -> existing hybrid retrieval and section expansion -> grounded provider generation -> citation and number validation -> safe streamed UI. Greetings, thanks, goodbyes, bot questions, unrelated chat, unsafe prompt-injection requests, and `NONE` coverage do not call an LLM. Ambiguous topics use coverage disambiguation chips. Provider failure, missing keys, 429 responses, a timeout over 15 seconds, invalid citations, or unverified numbers use the extractive structured answer and a small excerpts note.
+The Smart Quick Bot path is: intent router -> follow-up rewrite -> hybrid embedding/BM25 retrieval -> section and table expansion -> local WebLLM generation -> citation and number validation -> safe UI. It uses only the three packaged BITS PDFs. It never calls Groq, Gemini, `/api/conversation`, or another hosted LLM. Greetings and unsupported questions do not initialize the local generator.
 
-Generation defaults are configurable through `GROQ_MODEL`, `GEMINI_MODEL`, and `ONLINE_PRIMARY_PROVIDER`. The current free-plan choice is Groq `openai/gpt-oss-20b` first for fast concise answers, with Gemini `gemini-3.8-flash` as fallback. Groq's current free table lists 30 RPM, 1K requests/day, 8K TPM, and 200K tokens/day for the selected open models; Gemini free limits are model/project dependent and shown in AI Studio as RPM, TPM, and RPD.
+The selected model is automatic: `SmolLM2-135M-Instruct-q0f32-MLC` (approximately 170 MB cached download and 280 MB runtime estimate) is used on Android, low-memory, or uncertain devices; capable desktop/laptop browsers with WebGPU, at least 8 GB reported device memory, and at least 8 hardware threads use `SmolLM2-360M-Instruct-q4f32_1-MLC` (approximately 230 MB cached download and 580 MB runtime estimate). The 1B model is not selected automatically. Estimates are approximate; browser GPU allocation varies.
 
-To change persona or tone, edit the system prompt in `api/onlineProvider.ts`. To tune cheap routing, edit the regexes and entity carry-over rules in `src/engine/conversation.ts`. Keep provider model IDs in environment configuration when changing deployments; never put API keys in `VITE_` variables.
+WebLLM is loaded only after the user presses **Prepare local model**. Model files are cached by the browser and are not bundled into Vercel. The first visit still needs network access to download the site, embedding assets, and selected model. After those assets are cached, retrieval and generation run locally. WebGPU is required for generation; if it is unavailable, the bot returns grounded extractive evidence instead. A failed local generation disables further attempts for the session until the user deliberately retries preparation. Use the unload control in the main app's local-model settings when available to release runtime memory without deleting cached files.
+
+The retrieval regression target remains source hit@3 `19/20` and source-page hit@3 `19/20`. Run `node --import tsx scripts/evaluate-quick-bot.ts` for the offline retrieval report. Local model answer quality requires a real WebGPU-capable browser run; mocked tests do not establish factual model quality.
 
 ## Privacy and assumptions
 
-Folio library, uploads, local model settings, voice controls, and optional online mode remain separate app features. Smart Bot searches only the three packaged BITS PDFs and never searches uploaded session PDFs. The legacy Smart Quick Bot index, model, training scripts, and `Data/` PDFs were removed from the replacement branch.
+Folio library, uploads, local model settings, voice controls, and the separate legacy main-chat features remain distinct. Smart Quick Bot searches only the three packaged BITS PDFs and never searches uploaded session PDFs. Typed questions and local generation stay in the browser after required assets are cached; browser speech recognition may process audio through its vendor service.

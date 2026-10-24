@@ -2,7 +2,7 @@
   "functions": {
     "api/online.ts": { "maxDuration": 30 },
     "api/online-status.ts": { "maxDuration": 5 },
-    "api/conversation.ts": { "maxDuration": 20 }
+    "api/conversation.ts": { "maxDuration": 20, "runtime": "nodejs20.x" }
   },
   "headers": [
     { "source": "/(.*)", "headers": [

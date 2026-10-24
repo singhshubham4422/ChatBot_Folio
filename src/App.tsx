@@ -4,7 +4,8 @@ import type { Chunk, Citation, DocumentRef, Message, Session, Preferences } from
 import { allSessions, clearApplicationData, deleteDocumentData, getChunks, getDocument, getPages, getPreferences, newSession, removeSession, saveDocProgress, saveDocument, savePageAndChunks, savePreferences, saveSession } from './lib/db';
 import { deterministicAnswer, hashFile, MAX_PDF_BYTES, MAX_PDF_PAGES, parsePdf, rankChunks, selectChunksForQuestion } from './lib/document';
 import { askOnline, OnlineRequestError, onlineCooldownActive } from './lib/online';
-import { LocalModel, MODELS, type ModelId } from './lib/localModel';
+import { MODELS, type ModelId } from './lib/modelCatalog';
+import type { LocalModel } from './lib/localModel';
 import { routeQuestion } from './lib/router';
 import { shouldAutoLoadModel } from './lib/modelLoading';
 import { QuickBot } from './QuickBot';
@@ -16,7 +17,12 @@ type Recognition = { continuous: boolean; interimResults: boolean; lang: string;
 type RecognitionConstructor = new () => Recognition;
 declare global { interface Window { SpeechRecognition?: RecognitionConstructor; webkitSpeechRecognition?: RecognitionConstructor; } }
 
-const modelManager = new LocalModel();
+let modelManagerPromise: Promise<LocalModel> | undefined;
+async function getModelManager(): Promise<LocalModel> {
+  modelManagerPromise ??= import('./lib/localModel').then(({ LocalModel }) => new LocalModel());
+  return modelManagerPromise;
+}
+const modelManager = { unload: async () => { if (modelManagerPromise) await (await modelManagerPromise).unload(); } };
 const makeId = () => crypto.randomUUID();
 const fmtTime = (stamp: number) => new Intl.DateTimeFormat(undefined, { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }).format(stamp);
 const defaultPreferences: Preferences = { displayName: '', modelId: 'SmolLM2-135M-Instruct-q0f16-MLC', modelAutoDownload: true, ocrEnabled: true, onlineConsent: true, readAloud: false, answerMode: 'online' };
@@ -230,6 +236,7 @@ export default function App() {
   function cancelProcessing() { controller.current?.abort(); }
   async function loadModel(targetModelId?: ModelId) {
     const requestedModel = targetModelId ?? modelId;
+    const modelManager = await getModelManager();
     if (modelManager.isReady(requestedModel)) {
       setModelState('ready');
       setModelProgress({ text: 'Model is ready in this tab', value: 1 });
@@ -292,11 +299,12 @@ export default function App() {
       setEvidenceRows(evidence);
       const context = [active.summary ?? '', ...active.messages.slice(-6).map(m => `${m.role === 'user' ? 'Reader' : 'Assistant'}: ${m.content.slice(0, 500)}`)].filter(Boolean);
       let answer = '';
-      const isLocalReady = modelState === 'ready' && modelManager.isReady(modelId);
+      const modelManager = routeQuestion({ mode: engine, deterministic: false, consent: onlineConsent, modelReady: false, onlineAvailable: !onlineCooldownActive() }) === 'local' ? await getModelManager() : undefined;
+      const isLocalReady = modelState === 'ready' && Boolean(modelManager?.isReady(modelId));
       const route = routeQuestion({ mode: engine, deterministic: false, consent: onlineConsent, modelReady: isLocalReady, onlineAvailable: !onlineCooldownActive() });
       let answerMode: 'online' | 'offline' = engine;
       if (route === 'local') {
-        answer = await modelManager.ask(userMessage.content, evidence, context, token => setStreamingText(current => current + token));
+        answer = await modelManager!.ask(userMessage.content, evidence, context, token => setStreamingText(current => current + token));
         answerMode = 'offline';
       } else if (route === 'online') {
         try {
@@ -348,7 +356,7 @@ export default function App() {
   }
   function stopSpeaking() { window.speechSynthesis?.cancel(); setSpeaking(false); setSpeechPaused(false); }
   async function stopGeneration() {
-    requestController.current?.abort(); await modelManager.stop(); setStreamingText('');
+    requestController.current?.abort(); if (modelManagerPromise) (await modelManagerPromise).stop(); setStreamingText('');
   }
   async function openEvidence() {
     if (!active?.documentId) return;

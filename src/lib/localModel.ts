@@ -1,14 +1,23 @@
 import type { MLCEngine } from '@mlc-ai/web-llm';
-import type { Chunk } from '../types';
+import { MODELS, type ModelId } from './modelCatalog';
+export { MODELS, type ModelId } from './modelCatalog';
 
-export const MODELS = [
-  { id: 'SmolLM2-135M-Instruct-q0f16-MLC', label: 'SmolLM2 · 135M · q0f16', size: '~360 MB VRAM', needsF16: true },
-  { id: 'SmolLM2-135M-Instruct-q0f32-MLC', label: 'SmolLM2 · 135M · q0f32', size: '~719 MB VRAM', needsF16: false },
-  { id: 'SmolLM2-360M-Instruct-q4f16_1-MLC', label: 'SmolLM2 · 360M · q4f16', size: '~376 MB VRAM', needsF16: true },
-  { id: 'SmolLM2-360M-Instruct-q4f32_1-MLC', label: 'SmolLM2 · 360M · q4f32', size: '~580 MB VRAM', needsF16: false },
-  { id: 'Llama-3.2-1B-Instruct-q4f16_1-MLC', label: 'Llama 3.2 · 1B · q4f16', size: '~879 MB VRAM', needsF16: false },
-] as const;
-export type ModelId = typeof MODELS[number]['id'];
+export function modelInfo(modelId: ModelId) {
+  return MODELS.find(model => model.id === modelId) ?? MODELS[1];
+}
+
+export function selectLocalModel(): ModelId {
+  if (typeof navigator === 'undefined') return MODELS[1].id;
+  const deviceMemory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
+  const cores = navigator.hardwareConcurrency ?? 0;
+  const isAndroid = /Android/i.test(navigator.userAgent ?? '');
+  const hasWebGPU = 'gpu' in navigator && Boolean(navigator.gpu);
+  const capableDesktop = hasWebGPU && !isAndroid && (deviceMemory ?? 0) >= 8 && cores >= 8;
+  return capableDesktop ? MODELS[3].id : MODELS[1].id;
+}
+
+let sessionFailed = false;
+type LocalEvidence = { text: string; sourceFile?: string; fileName?: string; pageStart?: number; page?: number; tables?: Array<{ heading: string; columns: string[]; rows: string[][] }> };
 export class LocalModel {
   private engine?: MLCEngine;
   private loadedId?: ModelId;
@@ -65,7 +74,7 @@ export class LocalModel {
 
   private async loadOnce(modelId: ModelId, progress: (text: string, value: number) => void, token: number) {
     if (typeof navigator === 'undefined' || !('gpu' in navigator) || !navigator.gpu) {
-      throw new Error('WebGPU is unavailable in this browser. Use a current Chrome or Edge build with WebGPU enabled, or choose online mode with consent.');
+      throw new Error('WebGPU is unavailable in this browser. Use a current Chrome or Edge build with WebGPU enabled, or use the grounded document-only fallback.');
     }
     const { prebuiltAppConfig } = await import('@mlc-ai/web-llm');
     const record = prebuiltAppConfig.model_list.find(item => item.model_id === modelId);
@@ -73,7 +82,7 @@ export class LocalModel {
     if (this.engine && this.loadedId === modelId) { progress('Using the already loaded model', 1); return; }
     const gpu = (navigator as Navigator & { gpu?: { requestAdapter: () => Promise<{ features: ReadonlySet<string> } | null> } }).gpu;
     const adapter = await gpu?.requestAdapter();
-    if (!adapter) throw new Error('This browser could not create a WebGPU adapter. Check browser and graphics driver support, or use online mode with consent.');
+    if (!adapter) throw new Error('This browser could not create a WebGPU adapter. Check browser and graphics driver support, or use the grounded document-only fallback.');
     if (record.required_features?.includes('shader-f16') && !adapter.features.has('shader-f16')) throw new Error('This model requires WebGPU shader-f16 support. Choose the listed q4f32 model or another supported option.');
     if (this.engine) { await this.engine.unload(); this.engine = undefined; this.loadedId = undefined; }
     const { CreateMLCEngine } = await import('@mlc-ai/web-llm');
@@ -155,23 +164,30 @@ export class LocalModel {
     this.engine = undefined;
     this.loadedId = undefined;
   }
+  resetSessionFailure() { sessionFailed = false; }
   async stop() { await this.engine?.interruptGenerate(); }
-  async ask(question: string, evidence: Chunk[], context: string[] = [], onToken?: (value: string) => void, options: { maxTokens?: number; systemInstruction?: string } = {}) {
+  async ask(question: string, evidence: LocalEvidence[], context: string[] = [], onToken?: (value: string) => void, options: { maxTokens?: number; systemInstruction?: string } = {}) {
     if (!this.engine) throw new Error('Load a local model first.');
-    const contextEvidence = evidence.map(c => `[${c.fileName ?? 'Document'}, page ${c.page}] ${c.text}`).join('\n\n');
-    const result = await this.engine.chat.completions.create({
-      messages: [
-        { role: 'system', content: 'Use the recent conversation only to resolve references. Answer only from the supplied PDF excerpts. If the excerpts do not contain the answer, say you could not find it in the selected documents. Cite every substantive claim as [filename, p. 2]. Do not invent facts; the PDF evidence overrides the summary.\n' + (options.systemInstruction ? `\n${options.systemInstruction}\n` : '') + '\nConversation context:\n' + context.slice(-6).map(item => item.slice(0, 500)).join('\n') + '\n\nPDF excerpts:\n' + contextEvidence },
-        { role: 'user', content: question },
-      ], temperature: 0.15, max_tokens: options.maxTokens ?? 500, stream: Boolean(onToken),
-    });
-    if (onToken && Symbol.asyncIterator in Object(result)) {
-      let answer = '';
-      for await (const part of result as AsyncIterable<{ choices?: { delta?: { content?: string } }[] }>) {
-        const token = part.choices?.[0]?.delta?.content ?? ''; answer += token; if (token) onToken(token);
+    if (sessionFailed) throw new Error('Local generation was disabled after a resource failure. Deliberately retry model preparation to try again.');
+    const contextEvidence = evidence.map((c, index) => `[${index + 1}] ${c.fileName ?? c.sourceFile ?? 'Document'}, page ${c.pageStart ?? c.page ?? '?'}: ${c.text}`).join('\n\n');
+    try {
+      const result = await this.engine.chat.completions.create({
+        messages: [
+          { role: 'system', content: 'Answer the exact question directly using only the supplied PDF excerpts. Preserve dates, amounts, percentages, eligibility conditions and academic-year qualifiers. Cite every substantive claim with the evidence number, such as [1] or [2]. If the excerpts are insufficient or contradictory, say so clearly. Do not invent facts, citations or admission guarantees. Use concise prose or short bullets; do not copy table headings or unrelated passages.\n' + (options.systemInstruction ? `\n${options.systemInstruction}\n` : '') + '\nRecent conversation is only for resolving references:\n' + context.slice(-6).map(item => item.slice(0, 500)).join('\n') + '\n\nPDF excerpts:\n' + contextEvidence },
+          { role: 'user', content: question },
+        ], temperature: 0.1, max_tokens: options.maxTokens ?? 320, stream: Boolean(onToken),
+      });
+      if (onToken && Symbol.asyncIterator in Object(result)) {
+        let answer = '';
+        for await (const part of result as AsyncIterable<{ choices?: { delta?: { content?: string } }[] }>) {
+          const token = part.choices?.[0]?.delta?.content ?? ''; answer += token; if (token) onToken(token);
+        }
+        return answer;
       }
-      return answer;
+      return (result as { choices: { message?: { content?: string } }[] }).choices[0]?.message?.content ?? 'I could not generate an answer.';
+    } catch (error) {
+      sessionFailed = true;
+      throw error;
     }
-    return (result as { choices: { message?: { content?: string } }[] }).choices[0]?.message?.content ?? 'I could not generate an answer.';
   }
 }

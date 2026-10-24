@@ -22,6 +22,10 @@ export interface CoverageDecision {
   disambiguationChips: string[];
 }
 
+export function isUnsupportedDocumentQuestion(query: string): boolean {
+  return /\b(?:not mentioned|not covered|not described|not in (?:these|the) documents)\b/i.test(query);
+}
+
 const TOPICS_CONFIG: Record<string, string[]> = {
   fees: ['fee', 'fees', 'payment', 'charges', 'cost', 'tuition', 'semester fee', 'expenses', 'amount', 'caution deposit', 'advances'],
   eligibility: ['eligibility', 'eligible', 'criteria', 'qualification', 'requirements', 'minimum marks', '75%', 'pcm', 'pcb'],

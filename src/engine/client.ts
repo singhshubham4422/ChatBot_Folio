@@ -1,10 +1,10 @@
 import { CONFIG, detectAnswerMode, type AnswerMode } from './config.ts';
 import { cleanText, extractCandidateSentences, isUsefulAnswerText, scoreAndSelectBullets, type BulletItem } from './answer.ts';
-import { analyzeQuery, evaluateCoverage, type CoverageDecision } from './queryAnalysis.ts';
+import { analyzeQuery, evaluateCoverage, isUnsupportedDocumentQuestion, type CoverageDecision } from './queryAnalysis.ts';
 import { VectorStore } from './search.ts';
 import type { ScoredChunk, SearchResult, TableData } from './types.ts';
 import { tableNumbersAreGrounded } from './tables.ts';
-import { classifyIntent, parseCitations, rewriteFollowup, sanitizeMarkdown, smallTalkReply, STARTER_CHIPS, stripNext, numbersAreGrounded, type ConversationTurn, type Intent } from './conversation';
+import { classifyIntent, hasLongVerbatimCopy, parseCitations, rewriteFollowup, sanitizeMarkdown, smallTalkReply, STARTER_CHIPS, stripNext, numbersAreGrounded, type ConversationTurn, type Intent } from './conversation';
 
 export type EngineSource = { fileName: string; page: number; pageEnd: number; sectionTitle: string };
 export type AnswerBlock = {
@@ -33,6 +33,7 @@ export type EngineResult = {
   generatedCitations?: EngineSource[];
   nextQuestion?: string;
   fallback?: boolean;
+  fallbackReason?: string;
   provider?: string;
 };
 
@@ -42,29 +43,57 @@ function smallTalkResult(intent: Intent): EngineResult {
   return { answer: smallTalkReply(intent as Exclude<Intent, 'DOC_QUESTION' | 'FOLLOWUP' | 'CHITCHAT' | 'UNSAFE'>), mode: 'SHORT', blocks: [], sources: [], coverage: emptyCoverage(), score: 0, passages: [], ready: true, intent };
 }
 
-async function generatedAnswer(question: string, history: ConversationTurn[], result: EngineResult, signal?: AbortSignal, onToken?: (text: string) => void): Promise<Pick<EngineResult, 'generatedAnswer' | 'generatedCitations' | 'nextQuestion' | 'fallback' | 'provider'>> {
-  if (result.coverage.type === 'NONE' || !result.passages.length) return { fallback: true, provider: 'extractive' };
-  const evidence = result.passages.slice(0, 6).map((passage, index) => ({ id: index + 1, file: passage.sourceFile, page: passage.pageStart, section: passage.sectionTitle, text: passage.text.slice(0, 1800), table: passage.tables?.map(table => `${table.heading}\n${table.columns.join(' | ')}\n${table.rows.map(row => row.join(' | ')).join('\n')}`).join('\n') }));
-  let response: Response;
+let localModelPromise: Promise<import('../lib/localModel').LocalModel> | undefined;
+async function getLocalModel() {
+  localModelPromise ??= import('../lib/localModel').then(({ LocalModel }) => new LocalModel());
+  return localModelPromise;
+}
+
+export async function prepareLocalModel(onProgress: (text: string, value: number) => void, retry = false) {
+  const model = await getLocalModel();
+  if (retry) model.resetSessionFailure();
+  const { selectLocalModel } = await import('../lib/localModel');
+  const modelId = selectLocalModel();
+  await model.load(modelId, onProgress);
+  return modelId;
+}
+
+export async function unloadLocalModel() {
+  if (localModelPromise) await (await localModelPromise).unload();
+}
+
+export async function stopLocalGeneration() {
+  if (localModelPromise) await (await localModelPromise).stop();
+}
+
+async function generatedAnswer(question: string, history: ConversationTurn[], result: EngineResult, signal?: AbortSignal, onToken?: (text: string) => void): Promise<Pick<EngineResult, 'generatedAnswer' | 'generatedCitations' | 'nextQuestion' | 'fallback' | 'fallbackReason' | 'provider'>> {
+  if (result.coverage.type === 'NONE' || !result.passages.length) return { fallback: false, provider: 'none' };
+  const evidence = result.passages.slice(0, 6);
+  const evidenceText = evidence.map(item => `${item.text} ${(item.tables ?? []).map(table => `${table.heading} ${table.columns.join(' ')} ${table.rows.flat().join(' ')}`).join(' ')}`).join(' ');
+  const model = await getLocalModel();
+  if (!model.isReady()) return { fallback: true, fallbackReason: 'local_model_not_ready', provider: 'extractive' };
+  let stopped = false;
+  const stop = () => { stopped = true; void model.stop(); };
+  signal?.addEventListener('abort', stop, { once: true });
   try {
-    response = await fetch('/api/conversation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal, body: JSON.stringify({ question, history: history.slice(-4).map(turn => `${turn.role}: ${turn.text}`), passages: evidence }) });
-  } catch { return { fallback: true, provider: 'extractive' }; }
-  if (!response.ok || !response.body) return { fallback: true, provider: 'extractive' };
-  const reader = response.body.getReader(); const decoder = new TextDecoder(); let buffer = ''; let answer = ''; let failed = false; let provider = 'online';
-  while (true) {
-    const { value, done } = await reader.read(); if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    for (const record of buffer.split('\n\n').slice(0, -1)) {
-      const event = record.match(/^event: (.+)\ndata: (.+)$/s); if (!event) continue;
-      try { const data = JSON.parse(event[2]); if (event[1] === 'token') { answer += typeof data === 'string' ? data : ''; onToken?.(answer); } if (event[1] === 'done') provider = data.provider ?? provider; if (event[1] === 'error') failed = true; } catch { failed = true; }
+    const answer = await model.ask(question, evidence, history.slice(-6).map(turn => `${turn.role}: ${turn.text}`), onToken, { maxTokens: result.mode === 'DETAILED' ? 420 : 260 });
+    if (stopped || signal?.aborted) throw new DOMException('Aborted', 'AbortError');
+    const withNext = stripNext(answer);
+    const parsed = parseCitations(withNext.text, new Set(evidence.map((_item, index) => index + 1)));
+    const citationSources = parsed.citations.map(id => { const item = evidence[id - 1]; return { fileName: item.sourceFile, page: item.pageStart, pageEnd: item.pageEnd, sectionTitle: item.sectionTitle }; });
+    const grounded = numbersAreGrounded(parsed.text, evidenceText);
+    if (!parsed.citations.length || !grounded || hasLongVerbatimCopy(parsed.text, evidenceText)) {
+      console.debug('[smart-bot-debug]', { stage: 'local-answer-validation', citationCount: parsed.citations.length, numbersGrounded: grounded });
+      return { fallback: true, fallbackReason: 'answer_validation_failed', provider: 'extractive' };
     }
-    buffer = buffer.split('\n\n').at(-1) ?? '';
+    return { generatedAnswer: parsed.text, generatedCitations: citationSources, nextQuestion: withNext.next, fallback: false, provider: 'local-webllm' };
+  } catch (error) {
+    if ((error as Error)?.name === 'AbortError') throw error;
+    console.debug('[smart-bot-debug]', { stage: 'local-generation', error: error instanceof Error ? error.name : 'unknown' });
+    return { fallback: true, fallbackReason: 'local_generation_failed', provider: 'extractive' };
+  } finally {
+    signal?.removeEventListener('abort', stop);
   }
-  if (failed || !answer.trim()) return { fallback: true, provider: 'extractive' };
-  const withNext = stripNext(answer); const parsed = parseCitations(withNext.text, new Set(evidence.map((_item, index) => index + 1)));
-  const citationSources = parsed.citations.map(id => { const item = evidence[id - 1]; return { fileName: item.file, page: item.page, pageEnd: item.page, sectionTitle: item.section }; });
-  if (!parsed.citations.length || !numbersAreGrounded(parsed.text, evidence.map(item => item.text).join(' '))) return { fallback: true, provider: 'extractive' };
-  return { generatedAnswer: parsed.text, generatedCitations: citationSources, nextQuestion: withNext.next, fallback: false, provider };
 }
 
 export async function askConversational(input: string, history: ConversationTurn[] = [], signal?: AbortSignal, onToken?: (text: string) => void): Promise<EngineResult> {
@@ -78,7 +107,7 @@ export async function askConversational(input: string, history: ConversationTurn
     return { ...result, intent, rewrittenQuery, blocks: [], sources: [], passages: [], answer: 'Which programme or admission scheme do you mean?', provider: 'none', fallback: false };
   }
   const generated = await generatedAnswer(rewrittenQuery, history, result, signal, onToken);
-  return { ...result, intent, rewrittenQuery, ...generated, answer: generated.fallback ? `${result.answer} Showing document excerpts.` : (generated.generatedAnswer ?? result.answer) };
+  return { ...result, intent, rewrittenQuery, ...generated, answer: generated.generatedAnswer ?? result.answer };
 }
 
 export { sanitizeMarkdown };
@@ -160,36 +189,54 @@ function makeBlock(hit: ScoredChunk, section: ScoredChunk[], bullets: BulletItem
 function summaryFor(block: AnswerBlock, coverage: CoverageDecision): string {
   if (coverage.type === 'NONE') return CONFIG.OUT_OF_CONTEXT_MESSAGE;
   const scope = [coverage.limitationMessage, coverage.scopeNote].filter(Boolean).join(' ');
-  const detail = block.tables[0]?.rows[0]?.filter(Boolean).join(': ') || block.bullets[0] || block.originalText.split(/[.!?]\s+/)[0];
-  return [scope, cleanText(detail)].filter(Boolean).join(' ');
+  const tableDetail = block.tables[0]?.rows.find(row => row[0] && row.slice(1).some(Boolean))?.filter(Boolean).join(': ');
+  const sentenceDetail = block.originalText.split(/(?<=[.!?])\s+/).map(cleanText).find(isUsefulAnswerText);
+  const detail = block.bullets.find(isUsefulAnswerText) || tableDetail || sentenceDetail;
+  return [scope, detail ? cleanText(detail) : 'The retrieved passages do not contain a complete, verified answer to this question.'].filter(Boolean).join(' ');
 }
 
 export async function askEngine(query: string): Promise<EngineResult> {
   const question = query.trim().slice(0, 300);
   if (!question) throw new Error('Enter a question.');
+  if (isUnsupportedDocumentQuestion(question)) {
+    return { answer: CONFIG.OUT_OF_CONTEXT_MESSAGE, mode: detectAnswerMode(question), blocks: [], sources: [], coverage: emptyCoverage(), score: 0, passages: [], ready: true };
+  }
   await loadEngine();
   if (!store) throw new Error('Search engine is unavailable.');
   const queryVector = await embed(question);
   const search: SearchResult = store.search(question, queryVector, CONFIG.TOP_K);
   const analysis = analyzeQuery(question);
   const termPages = store.getTermPages();
-  const topText = search.results.map(item => item.text).join(' ');
+  const routedResults = search.results.filter(item => item.routingBoost > 0);
+  const scopedResults = routedResults.length ? routedResults : search.results;
+  const scopedTopScore = scopedResults.reduce((best, item) => Math.max(best, item.score), 0);
+  const topText = scopedResults.map(item => item.text).join(' ');
   const hasKnownUnqualifiedTerm = analysis.topic === null && (analysis.aspects.includes('hostel') || analysis.aspects.every(aspect => aspect.split(/[_\s-]+/).some(term => Boolean(termPages[term.toLowerCase()]?.length))));
   const coverage = !hasKnownUnqualifiedTerm && analysis.topic === null
-    ? evaluateCoverage({ ...analysis, aspects: [] }, topText, termPages, Math.min(search.topScore, 0.19))
-    : evaluateCoverage(analysis, topText, termPages, search.topScore);
+    ? evaluateCoverage({ ...analysis, aspects: [] }, topText, termPages, Math.min(scopedTopScore, 0.19))
+    : evaluateCoverage(analysis, topText, termPages, scopedTopScore);
   const mode = detectAnswerMode(question);
-  if (coverage.type === 'NONE' || !search.results.length) return { answer: CONFIG.OUT_OF_CONTEXT_MESSAGE, mode, blocks: [], sources: [], coverage, score: search.topScore, passages: search.results, ready: true };
+  if (coverage.type === 'NONE' || !scopedResults.length) return { answer: CONFIG.OUT_OF_CONTEXT_MESSAGE, mode, blocks: [], sources: [], coverage, score: scopedTopScore, passages: scopedResults, ready: true };
 
-  const hit = search.results.find(result => result.routingBoost > 0) ?? search.results[0];
+  const hit = scopedResults[0];
   const sectionChunks = store.expandSection(hit.sectionTitle, hit.sourceFile, 900);
-  const expanded = sectionChunks.length ? sectionChunks : [hit];
-  const expandedScored: ScoredChunk[] = expanded.map(chunk => ({ ...chunk, embeddingScore: hit.embeddingScore, bm25Score: hit.bm25Score, routingBoost: hit.routingBoost, score: hit.score }));
+  const nearby = sectionChunks
+    .map((chunk, index) => ({ chunk, distance: Math.abs(index - sectionChunks.findIndex(item => item.id === hit.id)) }))
+    .sort((a, b) => a.distance - b.distance)
+    .map(item => item.chunk);
+  const evidenceChunks = [hit, ...scopedResults, ...nearby]
+    .filter((chunk, index, all) => all.findIndex(item => item.id === chunk.id) === index)
+    .slice(0, 6);
+  const expandedScored: ScoredChunk[] = evidenceChunks.map(chunk => {
+    const original = scopedResults.find(item => item.id === chunk.id);
+    return { ...chunk, embeddingScore: original?.embeddingScore ?? hit.embeddingScore, bm25Score: original?.bm25Score ?? hit.bm25Score, routingBoost: original?.routingBoost ?? hit.routingBoost, score: original?.score ?? hit.score };
+  });
   const candidates = extractCandidateSentences(expandedScored);
   const candidateVectors = candidates.length ? await embedBatch(candidates.map(item => item.text)) : new Float32Array();
   const bullets = candidates.length ? scoreAndSelectBullets(question, queryVector, candidates, candidateVectors, 384) : [];
   const block = makeBlock(hit, expandedScored, bullets, mode);
   const answer = summaryFor(block, coverage);
+  console.debug('[smart-bot-debug]', { query: question, top: scopedResults.slice(0, 3).map(item => ({ file: item.sourceFile, page: item.pageStart, embedding: Number(item.embeddingScore.toFixed(3)), bm25: Number(item.bm25Score.toFixed(3)), score: Number(item.score.toFixed(3)) })), coverage: coverage.type, evidence: expandedScored.map(item => ({ file: item.sourceFile, page: item.pageStart, section: item.sectionTitle })) });
   const source: EngineSource = { fileName: block.sourceFile, page: block.pageStart, pageEnd: block.pageEnd, sectionTitle: block.sectionTitle };
-  return { answer, mode, blocks: [block], sources: [source], coverage, score: search.topScore, passages: expandedScored, ready: true };
+  return { answer, mode, blocks: [block], sources: [source], coverage, score: scopedTopScore, passages: expandedScored, ready: true };
 }

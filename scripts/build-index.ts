@@ -58,6 +58,11 @@ const CHUNK_SIZE = 120;
 const CHUNK_OVERLAP = 20;
 const BATCH_SIZE = 16;
 const MODEL_NAME = 'Xenova/all-MiniLM-L6-v2';
+const ALLOWED_PDFS = new Set([
+  'Admission_Modality_FD.pdf',
+  'BITSAT-2026_brochure.pdf',
+  'HD_Brochure_2025_26.pdf',
+]);
 
 const STOP_WORDS = new Set([
   'a', 'an', 'the', 'and', 'or', 'but', 'if', 'then', 'else', 'when',
@@ -75,12 +80,46 @@ const STOP_WORDS = new Set([
 
 export function cleanExtractedText(raw: string): string {
   return raw
+    .replace(/Â·/g, ' - ')
+    .replace(/â€™/g, "'")
+    .replace(/â€œ|â€/g, '"')
+    .replace(/â€“|â€”/g, '-')
+    .replace(/â€¢/g, '-')
+    .replace(/â‚¹/g, 'Rs.')
     .replace(/(\b[A-Za-z]+)-\s*\n\s*([A-Za-z]+\b)/g, '$1$2')
     .replace(/\b(\d+)\s+(th|st|nd|rd)\b/gi, '$1$2')
     .replace(/\s+([,.:;?!])/g, '$1')
     .replace(/[\r\t\f\v]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
+}
+
+function reconstructTextLines(items: any[]): string[] {
+  const rows: Array<{ y: number; items: any[] }> = [];
+  for (const item of items) {
+    if (!item || typeof item.str !== 'string' || !item.str.trim() || !item.transform) continue;
+    const y = Number(item.transform[5]);
+    const row = rows.find(candidate => Math.abs(candidate.y - y) <= 2.5);
+    if (row) row.items.push(item);
+    else rows.push({ y, items: [item] });
+  }
+
+  return rows.sort((a, b) => b.y - a.y).map(row => {
+    const ordered = row.items.sort((a, b) => Number(a.transform[4]) - Number(b.transform[4]));
+    let line = '';
+    let previousEnd = -Infinity;
+    for (const item of ordered) {
+      const value = String(item.str).trim();
+      if (!value) continue;
+      const x = Number(item.transform[4]);
+      const gap = x - previousEnd;
+      if (!line) line = value;
+      else if (gap <= 1.5) line += value;
+      else line += ` ${value}`;
+      previousEnd = x + Number(item.width || value.length * 4);
+    }
+    return cleanExtractedText(line);
+  }).filter(Boolean);
 }
 
 export function tokenizeBM25(text: string): string[] {
@@ -92,6 +131,7 @@ export function tokenizeBM25(text: string): string[] {
 function isHeadingCandidate(line: string): boolean {
   const trimmed = line.trim();
   if (trimmed.length < 4 || trimmed.length > 70) return false;
+  if (/^[IVXLC]+-\d+$/i.test(trimmed) || /^\d+\s+[A-Za-z].+\s+\d+$/.test(trimmed)) return false;
   if (trimmed.endsWith(':')) return true;
   if (/^Part\s+[I|V|X]+/i.test(trimmed)) return true;
   if (/^\d+(\.\d+)*\s+[A-Z]/i.test(trimmed)) return true;
@@ -186,19 +226,12 @@ async function extractPagesFromPdf(
   for (let pageNum = 1; pageNum <= doc.numPages; pageNum++) {
     const page = await doc.getPage(pageNum);
     const content = await page.getTextContent();
-    const rawStrings: string[] = [];
-
-    for (const item of content.items) {
-      if ('str' in item && typeof item.str === 'string') {
-        const str = item.str;
-        rawStrings.push(str);
-        if (isHeadingCandidate(str)) {
-          currentHeading = cleanExtractedText(str).replace(/:$/, '');
-        }
-      }
+    const lines = reconstructTextLines(content.items as any[]);
+    for (const line of lines) {
+      if (isHeadingCandidate(line)) currentHeading = cleanExtractedText(line).replace(/:$/, '');
     }
 
-    const fullPageText = cleanExtractedText(rawStrings.join(' '));
+    const fullPageText = cleanExtractedText(lines.join(' '));
 
     if (!fullPageText) {
       emptyPages.push(pageNum);
@@ -426,8 +459,11 @@ async function main() {
   const sourceDir = path.join(projectRoot, 'public', 'pdfs');
   const pdfFiles = fs
     .readdirSync(sourceDir)
-    .filter(f => f.toLowerCase().endsWith('.pdf'))
+    .filter(f => ALLOWED_PDFS.has(f))
     .sort();
+
+  const unexpectedPdfs = fs.readdirSync(sourceDir).filter(f => f.toLowerCase().endsWith('.pdf') && !ALLOWED_PDFS.has(f));
+  if (unexpectedPdfs.length) console.warn(`[build-index] Ignoring PDFs outside the configured three-document knowledge base: ${unexpectedPdfs.join(', ')}`);
 
   const fontUrl = path.resolve(projectRoot, 'node_modules/pdfjs-dist/standard_fonts').replace(/\\/g, '/') + '/';
 
