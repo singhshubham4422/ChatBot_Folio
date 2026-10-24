@@ -4,7 +4,9 @@ import { describe, expect, it } from 'vitest';
 import { isFaqContextSelection, matchFaq, parseFaqContextSelection, retrieveFaq, type FaqRecord } from './faq';
 
 const repo = process.cwd();
-const canonicalFaqPath = existsSync(resolve(repo, 'SmartBot/data/faq_dataset.jsonl'))
+const canonicalFaqPath = existsSync(resolve(repo, '../SmartBot/data/faq_dataset.jsonl'))
+  ? resolve(repo, '../SmartBot/data/faq_dataset.jsonl')
+  : existsSync(resolve(repo, 'SmartBot/data/faq_dataset.jsonl'))
   ? resolve(repo, 'SmartBot/data/faq_dataset.jsonl')
   : resolve(repo, 'public/data/faq_dataset.jsonl');
 const faqs = readFileSync(canonicalFaqPath, 'utf8').trim().split(/\r?\n/).map(line => JSON.parse(line) as FaqRecord);
@@ -81,7 +83,12 @@ describe('dataset retrieval regression set (100 queries)', () => {
 
   it('has at least 100 stable query cases and validates all referenced source PDFs exist', () => {
     expect(retrievalCases.length + ambiguousCases.length + unknownCases.length).toBe(100);
-    const pdfs = new Set(readdirSync(resolve(repo, 'public/pdfs')).map(file => file.toLowerCase()));
+    const pdfDir = existsSync(resolve(repo, 'public/pdfs'))
+      ? resolve(repo, 'public/pdfs')
+      : existsSync(resolve(repo, 'Frontend/public/pdfs'))
+      ? resolve(repo, 'Frontend/public/pdfs')
+      : resolve(repo, '../Frontend/public/pdfs');
+    const pdfs = new Set(readdirSync(pdfDir).map(file => file.toLowerCase()));
     const missing = faqs.flatMap(record => (record.source_references ?? []).filter(source => !pdfs.has(source.file.replace(/ \(1\)(?=\.pdf$)/i, '').toLowerCase())).map(source => `${record.id}: ${source.file}`));
     expect(missing).toEqual([]);
   });

@@ -1,4 +1,4 @@
-import { validateOnlineInput } from '../src/lib/quota.js';
+import { validateOnlineInput } from '../../Frontend/src/lib/quota.ts';
 
 export type OnlineProvider = 'groq' | 'gemini';
 export type ProviderConfig = { groqKey?: string; geminiKey?: string; groqModel?: string; geminiModel?: string; primaryProvider?: OnlineProvider };

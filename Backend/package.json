@@ -1,0 +1,21 @@
+{
+  "name": "chat-bot-backend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "test:online": "vitest run api/onlineProvider.test.ts",
+    "build:index": "tsx scripts/build-index.ts --force"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.1",
+    "pdfjs-dist": "^4.10.38"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "~5.7.2",
+    "vitest": "^4.1.12",
+    "tsx": "^4.23.15"
+  }
+}

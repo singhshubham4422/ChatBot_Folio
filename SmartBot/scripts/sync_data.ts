@@ -2,8 +2,15 @@ import { copyFileSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 const root = process.cwd();
-const srcDir = resolve(root, 'SmartBot/data');
-const destDir = resolve(root, 'public/data');
+const srcDir = existsSync(resolve(root, 'SmartBot/data'))
+  ? resolve(root, 'SmartBot/data')
+  : resolve(root, '../SmartBot/data');
+
+const destDir = existsSync(resolve(root, 'Frontend/public'))
+  ? resolve(root, 'Frontend/public/data')
+  : existsSync(resolve(root, 'public'))
+  ? resolve(root, 'public/data')
+  : resolve(root, '../Frontend/public/data');
 
 mkdirSync(destDir, { recursive: true });
 
@@ -25,4 +32,4 @@ for (const file of files) {
   }
 }
 
-console.log(`[SmartBot] Data sync complete: ${files.length} canonical files verified, ${syncedCount} updated in public/data/.`);
+console.log(`[SmartBot] Data sync complete: ${files.length} canonical files verified, ${syncedCount} updated in ${destDir}.`);

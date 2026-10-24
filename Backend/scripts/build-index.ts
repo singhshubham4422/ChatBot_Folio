@@ -3,7 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.mjs';
 import { pipeline } from '@huggingface/transformers';
-import { normalizeTableRows } from '../src/engine/tables.ts';
+import { normalizeTableRows } from '../../Frontend/src/engine/tables.ts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -448,15 +448,22 @@ function computeBM25Stats(chunks: Chunk[]): BM25Stats {
 
 async function main() {
   const isForced = process.argv.includes('--force');
-  const projectRoot = path.resolve(__dirname, '..');
-  const outPath = path.join(projectRoot, 'public', 'index.json');
+  const repoRoot = fs.existsSync(path.resolve(__dirname, '../../Frontend'))
+    ? path.resolve(__dirname, '../..')
+    : path.resolve(__dirname, '..');
+  const frontendDir = path.join(repoRoot, 'Frontend');
+  const outPath = fs.existsSync(path.join(frontendDir, 'public'))
+    ? path.join(frontendDir, 'public', 'index.json')
+    : path.join(repoRoot, 'public', 'index.json');
 
   if (fs.existsSync(outPath) && !isForced) {
     console.log(`[build-index] ${outPath} already exists. Skipping rebuild (use --force to re-generate).`);
     return;
   }
 
-  const sourceDir = path.join(projectRoot, 'public', 'pdfs');
+  const sourceDir = fs.existsSync(path.join(frontendDir, 'public', 'pdfs'))
+    ? path.join(frontendDir, 'public', 'pdfs')
+    : path.join(repoRoot, 'public', 'pdfs');
   const pdfFiles = fs
     .readdirSync(sourceDir)
     .filter(f => ALLOWED_PDFS.has(f))
@@ -465,7 +472,9 @@ async function main() {
   const unexpectedPdfs = fs.readdirSync(sourceDir).filter(f => f.toLowerCase().endsWith('.pdf') && !ALLOWED_PDFS.has(f));
   if (unexpectedPdfs.length) console.warn(`[build-index] Ignoring PDFs outside the configured three-document knowledge base: ${unexpectedPdfs.join(', ')}`);
 
-  const fontUrl = path.resolve(projectRoot, 'node_modules/pdfjs-dist/standard_fonts').replace(/\\/g, '/') + '/';
+  const fontUrl = (fs.existsSync(path.resolve(frontendDir, 'node_modules/pdfjs-dist/standard_fonts'))
+    ? path.resolve(frontendDir, 'node_modules/pdfjs-dist/standard_fonts')
+    : path.resolve(repoRoot, 'node_modules/pdfjs-dist/standard_fonts')).replace(/\\/g, '/') + '/';
 
   console.log(`[build-index] Processing ${pdfFiles.length} source PDF(s)...`);
 

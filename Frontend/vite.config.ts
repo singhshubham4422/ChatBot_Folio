@@ -1,9 +1,13 @@
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, mkdirSync, copyFileSync, existsSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import { defineConfig, type Plugin } from 'vite';
-import { handleOnline } from './api/online';
-import { statusPayload } from './api/online-status';
+import { defineConfig, type Plugin } from 'vitest/config';
+import { handleOnline } from '../Backend/api/online';
+import { statusPayload } from '../Backend/api/online-status';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 function loadRootEnv() {
   try {
@@ -168,10 +172,10 @@ function folioApiMiddleware(req: IncomingMessage, res: ServerResponse, next: () 
 }
 
 function syncSmartBotData() {
-  const srcDir = resolve(process.cwd(), 'SmartBot/data');
-  const destDir = resolve(process.cwd(), 'public/data');
+  const root = resolve(__dirname, '..');
+  const srcDir = resolve(root, 'SmartBot/data');
+  const destDir = resolve(__dirname, 'public/data');
   try {
-    const { mkdirSync, copyFileSync, existsSync, readFileSync } = require('node:fs');
     mkdirSync(destDir, { recursive: true });
     for (const file of ['faq_dataset.jsonl', 'chatbot_intents.jsonl', 'chatbot_config.json']) {
       const src = resolve(srcDir, file);
@@ -216,6 +220,9 @@ export default defineConfig({
         },
       },
     },
+  },
+  test: {
+    include: ['src/**/*.{test,spec}.?(c|m)[jt]s?(x)', '../SmartBot/tests/**/*.{test,spec}.?(c|m)[jt]s?(x)'],
   },
   cacheDir: resolve(process.cwd(), 'node_modules/.vite'),
 });

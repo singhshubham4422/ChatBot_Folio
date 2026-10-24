@@ -1,5 +1,5 @@
 import { answerOnline, getProviderConfig, onlineAvailability, type OnlineProvider } from '../api/onlineProvider.ts';
-import { classifyIntent, hasLongVerbatimCopy, numbersAreGrounded, rewriteFollowup, type ConversationTurn } from '../src/engine/conversation.ts';
+import { classifyIntent, hasLongVerbatimCopy, numbersAreGrounded, rewriteFollowup, type ConversationTurn } from '../../Frontend/src/engine/conversation.ts';
 import { loadLocalEnv } from './load-local-env.ts';
 
 loadLocalEnv();

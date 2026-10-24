@@ -1,10 +1,17 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import type { FaqRecord, ConversationIntent } from '../../src/engine/faq';
+import type { FaqRecord, ConversationIntent } from '../../Frontend/src/engine/faq';
 
 const root = process.cwd();
-const dataDir = resolve(root, 'SmartBot/data');
-const pdfDir = resolve(root, 'public/pdfs');
+const dataDir = existsSync(resolve(root, 'SmartBot/data'))
+  ? resolve(root, 'SmartBot/data')
+  : resolve(root, '../SmartBot/data');
+
+const pdfDir = existsSync(resolve(root, 'Frontend/public/pdfs'))
+  ? resolve(root, 'Frontend/public/pdfs')
+  : existsSync(resolve(root, 'public/pdfs'))
+  ? resolve(root, 'public/pdfs')
+  : resolve(root, '../Frontend/public/pdfs');
 
 const faqPath = resolve(dataDir, 'faq_dataset.jsonl');
 const intentsPath = resolve(dataDir, 'chatbot_intents.jsonl');

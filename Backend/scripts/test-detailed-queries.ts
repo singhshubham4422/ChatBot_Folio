@@ -1,9 +1,10 @@
 import { readFile } from 'node:fs/promises';
 import { pipeline } from '@huggingface/transformers';
-import { CONFIG, detectAnswerMode } from '../src/engine/config.ts';
-import { analyzeQuery, evaluateCoverage } from '../src/engine/queryAnalysis.ts';
-import { VectorStore } from '../src/engine/search.ts';
-import { tableNumbersAreGrounded } from '../src/engine/tables.ts';
+import { existsSync } from 'node:fs';
+import { CONFIG, detectAnswerMode } from '../../Frontend/src/engine/config.ts';
+import { analyzeQuery, evaluateCoverage } from '../../Frontend/src/engine/queryAnalysis.ts';
+import { VectorStore } from '../../Frontend/src/engine/search.ts';
+import { tableNumbersAreGrounded } from '../../Frontend/src/engine/tables.ts';
 
 const queries = [
   'First Degree semester fees', 'fees', 'Higher Degree M.E. fees', 'ISA international student fees',
@@ -11,7 +12,8 @@ const queries = [
   'what is the marking scheme for BITSAT-2026',
 ];
 
-const raw = await readFile('public/index.json', 'utf8');
+const indexPath = existsSync('public/index.json') ? 'public/index.json' : existsSync('Frontend/public/index.json') ? 'Frontend/public/index.json' : '../Frontend/public/index.json';
+const raw = await readFile(indexPath, 'utf8');
 const store = new VectorStore();
 await store.load(`data:application/json,${encodeURIComponent(raw)}`);
 const embedder = await pipeline('feature-extraction', CONFIG.MODEL_NAME, { dtype: 'q8' });

@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
 import { pipeline } from '@huggingface/transformers';
-import { CONFIG } from '../src/engine/config.ts';
-import { VectorStore } from '../src/engine/search.ts';
-import { isUnsupportedDocumentQuestion } from '../src/engine/queryAnalysis.ts';
+import { CONFIG } from '../../Frontend/src/engine/config.ts';
+import { VectorStore } from '../../Frontend/src/engine/search.ts';
+import { isUnsupportedDocumentQuestion } from '../../Frontend/src/engine/queryAnalysis.ts';
 import { answerOnline, getProviderConfig, type OnlineProvider } from '../api/onlineProvider.ts';
 import { loadLocalEnv } from './load-local-env.ts';
 
@@ -46,7 +46,9 @@ if (live) {
   console.log(JSON.stringify({ liveEvaluation: false, configuredProviders, credentialPresenceOnly: true, models: { groq: providerConfig.groqModel, gemini: providerConfig.geminiModel }, instruction: 'Retrieval-only evaluation ran. Pass --live explicitly to call configured providers.' }));
 }
 
-const raw = await readFile('public/index.json', 'utf8');
+import { existsSync } from 'node:fs';
+const indexPath = existsSync('public/index.json') ? 'public/index.json' : existsSync('Frontend/public/index.json') ? 'Frontend/public/index.json' : '../Frontend/public/index.json';
+const raw = await readFile(indexPath, 'utf8');
 const store = new VectorStore();
 await store.load(`data:application/json,${encodeURIComponent(raw)}`);
 const embedder = await pipeline('feature-extraction', CONFIG.MODEL_NAME, { dtype: 'q8' });

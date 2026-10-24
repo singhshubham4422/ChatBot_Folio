@@ -1,10 +1,23 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { retrieveFaq, type FaqRecord } from '../../src/engine/faq';
+import { retrieveFaq, type FaqRecord } from '../../Frontend/src/engine/faq';
 
 const repo = process.cwd();
-const faqs: FaqRecord[] = readFileSync(resolve(repo, 'SmartBot/data/faq_dataset.jsonl'), 'utf8')
+const dataPath = existsSync(resolve(repo, 'SmartBot/data/faq_dataset.jsonl'))
+  ? resolve(repo, 'SmartBot/data/faq_dataset.jsonl')
+  : resolve(repo, '../SmartBot/data/faq_dataset.jsonl');
+const queriesPath = existsSync(resolve(repo, 'SmartBot/tests/retrieval_queries.json'))
+  ? resolve(repo, 'SmartBot/tests/retrieval_queries.json')
+  : resolve(repo, '../SmartBot/tests/retrieval_queries.json');
+const reportJsonPath = existsSync(resolve(repo, 'SmartBot/tests'))
+  ? resolve(repo, 'SmartBot/tests/retrieval_report.json')
+  : resolve(repo, '../SmartBot/tests/retrieval_report.json');
+const reportMdPath = existsSync(resolve(repo, 'SmartBot/tests'))
+  ? resolve(repo, 'SmartBot/tests/retrieval_report.md')
+  : resolve(repo, '../SmartBot/tests/retrieval_report.md');
+
+const faqs: FaqRecord[] = readFileSync(dataPath, 'utf8')
   .trim()
   .split(/\r?\n/)
   .map(line => JSON.parse(line));
@@ -23,7 +36,7 @@ type QueryCase = {
 };
 
 const queryCases: QueryCase[] = JSON.parse(
-  readFileSync(resolve(repo, 'SmartBot/tests/retrieval_queries.json'), 'utf8')
+  readFileSync(queriesPath, 'utf8')
 );
 
 describe('SmartBot 100-query retrieval evaluation', () => {
@@ -129,7 +142,7 @@ describe('SmartBot 100-query retrieval evaluation', () => {
       },
     };
 
-    writeFileSync(resolve(repo, 'SmartBot/tests/retrieval_report.json'), JSON.stringify(report, null, 2) + '\n');
+    writeFileSync(reportJsonPath, JSON.stringify(report, null, 2) + '\n');
 
     const markdownReport = `# SmartBot Retrieval Evaluation Report
 
@@ -152,7 +165,7 @@ Generated: ${report.timestamp}
 4. **Source Grounding:** All citations correspond directly to verified admissions brochures with page numbers.
 `;
 
-    writeFileSync(resolve(repo, 'SmartBot/tests/retrieval_report.md'), markdownReport);
+    writeFileSync(reportMdPath, markdownReport);
     expect(report.metrics.heldOutAccuracy.rate).toBeGreaterThanOrEqual(0.95);
   });
 });
