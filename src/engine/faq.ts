@@ -123,7 +123,10 @@ export function loadFaqKnowledge(): Promise<FaqKnowledge> {
     fetch(`${base}chatbot_config.json`).then(response => { if (!response.ok) throw new Error(`Could not load chatbot configuration (${response.status}).`); return response.json() as Promise<Record<string, unknown>>; }),
   ]).then(([faqs, intents, config]) => {
     const verified = faqs.filter(validFaq);
-    if (verified.length === 0) throw new Error('The verified FAQ dataset is empty.');
+    if (verified.length !== 1000) throw new Error(`The verified FAQ dataset is incomplete (${verified.length}/1000 records loaded).`);
+    if (new Set(verified.map(record => record.id)).size !== verified.length) throw new Error('The verified FAQ dataset contains duplicate IDs.');
+    if (new Set(verified.map(record => record.question.toLowerCase())).size !== verified.length) throw new Error('The verified FAQ dataset contains duplicate questions.');
+    if (!intents.some(intent => intent.intent === 'greeting') || !intents.some(intent => intent.intent === 'unknown_question')) throw new Error('Conversational intents are incomplete.');
     return { faqs: verified, intents, config };
   }).catch(error => { knowledgePromise = undefined; throw error; });
   return knowledgePromise;

@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeVoiceTranscript, voiceErrorMessage } from './useVoiceInput';
+import { INITIAL_VOICE_STATE, normalizeVoiceTranscript, voiceErrorMessage, voiceStatusMessage } from './useVoiceInput';
 
 describe('voice input helpers', () => {
+  it('starts idle and only labels active voice phases', () => {
+    expect(INITIAL_VOICE_STATE).toBe('idle');
+    expect(voiceStatusMessage('idle')).toBe('');
+    expect(voiceStatusMessage('listening')).toBe('Listening...');
+    expect(voiceStatusMessage('processing')).toBe('Processing voice input...');
+  });
   it('normalizes spoken BITS terms and years', () => {
     expect(normalizeVoiceTranscript('what is bit sat eligibility')).toBe('What is BITSAT eligibility');
     expect(normalizeVoiceTranscript('m e fees in twenty twenty six')).toBe('M.E. fees in 2026');
