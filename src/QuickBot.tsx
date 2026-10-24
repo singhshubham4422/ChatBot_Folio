@@ -51,21 +51,19 @@ export function QuickBot() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]').slice(-12); } catch { return []; }
   });
   const [busy, setBusy] = useState(false);
-  const [faqStatus, setFaqStatus] = useState('Loading verified FAQs…');
   const [faqError, setFaqError] = useState('');
   const [error, setError] = useState('');
   const controllerRef = useRef<AbortController>();
   const requestId = useRef(0);
+  const lastQuestion = useRef('');
   const voice = useVoiceInput(text => { setQuestion(text); return ask(text, true); });
   const history = messages.map(message => ({ role: message.role, text: message.text }));
 
   async function loadFaq() {
-    setFaqError(''); setFaqStatus('Loading verified FAQs…');
+    setFaqError('');
     try {
-      const knowledge = await loadFaqKnowledge();
-      setFaqStatus(`${knowledge.faqs.length.toLocaleString()} FAQs ready`);
+      await loadFaqKnowledge();
     } catch (cause) {
-      setFaqStatus('FAQs unavailable');
       setFaqError(cause instanceof Error ? cause.message : 'The verified FAQ dataset could not be loaded.');
     }
   }
@@ -75,6 +73,7 @@ export function QuickBot() {
   async function ask(input = question, fromVoice = false) {
     const value = input.trim().slice(0, 300);
     if (!value || busy) return;
+    lastQuestion.current = value;
     if (!fromVoice) voice.stop();
     setQuestion(''); setError(''); setBusy(true);
     const currentRequest = ++requestId.current;
@@ -105,7 +104,7 @@ export function QuickBot() {
         <div className="bot-mark">B</div><h1 id="welcome-title">Hi! I’m Bot. How can I help you with BITS admissions?</h1>
         <p>Ask about BITSAT, eligibility, programmes, fees, scholarships, and admission procedures. Answers come from the verified admission documents.</p>
         <div className="bot-suggestion-grid">{SUGGESTIONS.map(suggestion => <button key={suggestion} onClick={() => void ask(suggestion)}>{suggestion}<Send size={14} /></button>)}</div>
-      </section> : <section className="bot-messages" aria-live="polite">{messages.map((message, index) => <div className={`bot-message ${message.role}`} key={`${message.role}-${index}`}><div className="bot-bubble">{message.text}</div>{message.role === 'assistant' && message.result && <AnswerExtras result={message.result} onSuggestion={suggestion => void ask(suggestion)} />}</div>)}{busy && <div className="bot-message assistant"><div className="bot-loading"><LoaderCircle size={15} /> Looking through the official answers…</div></div>}{error && <div className="bot-error">{error}<button onClick={() => void ask()}>Retry</button></div>}</section>}
+      </section> : <section className="bot-messages" aria-live="polite">{messages.map((message, index) => <div className={`bot-message ${message.role}`} key={`${message.role}-${index}`}><div className="bot-bubble">{message.text}</div>{message.role === 'assistant' && message.result && <AnswerExtras result={message.result} onSuggestion={suggestion => void ask(suggestion)} />}</div>)}{busy && <div className="bot-message assistant"><div className="bot-loading"><LoaderCircle size={15} /> Looking through the official answers…</div></div>}{error && <div className="bot-error">{error}<button onClick={() => void ask(lastQuestion.current)}>Retry</button></div>}</section>}
       {faqError && <div className="bot-faq-error">{faqError}<button onClick={() => void loadFaq()}>Retry</button></div>}
     </main>
     <form className="bot-composer" onSubmit={event => { event.preventDefault(); void ask(); }}>
@@ -113,7 +112,7 @@ export function QuickBot() {
         <div className="bot-actions">{voice.supported && <><select aria-label="Voice language" value={voice.language} onChange={event => voice.setLanguage(event.target.value)}><option value="en-IN">EN</option><option value="hi-IN">HI</option></select><button type="button" className={voice.state === 'listening' ? 'active' : ''} onClick={() => voice.state === 'listening' ? voice.stop() : voice.start()} aria-label={voice.state === 'listening' ? 'Stop listening' : 'Start voice input'}>{voice.state === 'listening' ? <Square size={18} /> : voice.state === 'error' ? <MicOff size={18} /> : <Mic size={18} />}</button></>}{busy && <button type="button" onClick={() => { requestId.current += 1; controllerRef.current?.abort(); setBusy(false); controllerRef.current = undefined; }} aria-label="Stop request"><Square size={17} /></button>}<button className="bot-send" type="submit" disabled={busy || !question.trim()} aria-label="Send question"><Send size={18} /></button></div>
       </div>
       {voice.supported && voice.state !== 'idle' && <div className="bot-voice-status" aria-live="polite">{voiceStatusMessage(voice.state)}{voice.error ? ` ${voice.error}` : ''}<label><input type="checkbox" checked={voice.autoSend} onChange={event => voice.setAutoSend(event.target.checked)} /> auto-send</label></div>}
-      <div className="bot-footer-status"><span className={faqError ? 'offline' : ''}>{faqStatus}</span><span>Enter to send · Shift+Enter for a new line</span></div>
+      <div className="bot-footer-status"><span>Enter to send · Shift+Enter for a new line</span></div>
     </form>
   </div>;
 }

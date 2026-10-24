@@ -7,6 +7,5 @@ dist/
 .vercel/
 *.log
 .DS_Store
-Data/
 !public/data/
 !public/data/*

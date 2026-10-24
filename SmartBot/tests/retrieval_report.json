@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-24T13:53:34.459Z",
+  "dataset": {
+    "canonicalPath": "SmartBot/data/faq_dataset.jsonl",
+    "totalRecords": 1000,
+    "testQueries": 100
+  },
+  "metrics": {
+    "heldOutAccuracy": {
+      "rate": 1,
+      "fraction": "80/80",
+      "percentage": "100.0%"
+    },
+    "ambiguousClarificationRate": {
+      "rate": 1,
+      "fraction": "10/10",
+      "percentage": "100.0%",
+      "falseMatchRate": "0.0%"
+    },
+    "outOfDomainRejectionRate": {
+      "rate": 1,
+      "fraction": "10/10",
+      "percentage": "100.0%",
+      "falseMatchRate": "0.0%"
+    }
+  }
+}

@@ -167,13 +167,36 @@ function folioApiMiddleware(req: IncomingMessage, res: ServerResponse, next: () 
   })();
 }
 
+function syncSmartBotData() {
+  const srcDir = resolve(process.cwd(), 'SmartBot/data');
+  const destDir = resolve(process.cwd(), 'public/data');
+  try {
+    const { mkdirSync, copyFileSync, existsSync, readFileSync } = require('node:fs');
+    mkdirSync(destDir, { recursive: true });
+    for (const file of ['faq_dataset.jsonl', 'chatbot_intents.jsonl', 'chatbot_config.json']) {
+      const src = resolve(srcDir, file);
+      const dest = resolve(destDir, file);
+      if (!existsSync(src)) continue;
+      const srcContent = readFileSync(src);
+      if (!existsSync(dest) || !srcContent.equals(readFileSync(dest))) {
+        copyFileSync(src, dest);
+      }
+    }
+  } catch { /* ignored if sync was already run */ }
+}
+
 function localApi(): Plugin {
   return {
     name: 'folio-local-api',
+    buildStart() {
+      syncSmartBotData();
+    },
     configureServer(server) {
+      syncSmartBotData();
       server.middlewares.use(folioApiMiddleware);
     },
     configurePreviewServer(server) {
+      syncSmartBotData();
       server.middlewares.use(folioApiMiddleware);
     },
   };

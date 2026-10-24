@@ -1,0 +1,1362 @@
+[
+  {
+    "id": "HELD-OUT-BITSAT-2026-01",
+    "type": "factual_held_out",
+    "query": "What is BITSAT-2026 used for?",
+    "originalQuestion": "What is BITSAT-2026 used for?",
+    "expectedFaqId": "BITSAT-2026-001-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-001-1",
+      "BITSAT-2026-001-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-02",
+    "type": "factual_held_out",
+    "query": "Tell me about the 2+2 international collaborative programme?",
+    "originalQuestion": "What is the 2+2 international collaborative programme?",
+    "expectedFaqId": "BITSAT-2026-007-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-007-1",
+      "BITSAT-2026-007-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-03",
+    "type": "factual_held_out",
+    "query": "What subjects are required for PCB-entry programmes?",
+    "originalQuestion": "What subjects are required for PCB-entry programmes?",
+    "expectedFaqId": "BITSAT-2026-013-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-013-1",
+      "BITSAT-2026-013-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-04",
+    "type": "factual_held_out",
+    "query": "What does the brochure require from CAIE and IB students?",
+    "originalQuestion": "What does the brochure require from CAIE and IB students?",
+    "expectedFaqId": "BITSAT-2026-019-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-019-1",
+      "BITSAT-2026-019-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-05",
+    "type": "factual_held_out",
+    "query": "What is the cost for both sessions at Indian/Nepal centres?",
+    "originalQuestion": "What is the fee for both sessions at Indian/Nepal centres?",
+    "expectedFaqId": "BITSAT-2026-026-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-026-1",
+      "BITSAT-2026-026-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-06",
+    "type": "factual_held_out",
+    "query": "How many questions are in BITSAT-2026?",
+    "originalQuestion": "How many questions are in BITSAT-2026?",
+    "expectedFaqId": "BITSAT-2026-032-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-032-1",
+      "BITSAT-2026-032-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-07",
+    "type": "factual_held_out",
+    "query": "Can answers be changed after starting extra questions?",
+    "originalQuestion": "Can answers be changed after starting extra questions?",
+    "expectedFaqId": "BITSAT-2026-038-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-038-1",
+      "BITSAT-2026-038-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-08",
+    "type": "factual_held_out",
+    "query": "When is the BITSAT score reported?",
+    "originalQuestion": "When is the BITSAT score reported?",
+    "expectedFaqId": "BITSAT-2026-044-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-044-1",
+      "BITSAT-2026-044-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-09",
+    "type": "factual_held_out",
+    "query": "What happens if a candidate does not book a slot?",
+    "originalQuestion": "What happens if a candidate does not book a slot?",
+    "expectedFaqId": "BITSAT-2026-051-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-051-1",
+      "BITSAT-2026-051-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-10",
+    "type": "factual_held_out",
+    "query": "What if a 2026 Class XII result is not declared by 1 June?",
+    "originalQuestion": "What if a 2026 Class XII result is not declared by 1 June?",
+    "expectedFaqId": "BITSAT-2026-057-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-057-1",
+      "BITSAT-2026-057-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-11",
+    "type": "factual_held_out",
+    "query": "What are the consequences of unfair means?",
+    "originalQuestion": "What are the consequences of unfair means?",
+    "expectedFaqId": "BITSAT-2026-063-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-063-1",
+      "BITSAT-2026-063-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-12",
+    "type": "factual_held_out",
+    "query": "What does English Proficiency cover?",
+    "originalQuestion": "What does English Proficiency cover?",
+    "expectedFaqId": "BITSAT-2026-069-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-069-1",
+      "BITSAT-2026-069-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-13",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include rotational motion?",
+    "originalQuestion": "Does the BITSAT-2026 document include rotational motion?",
+    "expectedFaqId": "BITSAT-2026-076-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-076-1",
+      "BITSAT-2026-076-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-14",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include electrostatics?",
+    "originalQuestion": "Does the BITSAT-2026 document include electrostatics?",
+    "expectedFaqId": "BITSAT-2026-082-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-082-1",
+      "BITSAT-2026-082-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-15",
+    "type": "factual_held_out",
+    "query": "Please explain whether the BITSAT-2026 document include electronic devices?",
+    "originalQuestion": "Does the BITSAT-2026 document include electronic devices?",
+    "expectedFaqId": "BITSAT-2026-088-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-088-1",
+      "BITSAT-2026-088-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-16",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include chemical kinetics?",
+    "originalQuestion": "Does the BITSAT-2026 document include chemical kinetics?",
+    "expectedFaqId": "BITSAT-2026-094-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-094-1",
+      "BITSAT-2026-094-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-17",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include composition?",
+    "originalQuestion": "Does the BITSAT-2026 document include composition?",
+    "expectedFaqId": "BITSAT-2026-101-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-101-1",
+      "BITSAT-2026-101-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-18",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include differential calculus?",
+    "originalQuestion": "Does the BITSAT-2026 document include differential calculus?",
+    "expectedFaqId": "BITSAT-2026-107-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-107-1",
+      "BITSAT-2026-107-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-19",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include genetics?",
+    "originalQuestion": "Does the BITSAT-2026 document include genetics?",
+    "expectedFaqId": "BITSAT-2026-113-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-113-1",
+      "BITSAT-2026-113-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-BITSAT-2026-20",
+    "type": "factual_held_out",
+    "query": "Does the BITSAT-2026 document include human welfare?",
+    "originalQuestion": "Does the BITSAT-2026 document include human welfare?",
+    "expectedFaqId": "BITSAT-2026-119-1",
+    "acceptableFaqIds": [
+      "BITSAT-2026-119-1",
+      "BITSAT-2026-119-2"
+    ],
+    "context": {
+      "family": "bitsat",
+      "admissionYear": "2026-27"
+    },
+    "admissionRoute": "BITSAT-2026"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-01",
+    "type": "factual_held_out",
+    "query": "What is the admission scope of the FD document?",
+    "originalQuestion": "What is the admission scope of the FD document?",
+    "expectedFaqId": "FD-Admission-Modality-001-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-001-1",
+      "FD-Admission-Modality-001-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-02",
+    "type": "factual_held_out",
+    "query": "What basic qualification is required for FD admission?",
+    "originalQuestion": "What basic qualification is required for FD admission?",
+    "expectedFaqId": "FD-Admission-Modality-007-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-007-1",
+      "FD-Admission-Modality-007-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-03",
+    "type": "factual_held_out",
+    "query": "Is one form enough for engineering and M.Sc. programmes?",
+    "originalQuestion": "Is one form enough for engineering and M.Sc. programmes?",
+    "expectedFaqId": "FD-Admission-Modality-013-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-013-1",
+      "FD-Admission-Modality-013-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-04",
+    "type": "factual_held_out",
+    "query": "Are seat counts fixed each year?",
+    "originalQuestion": "Are seat counts fixed each year?",
+    "expectedFaqId": "FD-Admission-Modality-019-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-019-1",
+      "FD-Admission-Modality-019-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-05",
+    "type": "factual_held_out",
+    "query": "What does the Freeze option mean?",
+    "originalQuestion": "What does the Freeze option mean?",
+    "expectedFaqId": "FD-Admission-Modality-026-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-026-1",
+      "FD-Admission-Modality-026-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-06",
+    "type": "factual_held_out",
+    "query": "How are dual degrees allocated to M.Sc. students?",
+    "originalQuestion": "How are dual degrees allocated to M.Sc. students?",
+    "expectedFaqId": "FD-Admission-Modality-032-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-032-1",
+      "FD-Admission-Modality-032-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-07",
+    "type": "factual_held_out",
+    "query": "What can a PCB board topper choose?",
+    "originalQuestion": "What can a PCB board topper choose?",
+    "expectedFaqId": "FD-Admission-Modality-038-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-038-1",
+      "FD-Admission-Modality-038-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-08",
+    "type": "factual_held_out",
+    "query": "Which amounts are refundable?",
+    "originalQuestion": "Which amounts are refundable?",
+    "expectedFaqId": "FD-Admission-Modality-044-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-044-1",
+      "FD-Admission-Modality-044-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-09",
+    "type": "factual_held_out",
+    "query": "What FD scholarship percentages are listed?",
+    "originalQuestion": "What FD scholarship percentages are listed?",
+    "expectedFaqId": "FD-Admission-Modality-051-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-051-1",
+      "FD-Admission-Modality-051-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-10",
+    "type": "factual_held_out",
+    "query": "Tell me about the purpose of the student ID number?",
+    "originalQuestion": "What is the purpose of the student ID number?",
+    "expectedFaqId": "FD-Admission-Modality-057-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-057-1",
+      "FD-Admission-Modality-057-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-11",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include domestic tuition?",
+    "originalQuestion": "Does the FD-Admission-Modality document include domestic tuition?",
+    "expectedFaqId": "FD-Admission-Modality-063-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-063-1",
+      "FD-Admission-Modality-063-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-12",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include Hyderabad hostel fee?",
+    "originalQuestion": "Does the FD-Admission-Modality document include Hyderabad hostel fee?",
+    "expectedFaqId": "FD-Admission-Modality-069-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-069-1",
+      "FD-Admission-Modality-069-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-13",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include PhD tuition?",
+    "originalQuestion": "Does the FD-Admission-Modality document include PhD tuition?",
+    "expectedFaqId": "FD-Admission-Modality-076-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-076-1",
+      "FD-Admission-Modality-076-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-14",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include need three?",
+    "originalQuestion": "Does the FD-Admission-Modality document include need three?",
+    "expectedFaqId": "FD-Admission-Modality-082-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-082-1",
+      "FD-Admission-Modality-082-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-15",
+    "type": "factual_held_out",
+    "query": "Please explain whether the FD-Admission-Modality document include teacher-child scholarships?",
+    "originalQuestion": "Does the FD-Admission-Modality document include teacher-child scholarships?",
+    "expectedFaqId": "FD-Admission-Modality-088-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-088-1",
+      "FD-Admission-Modality-088-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-16",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include ISA admission fee?",
+    "originalQuestion": "Does the FD-Admission-Modality document include ISA admission fee?",
+    "expectedFaqId": "FD-Admission-Modality-094-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-094-1",
+      "FD-Admission-Modality-094-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-17",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include ISA mess?",
+    "originalQuestion": "Does the FD-Admission-Modality document include ISA mess?",
+    "expectedFaqId": "FD-Admission-Modality-101-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-101-1",
+      "FD-Admission-Modality-101-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-18",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include ISA minor fee?",
+    "originalQuestion": "Does the FD-Admission-Modality document include ISA minor fee?",
+    "expectedFaqId": "FD-Admission-Modality-107-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-107-1",
+      "FD-Admission-Modality-107-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-19",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include ISA scholarship remaining?",
+    "originalQuestion": "Does the FD-Admission-Modality document include ISA scholarship remaining?",
+    "expectedFaqId": "FD-Admission-Modality-113-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-113-1",
+      "FD-Admission-Modality-113-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-FIRST-DEGREE-2022-23-20",
+    "type": "factual_held_out",
+    "query": "Does the FD-Admission-Modality document include Chemical code?",
+    "originalQuestion": "Does the FD-Admission-Modality document include Chemical code?",
+    "expectedFaqId": "FD-Admission-Modality-119-1",
+    "acceptableFaqIds": [
+      "FD-Admission-Modality-119-1",
+      "FD-Admission-Modality-119-2"
+    ],
+    "context": {
+      "family": "first-degree",
+      "admissionYear": "2022-23"
+    },
+    "admissionRoute": "First-Degree 2022-23"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-01",
+    "type": "factual_held_out",
+    "query": "What does the Higher Degree brochure cover?",
+    "originalQuestion": "What does the Higher Degree brochure cover?",
+    "expectedFaqId": "BITS-HD-2025-26-001-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-001-1",
+      "BITS-HD-2025-26-001-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-02",
+    "type": "factual_held_out",
+    "query": "Where is M.E. Software Systems offered?",
+    "originalQuestion": "Where is M.E. Software Systems offered?",
+    "expectedFaqId": "BITS-HD-2025-26-007-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-007-1",
+      "BITS-HD-2025-26-007-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-03",
+    "type": "factual_held_out",
+    "query": "Which GPAT years are considered?",
+    "originalQuestion": "Which GPAT years are considered?",
+    "expectedFaqId": "BITS-HD-2025-26-013-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-013-1",
+      "BITS-HD-2025-26-013-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-04",
+    "type": "factual_held_out",
+    "query": "What stipend is available through the BITS HD route?",
+    "originalQuestion": "What stipend is available through the BITS HD route?",
+    "expectedFaqId": "BITS-HD-2025-26-019-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-019-1",
+      "BITS-HD-2025-26-019-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-05",
+    "type": "factual_held_out",
+    "query": "What is the HD application cost when the test is included?",
+    "originalQuestion": "What is the HD application fee when the test is included?",
+    "expectedFaqId": "BITS-HD-2025-26-026-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-026-1",
+      "BITS-HD-2025-26-026-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-06",
+    "type": "factual_held_out",
+    "query": "When was the BITS HD online test scheduled?",
+    "originalQuestion": "When was the BITS HD online test scheduled?",
+    "expectedFaqId": "BITS-HD-2025-26-032-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-032-1",
+      "BITS-HD-2025-26-032-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-07",
+    "type": "factual_held_out",
+    "query": "Can an HD candidate submit multiple applications?",
+    "originalQuestion": "Can an HD candidate submit multiple applications?",
+    "expectedFaqId": "BITS-HD-2025-26-038-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-038-1",
+      "BITS-HD-2025-26-038-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-08",
+    "type": "factual_held_out",
+    "query": "Which applicants is eligible for M.E. Design Engineering?",
+    "originalQuestion": "Who is eligible for M.E. Design Engineering?",
+    "expectedFaqId": "BITS-HD-2025-26-044-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-044-1",
+      "BITS-HD-2025-26-044-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-09",
+    "type": "factual_held_out",
+    "query": "Which GATE paper is listed for Civil specializations?",
+    "originalQuestion": "Which GATE paper is listed for Civil specializations?",
+    "expectedFaqId": "BITS-HD-2025-26-051-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-051-1",
+      "BITS-HD-2025-26-051-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-10",
+    "type": "factual_held_out",
+    "query": "What English skills are tested in HD admissions?",
+    "originalQuestion": "What English skills are tested in HD admissions?",
+    "expectedFaqId": "BITS-HD-2025-26-057-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-057-1",
+      "BITS-HD-2025-26-057-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-11",
+    "type": "factual_held_out",
+    "query": "What database topics are listed for Software Systems?",
+    "originalQuestion": "What database topics are listed for Software Systems?",
+    "expectedFaqId": "BITS-HD-2025-26-063-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-063-1",
+      "BITS-HD-2025-26-063-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-12",
+    "type": "factual_held_out",
+    "query": "What computer skills are assumed for the HD test?",
+    "originalQuestion": "What computer skills are assumed for the HD test?",
+    "expectedFaqId": "BITS-HD-2025-26-069-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-069-1",
+      "BITS-HD-2025-26-069-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-13",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include differential equations?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include differential equations?",
+    "expectedFaqId": "BITS-HD-2025-26-076-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-076-1",
+      "BITS-HD-2025-26-076-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-14",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include verbal analogy?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include verbal analogy?",
+    "expectedFaqId": "BITS-HD-2025-26-082-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-082-1",
+      "BITS-HD-2025-26-082-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-15",
+    "type": "factual_held_out",
+    "query": "Please explain whether the BITS-HD-2025-26 document include figure formation?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include figure formation?",
+    "expectedFaqId": "BITS-HD-2025-26-088-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-088-1",
+      "BITS-HD-2025-26-088-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-16",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include chemical thermodynamics?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include chemical thermodynamics?",
+    "expectedFaqId": "BITS-HD-2025-26-094-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-094-1",
+      "BITS-HD-2025-26-094-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-17",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include process control?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include process control?",
+    "expectedFaqId": "BITS-HD-2025-26-101-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-101-1",
+      "BITS-HD-2025-26-101-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-18",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include surveying?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include surveying?",
+    "expectedFaqId": "BITS-HD-2025-26-107-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-107-1",
+      "BITS-HD-2025-26-107-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-19",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include database systems?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include database systems?",
+    "expectedFaqId": "BITS-HD-2025-26-113-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-113-1",
+      "BITS-HD-2025-26-113-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-HIGHER-DEGREE-2025-26-20",
+    "type": "factual_held_out",
+    "query": "Does the BITS-HD-2025-26 document include physics modern?",
+    "originalQuestion": "Does the BITS-HD-2025-26 document include physics modern?",
+    "expectedFaqId": "BITS-HD-2025-26-119-1",
+    "acceptableFaqIds": [
+      "BITS-HD-2025-26-119-1",
+      "BITS-HD-2025-26-119-2"
+    ],
+    "context": {
+      "family": "higher-degree",
+      "admissionYear": "2025-26"
+    },
+    "admissionRoute": "Higher-Degree 2025-26"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-01",
+    "type": "factual_held_out",
+    "query": "Which brochure should answer 2026-27 undergraduate dates?",
+    "originalQuestion": "Which brochure should answer 2026-27 undergraduate dates?",
+    "expectedFaqId": "Cross-document-001-1",
+    "acceptableFaqIds": [
+      "Cross-document-001-1",
+      "Cross-document-001-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-02",
+    "type": "factual_held_out",
+    "query": "Does taking the entrance test complete admission?",
+    "originalQuestion": "Does taking the entrance test complete admission?",
+    "expectedFaqId": "Cross-document-007-1",
+    "acceptableFaqIds": [
+      "Cross-document-007-1",
+      "Cross-document-007-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-03",
+    "type": "factual_held_out",
+    "query": "What happens if submitted admission information is false?",
+    "originalQuestion": "What happens if submitted admission information is false?",
+    "expectedFaqId": "Cross-document-013-1",
+    "acceptableFaqIds": [
+      "Cross-document-013-1",
+      "Cross-document-013-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-04",
+    "type": "factual_held_out",
+    "query": "How should similar applicant questions be grouped?",
+    "originalQuestion": "How should similar applicant questions be grouped?",
+    "expectedFaqId": "Cross-document-019-1",
+    "acceptableFaqIds": [
+      "Cross-document-019-1",
+      "Cross-document-019-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-05",
+    "type": "factual_held_out",
+    "query": "What common conduct rule applies across the material?",
+    "originalQuestion": "What common conduct rule applies across the material?",
+    "expectedFaqId": "Cross-document-026-1",
+    "acceptableFaqIds": [
+      "Cross-document-026-1",
+      "Cross-document-026-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-06",
+    "type": "factual_held_out",
+    "query": "Should international fee figures be used for domestic applicants?",
+    "originalQuestion": "Should international fee figures be used for domestic applicants?",
+    "expectedFaqId": "Cross-document-032-1",
+    "acceptableFaqIds": [
+      "Cross-document-032-1",
+      "Cross-document-032-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-07",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address goa-programmes compared with BITS-HD-2025-26 on minimum?",
+    "originalQuestion": "How does BITSAT-2026 address goa-programmes compared with BITS-HD-2025-26 on minimum?",
+    "expectedFaqId": "Cross-document-038-1",
+    "acceptableFaqIds": [
+      "Cross-document-038-1",
+      "Cross-document-038-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-08",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address board-topper compared with BITS-HD-2025-26 on campus-pharmchem?",
+    "originalQuestion": "How does BITSAT-2026 address board-topper compared with BITS-HD-2025-26 on campus-pharmchem?",
+    "expectedFaqId": "Cross-document-044-1",
+    "acceptableFaqIds": [
+      "Cross-document-044-1",
+      "Cross-document-044-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-09",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address improvement compared with BITS-HD-2025-26 on seat-share?",
+    "originalQuestion": "How does BITSAT-2026 address improvement compared with BITS-HD-2025-26 on seat-share?",
+    "expectedFaqId": "Cross-document-051-1",
+    "acceptableFaqIds": [
+      "Cross-document-051-1",
+      "Cross-document-051-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-10",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address max-attempts compared with BITS-HD-2025-26 on online-form?",
+    "originalQuestion": "How does BITSAT-2026 address max-attempts compared with BITS-HD-2025-26 on online-form?",
+    "expectedFaqId": "Cross-document-057-1",
+    "acceptableFaqIds": [
+      "Cross-document-057-1",
+      "Cross-document-057-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-11",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address fee-session2 compared with BITS-HD-2025-26 on hd-deadline?",
+    "originalQuestion": "How does BITSAT-2026 address fee-session2 compared with BITS-HD-2025-26 on hd-deadline?",
+    "expectedFaqId": "Cross-document-063-1",
+    "acceptableFaqIds": [
+      "Cross-document-063-1",
+      "Cross-document-063-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-12",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address marking compared with BITS-HD-2025-26 on reporting?",
+    "originalQuestion": "How does BITSAT-2026 address marking compared with BITS-HD-2025-26 on reporting?",
+    "expectedFaqId": "Cross-document-069-1",
+    "acceptableFaqIds": [
+      "Cross-document-069-1",
+      "Cross-document-069-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-13",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address scratch compared with BITS-HD-2025-26 on biotech-eligibility?",
+    "originalQuestion": "How does BITSAT-2026 address scratch compared with BITS-HD-2025-26 on biotech-eligibility?",
+    "expectedFaqId": "Cross-document-076-1",
+    "acceptableFaqIds": [
+      "Cross-document-076-1",
+      "Cross-document-076-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-14",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address pilani-programmes compared with FD-Admission-Modality on medium?",
+    "originalQuestion": "How does BITSAT-2026 address pilani-programmes compared with FD-Admission-Modality on medium?",
+    "expectedFaqId": "Cross-document-082-1",
+    "acceptableFaqIds": [
+      "Cross-document-082-1",
+      "Cross-document-082-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-15",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address intercampus compared with FD-Admission-Modality on fd-pcm?",
+    "originalQuestion": "How does BITSAT-2026 address intercampus compared with FD-Admission-Modality on fd-pcm?",
+    "expectedFaqId": "Cross-document-088-1",
+    "acceptableFaqIds": [
+      "Cross-document-088-1",
+      "Cross-document-088-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-16",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address pcb-math compared with FD-Admission-Modality on preferences?",
+    "originalQuestion": "How does BITSAT-2026 address pcb-math compared with FD-Admission-Modality on preferences?",
+    "expectedFaqId": "Cross-document-094-1",
+    "acceptableFaqIds": [
+      "Cross-document-094-1",
+      "Cross-document-094-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-17",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address higher-score compared with FD-Admission-Modality on assignment?",
+    "originalQuestion": "How does BITSAT-2026 address higher-score compared with FD-Admission-Modality on assignment?",
+    "expectedFaqId": "Cross-document-101-1",
+    "acceptableFaqIds": [
+      "Cross-document-101-1",
+      "Cross-document-101-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-18",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address fee-dubai compared with FD-Admission-Modality on slide?",
+    "originalQuestion": "How does BITSAT-2026 address fee-dubai compared with FD-Admission-Modality on slide?",
+    "expectedFaqId": "Cross-document-107-1",
+    "acceptableFaqIds": [
+      "Cross-document-107-1",
+      "Cross-document-107-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-19",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address distribution compared with FD-Admission-Modality on dual-duration?",
+    "originalQuestion": "How does BITSAT-2026 address distribution compared with FD-Admission-Modality on dual-duration?",
+    "expectedFaqId": "Cross-document-113-1",
+    "acceptableFaqIds": [
+      "Cross-document-113-1",
+      "Cross-document-113-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "HELD-OUT-CROSS-DOCUMENT-20",
+    "type": "factual_held_out",
+    "query": "How does BITSAT-2026 address english compared with FD-Admission-Modality on board-tie?",
+    "originalQuestion": "How does BITSAT-2026 address english compared with FD-Admission-Modality on board-tie?",
+    "expectedFaqId": "Cross-document-119-1",
+    "acceptableFaqIds": [
+      "Cross-document-119-1",
+      "Cross-document-119-2"
+    ],
+    "context": {},
+    "admissionRoute": "Cross-document"
+  },
+  {
+    "id": "AMBIGUOUS-01",
+    "type": "broad_clarification_required",
+    "query": "What are the eligibility requirements?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-02",
+    "type": "broad_clarification_required",
+    "query": "What are the admission fees?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-03",
+    "type": "broad_clarification_required",
+    "query": "What are the important dates?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-04",
+    "type": "broad_clarification_required",
+    "query": "How do I qualify?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-05",
+    "type": "broad_clarification_required",
+    "query": "What costs should I expect?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-06",
+    "type": "broad_clarification_required",
+    "query": "When are the deadlines?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-07",
+    "type": "broad_clarification_required",
+    "query": "Tell me the eligibility criteria",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-08",
+    "type": "broad_clarification_required",
+    "query": "What charges apply?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-09",
+    "type": "broad_clarification_required",
+    "query": "Give me the admission timeline",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "AMBIGUOUS-10",
+    "type": "broad_clarification_required",
+    "query": "What are the requirements?",
+    "expectedClarification": true,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-01",
+    "type": "out_of_domain_rejection",
+    "query": "What is the weather in Mumbai?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-02",
+    "type": "out_of_domain_rejection",
+    "query": "Who won the cricket match?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-03",
+    "type": "out_of_domain_rejection",
+    "query": "How do I bake sourdough?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-04",
+    "type": "out_of_domain_rejection",
+    "query": "What is the capital of France?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-05",
+    "type": "out_of_domain_rejection",
+    "query": "Tell me a joke.",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-06",
+    "type": "out_of_domain_rejection",
+    "query": "What is my application password?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-07",
+    "type": "out_of_domain_rejection",
+    "query": "How do I install a graphics card?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-08",
+    "type": "out_of_domain_rejection",
+    "query": "What is the price of a phone?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-09",
+    "type": "out_of_domain_rejection",
+    "query": "Can you book a taxi?",
+    "expectedMatch": false,
+    "context": {}
+  },
+  {
+    "id": "UNKNOWN-10",
+    "type": "out_of_domain_rejection",
+    "query": "What is the meaning of quantum gravity?",
+    "expectedMatch": false,
+    "context": {}
+  }
+]
