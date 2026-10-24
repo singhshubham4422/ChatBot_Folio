@@ -63,7 +63,6 @@ export async function localModelPlan() {
   const id = selectLocalModel();
   return modelInfo(id);
 }
-
 export async function unloadLocalModel() {
   if (localModelPromise) await (await localModelPromise).unload();
 }
