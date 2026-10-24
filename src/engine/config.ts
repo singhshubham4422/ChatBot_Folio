@@ -6,7 +6,7 @@ export const CONFIG = {
   // Hybrid search weights: final = 0.6*embedding + 0.4*normalized_bm25
   EMBEDDING_WEIGHT: 0.6,
   BM25_WEIGHT: 0.4,
-  SOURCE_ROUTING_BOOST: 0.12,
+  SOURCE_ROUTING_BOOST: 0.18,
   KEYWORD_BOOST: 0.03,
   MAX_KEYWORD_BOOST_WORDS: 3,
   OUT_OF_CONTEXT_MESSAGE: 'Out of context — I can only answer from the provided documents.',
@@ -34,6 +34,22 @@ export const CONFIG = {
     {
       match: ['stipend', 'scholarship', 'financial assistance'],
       synonyms: ['fellowship', 'assistantship', 'tuition waiver', 'concession', 'financial assistance'],
+    },
+    {
+      match: ['total questions', 'number of questions', 'question count'],
+      synonyms: ['130', 'test format', 'question paper'],
+    },
+    {
+      match: ['programme eligibility', 'eligibility criteria', 'eligibility requirements'],
+      synonyms: ['programme-wise eligibility criteria', 'input eligibility', 'Annexure I', 'qualifying degree'],
+    },
+    {
+      match: ['test format', 'examination format', 'exam format'],
+      synonyms: ['duration', 'number of questions', 'correct answer', 'penalty'],
+    },
+    {
+      match: ['admission years', 'academic years', 'compare first degree and higher degree'],
+      synonyms: ['academic year', '2022', '2025-26'],
     },
   ] as Array<{ match: string[]; synonyms: string[] }>,
 

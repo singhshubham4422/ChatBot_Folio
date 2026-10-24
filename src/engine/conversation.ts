@@ -4,7 +4,7 @@ export type ConversationTurn = { role: 'user' | 'assistant'; text: string };
 export type Citation = { id: number; file: string; page: number };
 
 const FOLLOWUP_WORDS = /^(and|what about|how about|why|when|where|is it|are they|tell me more|explain that|give me details|what about for)\b/i;
-const DOCUMENT_WORDS = /\b(bits|admission|admissions|bitsat|first degree|higher degree|m\.?(?:e|pharm)|ph\.?d|board topper|fees?|fee|hostel|eligib|document|date|deadline|campus|goa|pilani|program|course|scholarship|stipend|application|test center|marking)\b/i;
+const DOCUMENT_WORDS = /\b(bits|admission|admissions|bitsat|first degree|higher degree|m\.(?:e|pharm)\.?|ph\.?d|board topper|fees?|fee|hostel|eligib|document|date|deadline|campus|goa|pilani|program|course|scholarship|stipend|application|test center|marking)\b/i;
 
 export function classifyIntent(input: string): Intent {
   const q = input.trim().replace(/[!?.,]+$/g, '').toLowerCase();
@@ -60,7 +60,8 @@ function numberTokens(text: string): string[] {
 
 export function numbersAreGrounded(answer: string, evidence: string): boolean {
   const source = numberTokens(evidence);
-  return numberTokens(answer).every(value => source.includes(value));
+  const answerWithoutCitations = answer.replace(/\[\d+\]/g, '');
+  return numberTokens(answerWithoutCitations).every(value => source.includes(value));
 }
 
 export function sanitizeMarkdown(input: string): Array<{ type: 'text' | 'bold' | 'bullet' | 'break'; text?: string }> {
@@ -76,7 +77,11 @@ export function sanitizeMarkdown(input: string): Array<{ type: 'text' | 'bold' |
 
 export function hasLongVerbatimCopy(answer: string, evidence: string, limit = 15): boolean {
   const words = answer.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
-  const source = evidence.toLowerCase();
-  for (let i = 0; i <= words.length - limit; i++) if (source.includes(words.slice(i, i + limit).join(' '))) return true;
+  const sourceWords = evidence.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
+  for (let i = 0; i <= words.length - limit; i++) {
+    for (let j = 0; j <= sourceWords.length - limit; j++) {
+      if (words.slice(i, i + limit).every((word, offset) => word === sourceWords[j + offset])) return true;
+    }
+  }
   return false;
 }

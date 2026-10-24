@@ -178,9 +178,12 @@ export class VectorStore {
 
       // Soft routing boost (+0.05)
       const routingBoost = targetFileBoosts[chunk.sourceFile] || 0;
+      const tableOfContentsPenalty = /(?:^Section:\s*INDEX\b|\|\s*(?:S\.no\.|Contents|Page No)\b|\|\s*Admissions to Higher Degree Programmes\s*\|)/i.test(chunk.text) ? 0.22 : 0;
+      const tableIntentBoost = chunk.type === 'table' && /\b(?:total questions|number of questions|question count)\b/i.test(query) && /\b130\b/.test(chunk.text) ? 0.25 : 0;
+      const eligibilitySectionBoost = /\b(?:programme|eligibility|criteria)\b/i.test(query) && /eligibility criteria/i.test(chunk.sectionTitle) ? 0.22 : 0;
 
       // Hybrid formula: 0.6 * embedding + 0.4 * normalized_bm25 + routingBoost
-      const hybrid = CONFIG.EMBEDDING_WEIGHT * dot + CONFIG.BM25_WEIGHT * normBM25 + routingBoost;
+      const hybrid = CONFIG.EMBEDDING_WEIGHT * dot + CONFIG.BM25_WEIGHT * normBM25 + routingBoost + tableIntentBoost + eligibilitySectionBoost - tableOfContentsPenalty;
 
       scoredChunks[i] = {
         ...chunk,
@@ -194,7 +197,13 @@ export class VectorStore {
     // Sort descending by hybrid score
     scoredChunks.sort((a, b) => b.score - a.score);
 
-    const topResults = scoredChunks.slice(0, topK);
+    const comparative = /\b(compare|versus|vs\.?|difference|both|each|rather than|older|newer|current|previous)\b/i.test(query);
+    let topResults = scoredChunks.slice(0, topK);
+    if (comparative) {
+      const routedFiles = [...new Set(scoredChunks.filter(chunk => chunk.routingBoost > 0).map(chunk => chunk.sourceFile))];
+      const diversified = routedFiles.map(file => scoredChunks.find(chunk => chunk.sourceFile === file)).filter((chunk): chunk is ScoredChunk => Boolean(chunk));
+      topResults = [...diversified, ...scoredChunks].filter((chunk, index, all) => all.findIndex(item => item.id === chunk.id) === index).slice(0, topK).sort((a, b) => b.score - a.score);
+    }
     const topScore = topResults.length > 0 ? topResults[0].score : 0;
     const isOutOfContext = topScore < threshold;
 

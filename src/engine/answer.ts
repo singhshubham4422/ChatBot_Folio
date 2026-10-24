@@ -15,6 +15,12 @@ export interface BulletItem {
 
 export function cleanText(raw: string): string {
   return raw
+    .replace(/Â·/g, ' - ')
+    .replace(/â€™/g, "'")
+    .replace(/â€œ|â€/g, '"')
+    .replace(/â€“|â€”/g, '-')
+    .replace(/â€¢/g, '-')
+    .replace(/â‚¹/g, 'Rs.')
     .replace(/\b(\d+)\s+(th|st|nd|rd)\b/gi, '$1$2')
     .replace(/\s+([,.:;?!])/g, '$1')
     .replace(/:\.+/g, ':')

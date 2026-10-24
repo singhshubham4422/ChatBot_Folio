@@ -185,5 +185,14 @@ export default defineConfig({
     include: ['react', 'react-dom', 'react-dom/client', 'lucide-react'],
     esbuildOptions: { preserveSymlinks: true, absWorkingDir: process.cwd() },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/@mlc-ai/web-llm')) return 'webllm';
+        },
+      },
+    },
+  },
   cacheDir: resolve(process.cwd(), 'node_modules/.vite'),
 });

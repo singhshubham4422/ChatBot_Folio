@@ -12,11 +12,12 @@ describe('conversational intent and trust helpers', () => {
   });
   it('drops invalid citations and verifies numbers against evidence', () => {
     expect(parseCitations('Fee is 10 [1] and [99].', new Set([1]))).toEqual({ text: 'Fee is 10 [1] and .', citations: [1] });
-    expect(numbersAreGrounded('The fee is 10%.', 'The fee is 10%.')).toBe(true);
+    expect(numbersAreGrounded('The fee is 10% [1].', 'The fee is 10%.')).toBe(true);
     expect(numbersAreGrounded('The fee is 11%.', 'The fee is 10%.')).toBe(false);
   });
   it('sanitizes markdown and detects long copies', () => {
     expect(sanitizeMarkdown('**Answer**\n- one\n<script>alert(1)</script>')[2].text).not.toContain('<script>');
     expect(hasLongVerbatimCopy('one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen', 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen')).toBe(true);
+    expect(hasLongVerbatimCopy('one two three, four five six seven eight nine ten eleven twelve thirteen fourteen fifteen.', 'one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen.')).toBe(true);
   });
 });

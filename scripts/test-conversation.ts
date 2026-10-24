@@ -1,4 +1,8 @@
-import { classifyIntent, numbersAreGrounded, rewriteFollowup, type ConversationTurn } from '../src/engine/conversation.ts';
+import { answerOnline, getProviderConfig, onlineAvailability, type OnlineProvider } from '../api/onlineProvider.ts';
+import { classifyIntent, hasLongVerbatimCopy, numbersAreGrounded, rewriteFollowup, type ConversationTurn } from '../src/engine/conversation.ts';
+import { loadLocalEnv } from './load-local-env.ts';
+
+loadLocalEnv();
 
 const scenarios: Array<{ text: string; history?: ConversationTurn[]; coverage: string; final: string }> = [
   { text: 'hello', coverage: 'NONE', final: 'Hi! I can answer questions about BITS Pilani admissions.' },
@@ -12,10 +16,48 @@ const scenarios: Array<{ text: string; history?: ConversationTurn[]; coverage: s
   { text: 'thanks', coverage: 'NONE', final: 'You are welcome!' },
 ];
 
-for (const scenario of scenarios) {
+const evidence = [{ page: 1, fileName: 'official-bits-document.pdf', text: 'Board toppers and First Degree admissions are described in the official document. The fee table and hostel scope are listed.' }];
+
+function details(answer: string, source: string) {
+  return { allNumbersVerified: numbersAreGrounded(answer, source), longVerbatimCopyOver15Words: hasLongVerbatimCopy(answer, source, 15) };
+}
+
+function describe(scenario: typeof scenarios[number]) {
   const intent = classifyIntent(scenario.text);
   const rewritten = intent === 'FOLLOWUP' ? rewriteFollowup(scenario.text, scenario.history ?? []) : scenario.text;
-  const evidence = 'Board toppers and First Degree admissions are described in the official document.';
-  const verified = numbersAreGrounded(scenario.final, evidence);
-  console.log(JSON.stringify({ intent, rewrittenQuery: rewritten, coverage: scenario.coverage, provider: intent === 'DOC_QUESTION' || intent === 'FOLLOWUP' ? 'mock-groq' : 'none', latencyMs: 0, allNumbersVerified: verified, finalText: scenario.final }));
+  return { intent, rewritten };
+}
+
+console.log('MOCK SCENARIOS');
+for (const scenario of scenarios) {
+  const { intent, rewritten } = describe(scenario);
+  console.log(JSON.stringify({ intent, rewrittenQuery: rewritten, coverage: scenario.coverage, provider: intent === 'DOC_QUESTION' || intent === 'FOLLOWUP' ? 'mock-groq' : 'none', latencyMs: 0, ...details(scenario.final, evidence[0].text), finalText: scenario.final }));
+}
+
+const config = getProviderConfig(process.env);
+const provider: OnlineProvider | 'none' = config.primaryProvider && (config.groqKey || config.geminiKey) ? config.primaryProvider : 'none';
+const live = process.argv.includes('--live');
+console.log(JSON.stringify({ realProviderConfigured: onlineAvailability(config), provider: provider === 'none' ? 'none' : provider, credentialPresenceOnly: true }));
+if (!live) console.log('LIVE PROVIDER SCENARIOS NOT RUN. Pass --live explicitly to make provider requests.');
+
+if (live && provider !== 'none') {
+  console.log('REAL PROVIDER SCENARIOS');
+  let shown = 0;
+  for (const scenario of scenarios) {
+    const { intent, rewritten } = describe(scenario);
+    const started = Date.now();
+    if (intent !== 'DOC_QUESTION' && intent !== 'FOLLOWUP') {
+      console.log(JSON.stringify({ intent, rewrittenQuery: rewritten, coverage: scenario.coverage, provider: 'none', latencyMs: 0, ...details(scenario.final, evidence[0].text), finalText: scenario.final }));
+      continue;
+    }
+    try {
+      const result = await answerOnline({ question: rewritten, context: scenario.history?.map(turn => `${turn.role}: ${turn.text}`) ?? [], evidence, consent: true, mode: 'online' }, config);
+      const finalText = result.answer;
+      console.log(JSON.stringify({ intent, rewrittenQuery: rewritten, coverage: scenario.coverage, provider, latencyMs: Date.now() - started, ...details(finalText, evidence[0].text), finalText }));
+      if (shown < 3) { console.log(`REAL_GENERATED_ANSWER_${shown + 1}: ${finalText}`); shown++; }
+    } catch (error) {
+      const code = error instanceof Error ? error.message : 'provider_failure';
+      console.log(JSON.stringify({ intent, rewrittenQuery: rewritten, coverage: scenario.coverage, provider: 'error', latencyMs: Date.now() - started, errorCode: code }));
+    }
+  }
 }
