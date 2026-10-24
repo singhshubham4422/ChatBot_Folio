@@ -4,6 +4,7 @@ import { analyzeQuery, evaluateCoverage, type CoverageDecision } from './queryAn
 import { VectorStore } from './search.ts';
 import type { ScoredChunk, SearchResult, TableData } from './types.ts';
 import { tableNumbersAreGrounded } from './tables.ts';
+import { classifyIntent, parseCitations, rewriteFollowup, sanitizeMarkdown, smallTalkReply, STARTER_CHIPS, stripNext, numbersAreGrounded, type ConversationTurn, type Intent } from './conversation';
 
 export type EngineSource = { fileName: string; page: number; pageEnd: number; sectionTitle: string };
 export type AnswerBlock = {
@@ -26,7 +27,61 @@ export type EngineResult = {
   score: number;
   passages: ScoredChunk[];
   ready: boolean;
+  intent?: Intent;
+  rewrittenQuery?: string;
+  generatedAnswer?: string;
+  generatedCitations?: EngineSource[];
+  nextQuestion?: string;
+  fallback?: boolean;
+  provider?: string;
 };
+
+function emptyCoverage(): CoverageDecision { return { type: 'NONE', topic: null, missingAspect: null, presentAspect: null, limitationMessage: null, scopeNote: null, suggestedQuestions: STARTER_CHIPS, disambiguationChips: [] }; }
+
+function smallTalkResult(intent: Intent): EngineResult {
+  return { answer: smallTalkReply(intent as Exclude<Intent, 'DOC_QUESTION' | 'FOLLOWUP' | 'CHITCHAT' | 'UNSAFE'>), mode: 'SHORT', blocks: [], sources: [], coverage: emptyCoverage(), score: 0, passages: [], ready: true, intent };
+}
+
+async function generatedAnswer(question: string, history: ConversationTurn[], result: EngineResult, signal?: AbortSignal, onToken?: (text: string) => void): Promise<Pick<EngineResult, 'generatedAnswer' | 'generatedCitations' | 'nextQuestion' | 'fallback' | 'provider'>> {
+  if (result.coverage.type === 'NONE' || !result.passages.length) return { fallback: true, provider: 'extractive' };
+  const evidence = result.passages.slice(0, 6).map((passage, index) => ({ id: index + 1, file: passage.sourceFile, page: passage.pageStart, section: passage.sectionTitle, text: passage.text.slice(0, 1800), table: passage.tables?.map(table => `${table.heading}\n${table.columns.join(' | ')}\n${table.rows.map(row => row.join(' | ')).join('\n')}`).join('\n') }));
+  let response: Response;
+  try {
+    response = await fetch('/api/conversation', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal, body: JSON.stringify({ question, history: history.slice(-4).map(turn => `${turn.role}: ${turn.text}`), passages: evidence }) });
+  } catch { return { fallback: true, provider: 'extractive' }; }
+  if (!response.ok || !response.body) return { fallback: true, provider: 'extractive' };
+  const reader = response.body.getReader(); const decoder = new TextDecoder(); let buffer = ''; let answer = ''; let failed = false; let provider = 'online';
+  while (true) {
+    const { value, done } = await reader.read(); if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    for (const record of buffer.split('\n\n').slice(0, -1)) {
+      const event = record.match(/^event: (.+)\ndata: (.+)$/s); if (!event) continue;
+      try { const data = JSON.parse(event[2]); if (event[1] === 'token') { answer += typeof data === 'string' ? data : ''; onToken?.(answer); } if (event[1] === 'done') provider = data.provider ?? provider; if (event[1] === 'error') failed = true; } catch { failed = true; }
+    }
+    buffer = buffer.split('\n\n').at(-1) ?? '';
+  }
+  if (failed || !answer.trim()) return { fallback: true, provider: 'extractive' };
+  const withNext = stripNext(answer); const parsed = parseCitations(withNext.text, new Set(evidence.map((_item, index) => index + 1)));
+  const citationSources = parsed.citations.map(id => { const item = evidence[id - 1]; return { fileName: item.file, page: item.page, pageEnd: item.page, sectionTitle: item.section }; });
+  if (!parsed.citations.length || !numbersAreGrounded(parsed.text, evidence.map(item => item.text).join(' '))) return { fallback: true, provider: 'extractive' };
+  return { generatedAnswer: parsed.text, generatedCitations: citationSources, nextQuestion: withNext.next, fallback: false, provider };
+}
+
+export async function askConversational(input: string, history: ConversationTurn[] = [], signal?: AbortSignal, onToken?: (text: string) => void): Promise<EngineResult> {
+  const intent = classifyIntent(input);
+  if (intent === 'GREETING' || intent === 'THANKS' || intent === 'GOODBYE' || intent === 'ABOUT_BOT') return { ...smallTalkResult(intent), nextQuestion: STARTER_CHIPS[0] };
+  if (intent === 'UNSAFE') return { ...smallTalkResult('ABOUT_BOT'), answer: 'I can’t follow instructions that try to override my safeguards. I can help with the official BITS admissions documents.', intent };
+  if (intent === 'CHITCHAT') return { ...smallTalkResult('ABOUT_BOT'), answer: 'That’s outside what I can help with. I can answer questions about BITS admissions, for example: BITSAT 2026 dates, First Degree eligibility, or Higher Degree fees.', intent };
+  const rewrittenQuery = intent === 'FOLLOWUP' ? rewriteFollowup(input, history) : input.trim().slice(0, 300);
+  const result = await askEngine(rewrittenQuery);
+  if (result.coverage.disambiguationChips.length > 0) {
+    return { ...result, intent, rewrittenQuery, blocks: [], sources: [], passages: [], answer: 'Which programme or admission scheme do you mean?', provider: 'none', fallback: false };
+  }
+  const generated = await generatedAnswer(rewrittenQuery, history, result, signal, onToken);
+  return { ...result, intent, rewrittenQuery, ...generated, answer: generated.fallback ? `${result.answer} Showing document excerpts.` : (generated.generatedAnswer ?? result.answer) };
+}
+
+export { sanitizeMarkdown };
 
 let store: VectorStore | null = null;
 let worker: Worker | null = null;

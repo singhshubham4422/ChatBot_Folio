@@ -1,4 +1,4 @@
-export const QUOTA_LIMITS = { questionChars: 2000, evidenceCount: 5, evidenceChars: 18000, excerptChars: 6000, contextMessages: 6, contextChars: 500 } as const;
+export const QUOTA_LIMITS = { questionChars: 300, evidenceCount: 5, evidenceChars: 6000, excerptChars: 6000, contextMessages: 4, contextChars: 500 } as const;
 export function requestQuotaExceeded(count: number, limit: number) { return count > limit; }
 export function tokenBudgetExceeded(used: number, reserved: number, limit: number) { return used + reserved > limit; }
 export function validateOnlineInput(input: { question: unknown; evidence: unknown; context: unknown }) {

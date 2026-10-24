@@ -2,7 +2,7 @@
 
 Live trial: https://chat-bot-folio.vercel.app/
 
-Smart Bot combines the Folio reading workspace and branding with a prepared, client-side BITS admissions assistant. It searches only the three committed official brochures using hybrid embedding and BM25 retrieval, coverage checks, section expansion, structured tables, and extractive answers with page citations.
+Smart Bot combines the Folio reading workspace and branding with a conversational BITS admissions assistant. It searches only the three committed official brochures using hybrid embedding and BM25 retrieval, coverage checks, section expansion, structured tables, and grounded generated answers with page citations. Retrieval remains the evidence layer; generation never receives anything else.
 
 ## Features
 
@@ -16,6 +16,10 @@ Smart Bot combines the Folio reading workspace and branding with a prepared, cli
 - Browser voice input with English India and Hindi recognition, transcript normalization, and optional auto-send.
 - Background loading of the PDF index and embedding worker when the Folio app mounts.
 - Smart Bot questions run without an online provider; typed questions stay in the browser.
+- Rules-first intent routing handles greetings, thanks, goodbyes, bot questions, small talk, unsafe prompt-injection requests, and document questions before retrieval.
+- The last six user/assistant turns are stored locally per Folio conversation. Follow-ups are rewritten into standalone queries before retrieval.
+- Grounded answers stream through `api/conversation.ts`, cite numbered evidence, verify every number against retrieved text, and fall back to the structured extractive answer when providers fail, time out, rate-limit, or return untrusted output.
+- Generated text is rendered through DOM nodes only. Retrieved tables remain real HTML tables, with generated summaries above them.
 
 ## Run locally
 
@@ -42,7 +46,7 @@ npm run build
 - `scripts/test-detailed-queries.ts`: read-only detailed-answer query report.
 - `public/pdfs/`: the three source brochures served for citations.
 - `public/index.json`: committed chunks, tables, qualifiers, vocabulary, and embeddings.
-- `api/`: existing optional Folio online-provider routes; Smart Bot does not call them.
+- `api/`: server-only provider integration, availability status, and the grounded conversation SSE route. API keys never enter the browser.
 - `vercel.json`: Vercel function limits and security headers.
 
 ## Source PDFs and index updates
@@ -98,6 +102,14 @@ node --import tsx scripts/test-detailed-queries.ts
 ```
 
 The protected rollback tag is `backup-smartbot-before-replace`. After a merged change, rollback can use `git revert` or redeploy that tag in Vercel.
+
+## Conversational architecture
+
+The request path is: intent router -> follow-up rewrite -> existing hybrid retrieval and section expansion -> grounded provider generation -> citation and number validation -> safe streamed UI. Greetings, thanks, goodbyes, bot questions, unrelated chat, unsafe prompt-injection requests, and `NONE` coverage do not call an LLM. Ambiguous topics use coverage disambiguation chips. Provider failure, missing keys, 429 responses, a timeout over 15 seconds, invalid citations, or unverified numbers use the extractive structured answer and a small excerpts note.
+
+Generation defaults are configurable through `GROQ_MODEL`, `GEMINI_MODEL`, and `ONLINE_PRIMARY_PROVIDER`. The current free-plan choice is Groq `openai/gpt-oss-20b` first for fast concise answers, with Gemini `gemini-3.8-flash` as fallback. Groq's current free table lists 30 RPM, 1K requests/day, 8K TPM, and 200K tokens/day for the selected open models; Gemini free limits are model/project dependent and shown in AI Studio as RPM, TPM, and RPD.
+
+To change persona or tone, edit the system prompt in `api/onlineProvider.ts`. To tune cheap routing, edit the regexes and entity carry-over rules in `src/engine/conversation.ts`. Keep provider model IDs in environment configuration when changing deployments; never put API keys in `VITE_` variables.
 
 ## Privacy and assumptions
 

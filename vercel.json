@@ -1,7 +1,8 @@
 {
   "functions": {
     "api/online.ts": { "maxDuration": 30 },
-    "api/online-status.ts": { "maxDuration": 5 }
+    "api/online-status.ts": { "maxDuration": 5 },
+    "api/conversation.ts": { "maxDuration": 20 }
   },
   "headers": [
     { "source": "/(.*)", "headers": [
